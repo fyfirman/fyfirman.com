@@ -17,6 +17,8 @@ const Sosmed = (props: SosmedProps) => {
     <a
       href={href}
       className={`${styles.sosmed} ${styles[position]} ${isMiddle ? styles.middle : undefined}`}
+      target="_blank"
+      rel="noopener noreferrer"
     >
       <div className={styles.svg}>
         <Image src={imageURI} alt={name} />

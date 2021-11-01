@@ -4,7 +4,7 @@ import styles from "./card.module.scss";
 
 interface CardProps {
   href: string;
-  imageURI: string;
+  imageURI: StaticImageData;
   title: string;
   desc: string;
   stack: string[];

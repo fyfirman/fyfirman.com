@@ -49,3 +49,44 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.spline-container {
+  width: 100%;
+  z-index: 0;
+  position: relative;
+}
+
+@media only screen and (max-width: 1080px) {
+  .spline-container {
+    display: none;
+  }
+}
+
+.spline-container > iframe {
+  width: calc(50vw - 500px);
+  min-width: 150px;
+  height: 300px;
+}
+
+#spline-geo-1 {
+  position: absolute;
+  bottom: -25vh;
+  right: calc(480px - 50vw);
+  min-width: 260px;
+}
+
+#spline-geo-2 {
+  position: absolute;
+  bottom: 0;
+  left: calc(480px - 50vw);
+}
+
+#spline-danbo {
+  position: absolute;
+  bottom: -10%;
+  right: 10px;
+}
+
+.end {
+  filter: var(--filter);
+}

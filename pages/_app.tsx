@@ -57,7 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </div>
       {render3D &&
         (<div className="spline-container right">
-          <iframe title="3d-spline-danbo" id="spline-danbo" src="https://status.fyfirman.tech/spline-danbo-final/" frameBorder="0" />
+          <iframe title="3d-spline-danbo" id="spline-danbo" src="/spline/danbo/index.html" frameBorder="0" />
         </div>)}
     </>
     :
