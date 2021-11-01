@@ -32,26 +32,26 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         {/* About section */}
         <div style={{ display: "flex", alignItems: "center" }}>
-          <div className="about-me">
+          <div className={styles.aboutMe}>
             <h1 className={styles.headings}>Hi, i’m firmansyah!</h1>
             <h2 className={styles.title}>student | developer | designer</h2>
             <p className={styles.body}>I entered computer world starting from my mother&apos;s orders to type a document when I was in elementary school. From there I wondered what the computer could do. The first thing I did was create a graphic design to sell game jockey services on Facebook. I found my designs very beautiful, then I called myself as the youngest great graphic designer at the age of 12. Really childish Haha.</p>
             <p className={styles.body}>Several years later, I was introduced to programming. I feel challenged because programming is like solving a puzzle. So, I decided to get serious in this world, because I believe that the future really needs programming. I really happy to build apps/website that many people can use and writting <b>clean code</b> so that it is easy for others to understand.</p>
-            <p className={styles.body}>Now I am a final year student at Padjadjaran University and am <span className="highlight">looking for a job (fulltime/intern)</span> at a company that has strong technological qualities so that I can learn a lot from that company.</p>
+            <p className={styles.body}>Now I am a final year student at Padjadjaran University and am <span className={styles.highlight}>looking for a job (fulltime/intern)</span> at a company that has strong technological qualities so that I can learn a lot from that company.</p>
           </div>
 
-          {!movePhoto && <div className="photo-profile">
+          {!movePhoto && <div className={styles.photoProfile}>
             <Image src={Self} alt="me" />
           </div>}
         </div>
 
-        {render3D && <div className="spline-container">
+        {render3D && <div className={styles.splineContainer}>
           <iframe title="3d-spline-geo-1" id="spline-geo-1" src="https://status.fyfirman.tech/spline-geo-1/" frameBorder="0" allowtransparency="true" />
         </div>}
 
         {/* Weapon section */}
         <h2 className={styles.headings2}>My Weapons</h2>
-        <div className='weapon-container'>
+        <div className={styles.weaponContainer}>
           <div style={{ flex: 1 }}>
             <h3 className={styles.weaponType}>Primary</h3>
             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -84,17 +84,17 @@ const Home: NextPage = () => {
 
         {/* Project Section */}
         <h2 className={styles.headings2} id="project-section">Selected Project</h2>
-        <div className="project-container first">
+        <div className={`${styles.projectContainer} ${styles.first}`}>
           <Card title="Pacis-bot" desc="Auto-fill questionnare on PACIS Unpad" stack={['NodeJS']} imageURI={pacisBot} href="https://github.com/fyfirman/pacis-questionnaire-bot" />
           <Card title="Himatif Apps" desc="Information system for the ‘Himatif FMIPA Unpad’ members" stack={['Laravel', 'MySQL']} imageURI={himatifApps} href="https://apps.himatif.org/" />
         </div>
-        <div className="project-container last">
+        <div className={`${styles.projectContainer} ${styles.last}`}>
           <Card title="Care.in" desc="Health services in person by ordering via application" stack={['React Native', 'NodeJS', 'MySQL']} imageURI={careIn} href="https://play.google.com/store/apps/details?id=com.carein" />
           <Card title="Terima Curhat ASI" desc="Application to retrieve an consultation about exclusive breast feeding" stack={['React Native', 'Laravel', 'MySQL']} imageURI={terimaCurhatASI} href="#" notAvailable />
         </div>
         {/* <Link to="/project/">See All Project</Link> <br /> */}
 
-        {render3D && <div className="spline-container">
+        {render3D && <div className={styles.splineContainer}>
           <iframe title="3d-spline-geo-2" id="spline-geo-2" src="https://status.fyfirman.tech/spline-geo-2/" frameBorder="0" allowtransparency="true" />
         </div>}
 
@@ -107,25 +107,12 @@ const Home: NextPage = () => {
         <div id="contact-section" className={styles.sosmed}>
           <Sosmed name="Instagram" href="https://instagram.com/fyfirman" position="left" />
           <Sosmed name="Github" href="https://github.com/fyfirman" position="left" />
-          <Sosmed name="Email" href="mailto:fyfirman@gmail.com" position="top" middle />
-          <Sosmed name="LinkedIn" href="https://www.linkedin.com/in/fyfirman/" position="bottom" middle />
+          <Sosmed name="Email" href="mailto:fyfirman@gmail.com" position="top" isMiddle />
+          <Sosmed name="LinkedIn" href="https://www.linkedin.com/in/fyfirman/" position="bottom" isMiddle />
           <Sosmed name="Youtube" href="https://www.youtube.com/channel/UC2KC2T2XtzkG-IQs3MItv5Q" position="right" />
           <Sosmed name="Medium" href="https://fyfirman.medium.com" position="right" />
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   )
 }

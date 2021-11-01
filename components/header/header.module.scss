@@ -1,0 +1,35 @@
+.container{
+  z-index: 999;
+  background-color: var(--bg);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5vh 1.0875rem;
+  transition: background-color 0.5s;
+}
+
+.header{
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  line-height: 40px;
+  justify-content: space-between;
+}
+
+.logo{
+  display: inline-block;
+  vertical-align: middle;
+  color: black;
+  text-decoration: none;
+  margin: 0;
+  filter: var(--filter);
+  transition: filter 0.5s;
+}
+
+.nav{
+  display: flex;
+  gap: min(20px, max(calc(10vw - 120px), 16px))
+}
