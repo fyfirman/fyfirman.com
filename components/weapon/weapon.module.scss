@@ -1,0 +1,51 @@
+.weapon {
+  position: relative;
+  margin: 8px 16px;
+}
+
+.weaponImage {
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  box-shadow: 2px 4px 12px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+  width: 64px;
+  height: 64px;
+  text-align: center;
+  background-color: var(--bg-weapon);
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.5s;
+  z-index: 0;
+  margin: 0;
+}
+
+.weaponImage:hover {
+  z-index: 0;
+  transform: scale(1.2);
+  box-shadow: 4px 8px 12px 0px rgba(0, 0, 0, 0.05);
+}
+
+.tooltip {
+  position: absolute;
+  background-color: var(--bg-highlight);
+  color: var(--text-highlight);
+  top: 50px;
+  left: 50px;
+  z-index: 2;
+  font-family: "Nunito Sans";
+  font-size: 0px;
+  line-height: 0px;
+  letter-spacing: 1px;
+  transform: translateX(-20%) translateY(-20%);
+  text-align: center;
+  transition: transform 0.6s, font-size 0.3s, line-height 0.3s;
+  visibility: visible;
+}
+
+.weapon:hover > .tooltip,
+.weapon:focus > .tooltip {
+  transform: translateX(0) translateY(0);
+  visibility: visible;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 2px 4px;
+}

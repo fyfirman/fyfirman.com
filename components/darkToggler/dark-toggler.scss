@@ -1,0 +1,21 @@
+.dark-toggler {
+  background: none;
+  border: none;
+  padding: 0;
+  outline: inherit;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+
+  > img {
+    margin: 0;
+  }
+
+  :hover {
+    cursor: pointer;
+
+    > img {
+      color: black;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+.button {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: "Nunito Sans";
+  text-decoration: none;
+  color: var(--text-body);
+  text-transform: uppercase;
+  font-size: 10pt;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 2px;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button::after {
+  z-index: -1;
+  content: attr(data-hover);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--bg-button);
+  color: var(--text-button);
+  padding: 0 20px;
+  transition: background-color 0.5s, transform 0.3s;
+  transform: translateY(100%);
+
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
+}
+
+.button span {
+  display: block;
+  background-color: var(--bg);
+  padding: 0 20px;
+  transition: background-color 0.5s, transform 0.3s;
+
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
+}
+
+.button:hover span,
+.button:focus span {
+  transform: translateY(-100%);
+}
+
+.button:hover::after,
+.button:focus::after {
+  transform: translateY(0%);
+}
