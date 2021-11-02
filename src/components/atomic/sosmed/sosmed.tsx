@@ -11,7 +11,7 @@ interface SosmedProps {
 
 const Sosmed = (props: SosmedProps) => {
   const { href, name, isMiddle, position } = props;
-  const imageURI = require(`../../../images/sosmed/${name.toLowerCase().split(" ").join("-")}.svg`);
+  const imageURI = require(`../../../assets/images/sosmed/${name.toLowerCase().split(" ").join("-")}.svg`);
 
   return (
     <a

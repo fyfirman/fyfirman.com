@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import styles from "./header.module.scss";
 import MenuHeader from "./components/menu-header/menu-header";
 import DarkToggler from "./components/darkToggler/darkToggler";
-import Logo from "../../../images/logo.svg";
+import Logo from "@assets/images/logo.svg";
 import Image from "next/image";
 
 const Header = () => {

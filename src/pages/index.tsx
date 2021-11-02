@@ -3,11 +3,11 @@ import Head from "next/head";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { Weapon, Sosmed, ProjectCard } from "../components/atomic";
-import pacisBot from "../images/project/pacis-bot.jpg";
-import himatifApps from "../images/project/himatif-apps.jpg";
-import careIn from "../images/project/carein.jpg";
-import terimaCurhatASI from "../images/project/terima-curhat-asi.jpg";
-import Self from "../images/self.jpg";
+import pacisBot from "@assets/images/project/pacis-bot.jpg";
+import himatifApps from "@assets/images/project/himatif-apps.jpg";
+import careIn from "@assets/images/project/carein.jpg";
+import terimaCurhatASI from "@assets/images/project/terima-curhat-asi.jpg";
+import Self from "@assets/images/self.jpg";
 import styles from "../styles/Home.module.scss";
 
 const Home: NextPage = () => {

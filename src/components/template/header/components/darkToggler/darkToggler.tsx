@@ -1,5 +1,5 @@
-import Moon from "../../../../../images/moon-sharp.svg";
-import Sun from "../../../../../images/sunny-sharp.svg";
+import Moon from "@assets/images/moon-sharp.svg";
+import Sun from "@assets/images/sunny-sharp.svg";
 // import SwitchOn from "../../audio/switch-on.mp3";
 // import SwitchOff from "../../audio/switch-off.mp3";
 // import useAudio from "../../utils/useAudio";

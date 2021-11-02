@@ -4,12 +4,14 @@ import styles from "./weapon.module.scss";
 
 interface WeaponProps {
   name: string;
-  color?: string;
 }
 
 const Weapon = (props: WeaponProps) => {
-  const { name, color } = props;
-  const imageURI = require(`../../../images/stack/${name.toLowerCase().split(" ").join("-")}.svg`);
+  const { name } = props;
+  const imageURI = require(`../../../assets/images/stack/${name
+    .toLowerCase()
+    .split(" ")
+    .join("-")}.svg`);
 
   const [theme, setTheme] = useState(null);
 
@@ -21,12 +23,7 @@ const Weapon = (props: WeaponProps) => {
   return (
     <div className={styles.weapon}>
       <div className={styles.weaponImage}>
-        <Image
-          src={imageURI}
-          alt={name}
-          // @ts-ignore
-          style={theme === "dark" ? { outline: `1px solid ${color}` } : {}}
-        />
+        <Image src={imageURI} alt={name} />
       </div>
       <span className={styles.tooltip} data-hover={name}>
         {name}
