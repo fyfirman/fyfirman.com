@@ -2,8 +2,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Nunito Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   --bg: white;
   --bg-button: #000000d9;
   --bg-highlight: #000000d9;
@@ -17,6 +17,7 @@ body {
   --text-button: #ffffffd9;
   --text-highlight: white;
   --text-headings: black;
+  --border-input: #00000055;
 
   transition: background-color 0.5s;
   background-color: var(--bg);
@@ -37,6 +38,7 @@ body.dark {
   --text-button: #141414;
   --text-headings: white;
   --text-highlight: black;
+  --border-input: #ffffff55;
   transition: background-color 0.5s;
   background-color: var(--bg);
 }
