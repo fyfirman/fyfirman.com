@@ -9,7 +9,7 @@ interface WeaponProps {
 
 const Weapon = (props: WeaponProps) => {
   const { name, color } = props;
-  const imageURI = require(`../../images/stack/${name.toLowerCase().split(" ").join("-")}.svg`);
+  const imageURI = require(`../../../images/stack/${name.toLowerCase().split(" ").join("-")}.svg`);
 
   const [theme, setTheme] = useState(null);
 

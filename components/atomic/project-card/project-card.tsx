@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import styles from "./card.module.scss";
+import styles from "./project-card.module.scss";
 
-interface CardProps {
+interface ProjectCardProps {
   href: string;
   imageURI: StaticImageData;
   title: string;
@@ -11,7 +11,7 @@ interface CardProps {
   notAvailable?: boolean;
 }
 
-const Card = (props: CardProps) => {
+const ProjectCard = (props: ProjectCardProps) => {
   const { href, imageURI, title, desc, stack, notAvailable = false } = props;
 
   return (
@@ -29,4 +29,4 @@ const Card = (props: CardProps) => {
   );
 };
 
-export default Card;
+export default ProjectCard;

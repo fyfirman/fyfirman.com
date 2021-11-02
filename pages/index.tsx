@@ -2,9 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
-import Weapon from "../components/weapon/weapon";
-import Card from "../components/card/card";
-import Sosmed from "../components/sosmed/sosmed";
+import { Weapon, Sosmed, ProjectCard } from "../components/atomic";
 import pacisBot from "../images/project/pacis-bot.jpg";
 import himatifApps from "../images/project/himatif-apps.jpg";
 import careIn from "../images/project/carein.jpg";
@@ -113,14 +111,14 @@ const Home: NextPage = () => {
           Selected Project
         </h2>
         <div className={`${styles.projectContainer} ${styles.first}`}>
-          <Card
+          <ProjectCard
             title="Pacis-bot"
             desc="Auto-fill questionnare on PACIS Unpad"
             stack={["NodeJS"]}
             imageURI={pacisBot}
             href="https://github.com/fyfirman/pacis-questionnaire-bot"
           />
-          <Card
+          <ProjectCard
             title="Himatif Apps"
             desc="Information system for the ‘Himatif FMIPA Unpad’ members"
             stack={["Laravel", "MySQL"]}
@@ -129,14 +127,14 @@ const Home: NextPage = () => {
           />
         </div>
         <div className={`${styles.projectContainer} ${styles.last}`}>
-          <Card
+          <ProjectCard
             title="Care.in"
             desc="Health services in person by ordering via application"
             stack={["React Native", "NodeJS", "MySQL"]}
             imageURI={careIn}
             href="https://play.google.com/store/apps/details?id=com.carein"
           />
-          <Card
+          <ProjectCard
             title="Terima Curhat ASI"
             desc="Application to retrieve an consultation about exclusive breast feeding"
             stack={["React Native", "Laravel", "MySQL"]}

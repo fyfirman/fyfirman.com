@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import animationData from "../lotties/loading-animation.json";
-import Header from "../components/header/header";
+import { Header } from "../components/template";
 import Lottie from "react-lottie";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
 
