@@ -22,7 +22,7 @@ const Card = (props: CardProps) => {
       <h4 className={styles["card-title"]}>{title}</h4>
       <p className={styles.body}>{desc}</p>
       <p className={styles.body}>Build with : {stack.join(", ")}</p>
-      <a className={!notAvailable ? "card-button" : "card-button not-available"} href={href}>
+      <a className={`${styles["card-button"]} ${notAvailable ? "not-available" : ""}`} href={href}>
         {!notAvailable ? "See Project ›" : "Not available yet"}
       </a>
     </div>
