@@ -23,7 +23,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Firmansyah Yanuar</title>
         <meta name="description" content="Personal websites of Firmansyah Yanuar (Student, Developer, Designer)" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/img/logo.svg" />
       </Head>
 
       <main className={styles.main}>
