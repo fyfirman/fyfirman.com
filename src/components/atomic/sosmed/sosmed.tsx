@@ -21,7 +21,7 @@ const Sosmed = (props: SosmedProps) => {
       rel="noopener noreferrer"
     >
       <div className={styles.svg}>
-        <Image src={imageURI} alt={name} />
+        <Image src={imageURI} alt={`${name} Icon`} />
       </div>
     </a>
   );

@@ -23,7 +23,7 @@ const Weapon = (props: WeaponProps) => {
   return (
     <div className={styles.weapon}>
       <div className={styles.weaponImage}>
-        <Image src={imageURI} alt={name} />
+        <Image src={imageURI} alt={`${name} Logo`} />
       </div>
       <span className={styles.tooltip} data-hover={name}>
         {name}

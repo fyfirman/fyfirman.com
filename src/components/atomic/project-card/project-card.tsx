@@ -17,7 +17,7 @@ const ProjectCard = (props: ProjectCardProps) => {
   return (
     <div className={styles["card-container"]}>
       <div className={styles["card-image"]}>
-        <Image src={imageURI} alt={title} />
+        <Image src={imageURI} alt={`${title} Snapshot`} />
       </div>
       <h4 className={styles["card-title"]}>{title}</h4>
       <p className={styles.body}>{desc}</p>
