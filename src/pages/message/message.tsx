@@ -1,10 +1,10 @@
 import React, { SyntheticEvent, useMemo, useState } from "react";
-import axios from "axios";
 import styles from "./message.module.scss";
 import { Head } from "@components/template";
+import MessageServices from "~/services/message.services";
 
 const MessagePage = () => {
-  const [name, setName] = useState("");
+  const [senderName, setSenderName] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState({
     isError: false,
@@ -22,55 +22,32 @@ const MessagePage = () => {
     return "SEND";
   }, [isSuccess, isLoading]);
 
-  const handleSubmit = (event: SyntheticEvent) => {
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     if (!message) {
       setError({ isError: true, message: "Please fill your message" });
       return;
     }
     setIsLoading(true);
-    axios
-      .get("https://api.ipify.org?format=json")
-      .then(
-        (res) => {
-          // firebase
-          //   .database()
-          //   .ref("messages/")
-          //   .push({
-          //     date: new Date().toLocaleString(),
-          //     senderName: name,
-          //     message,
-          //     ip: res.data.ip,
-          //   })
-          //   .then(() => {
-          //     setIsSuccess(true);
-          //     setIsLoading(false);
-          //   });
-        },
-        () => {
-          // firebase
-          //   .database()
-          //   .ref("messages/")
-          //   .push({
-          //     date: new Date().toLocaleString(),
-          //     senderName: name,
-          //     message,
-          //   })
-          //   .then(() => {
-          //     setIsSuccess(true);
-          //     setIsLoading(false);
-          //   });
-        }
-      )
-      .catch((e) => {
-        setError({ isError: true, message: e.message });
-        setIsLoading(false);
-      });
+
+    try {
+      await MessageServices.sendMessage(message, senderName);
+
+      setIsSuccess(true);
+      setIsLoading(false);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError({ isError: true, message: error.message });
+      } else {
+        setError({ isError: true, message: "Undefined Error" });
+      }
+      setIsLoading(false);
+    }
   };
 
   return (
     <div>
-      <Head title="Message"/>
+      <Head title="Message" />
       <h3 className={styles.title}>Send me a message</h3>
       <div className={styles["message-container"]}>
         <div style={{ flex: 1 }}>
@@ -97,7 +74,7 @@ const MessagePage = () => {
           <input
             type="text"
             className={styles.input}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setSenderName(e.target.value)}
             placeholder="Name (You can leave it blank)"
           />
           <textarea
