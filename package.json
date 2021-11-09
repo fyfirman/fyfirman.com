@@ -11,7 +11,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@fontsource/nunito-sans": "^4.1.0",
@@ -27,11 +28,19 @@
     "sass": "^1.43.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^14.1.0",
+    "@commitlint/config-conventional": "^14.1.0",
     "@types/node": "16.11.6",
     "@types/react": "17.0.33",
     "@types/react-lottie": "^1.2.6",
     "eslint": "7",
     "eslint-config-next": "12.0.1",
+    "husky": "^7.0.0",
     "typescript": "4.4.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo ”[Husky] pre-commit”"
+    }
   }
 }
