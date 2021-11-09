@@ -1,18 +1,16 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
-import { Weapon, Sosmed, ProjectCard } from "../components/atomic";
+import { Weapon, Sosmed, ProjectCard } from "@components/atomic";
 import pacisBot from "@assets/images/project/pacis-bot.jpg";
 import himatifApps from "@assets/images/project/himatif-apps.jpg";
 import careIn from "@assets/images/project/carein.jpg";
 import terimaCurhatASI from "@assets/images/project/terima-curhat-asi.jpg";
 import Self from "@assets/images/self.jpg";
 import styles from "../styles/Home.module.scss";
+import { Head } from "@components/template";
 
 const Home: NextPage = () => {
-  console.log("halo, mau cari apa bos?");
-
   const movePhoto = useMediaQuery({ query: "(max-width: 820px)" });
   const render3D = useMediaQuery({
     query: "(min-device-width: 1080px)",
@@ -20,11 +18,7 @@ const Home: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Firmansyah Yanuar</title>
-        <meta name="description" content="Personal websites of Firmansyah Yanuar (Student, Developer, Designer)" />
-        <link rel="icon" href="/img/logo.svg" />
-      </Head>
+      <Head title="Home" />
 
       <main className={styles.main}>
         {/* About section */}
@@ -32,21 +26,21 @@ const Home: NextPage = () => {
           <div className={styles.aboutMe}>
             <h1 className={styles.headings}>Hi, i’m firmansyah!</h1>
             <h2 className={styles.title}>student | developer | designer</h2>
-            <p className={styles.body}>
+            <p className="text-body">
               I entered computer world starting from my mother&apos;s orders to type a document when
               I was in elementary school. From there I wondered what the computer could do. The
               first thing I did was create a graphic design to sell game jockey services on
               Facebook. I found my designs very beautiful, then I called myself as the youngest
               great graphic designer at the age of 12. Really childish Haha.
             </p>
-            <p className={styles.body}>
+            <p className="text-body">
               Several years later, I was introduced to programming. I feel challenged because
               programming is like solving a puzzle. So, I decided to get serious in this world,
               because I believe that the future really needs programming. I really happy to build
               apps/website that many people can use and writting <b>clean code</b> so that it is
               easy for others to understand.
             </p>
-            <p className={styles.body}>
+            <p className="text-body">
               Now I am a final year student at Padjadjaran University and am{" "}
               <span className={styles.highlight}>looking for a job (fulltime/intern)</span> at a
               company that has strong technological qualities so that I can learn a lot from that
@@ -160,11 +154,11 @@ const Home: NextPage = () => {
         {/* Contact Section */}
         <h2 className={styles.headings2}>Get In Touch With Me</h2>
         <div style={{ maxWidth: "600px" }}>
-          <p className={styles.body}>
+          <p className="text-body">
             I'm very happy to share knowledge. If you want to ask something about IT, productivity,
             or my college experience, feel free to discuss via <b>Instagram</b>.
           </p>
-          <p className={styles.body}>
+          <p className="text-body">
             For <b>hiring, business, or collaboration</b> please contact me via{" "}
             <b>email (fyfirman@gmail.com)</b> or <b>Linkedin</b>.
           </p>

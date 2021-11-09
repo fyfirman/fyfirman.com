@@ -20,8 +20,8 @@ const ProjectCard = (props: ProjectCardProps) => {
         <Image src={imageURI} alt={`${title} Snapshot`} />
       </div>
       <h4 className={styles["card-title"]}>{title}</h4>
-      <p className={styles.body}>{desc}</p>
-      <p className={styles.body}>Build with : {stack.join(", ")}</p>
+      <p className="text-body">{desc}</p>
+      <p className="text-body">Build with : {stack.join(", ")}</p>
       <a className={`${styles["card-button"]} ${notAvailable ? "not-available" : ""}`} href={href}>
         {!notAvailable ? "See Project ›" : "Not available yet"}
       </a>

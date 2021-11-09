@@ -1,4 +1,8 @@
-.container {
+.title {
+  color: var(--text-body);
+}
+
+.message-container {
   display: flex;
   flex-direction: row;
 
@@ -25,6 +29,7 @@
 .send-button:hover {
   transform: translateX(-6px) translateY(-6px);
   box-shadow: 12px 12px var(--shadow-ava);
+  cursor: pointer;
 }
 
 .send-button:active,

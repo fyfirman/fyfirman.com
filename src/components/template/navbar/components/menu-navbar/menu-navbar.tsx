@@ -1,14 +1,14 @@
 import { Link } from "react-scroll";
 import NextLink from "next/link";
-import styles from "./menu-header.module.scss";
+import styles from "./menu-navbar.module.scss";
 
-interface MenuHeaderProps {
+interface MenuNavbarProps {
   to: string;
   title: string;
   link?: boolean;
 }
 
-const MenuHeader = (props: MenuHeaderProps) => {
+const MenuNavbar = (props: MenuNavbarProps) => {
   const { to, title, link = false } = props;
 
   return link ? (
@@ -32,4 +32,4 @@ const MenuHeader = (props: MenuHeaderProps) => {
   );
 };
 
-export default MenuHeader;
+export default MenuNavbar;

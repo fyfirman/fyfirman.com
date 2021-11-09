@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useMemo, useState } from "react";
 import axios from "axios";
 import styles from "./message.module.scss";
+import { Head } from "@components/template";
 
 const MessagePage = () => {
   const [name, setName] = useState("");
@@ -68,14 +69,15 @@ const MessagePage = () => {
   };
 
   return (
-    <>
+    <div>
+      <Head title="Message"/>
       <h3 className={styles.title}>Send me a message</h3>
-      <div className={styles.container}>
+      <div className={styles["message-container"]}>
         <div style={{ flex: 1 }}>
-          <p className={styles.body}>
+          <p className="text-body">
             <b>Feel free</b> to message me about anything like :
           </p>
-          <ul className={styles.list}>
+          <ul className="text-body">
             <li>Impression this website</li>
             <li>Discuss about software development (web/android)</li>
             <li>Request for mentorship</li>
@@ -83,11 +85,11 @@ const MessagePage = () => {
             <li>Hard feelings for me</li>
             <li>Anything you like</li>
           </ul>
-          <p className={styles.body}>
+          <p className="text-body">
             You can send <b>anonymously</b> or <b>write your name</b>. If you want to reply, please
             state in the message.
           </p>
-          <p className={styles.body}>
+          <p className="text-body">
             Please speak with <b>human language</b>, not a programming language. 😁
           </p>
         </div>
@@ -117,7 +119,7 @@ const MessagePage = () => {
           </span>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

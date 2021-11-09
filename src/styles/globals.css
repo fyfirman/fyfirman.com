@@ -55,6 +55,16 @@ a {
   box-sizing: border-box;
 }
 
+/* Basic Typography */
+
+.text-body {
+  font-family: Nunito Sans;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-body);
+  line-height: 145.1%;
+}
+
 .spline-container {
   width: 100%;
   z-index: 0;

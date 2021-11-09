@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import animationData from "@assets/lotties/loading-animation.json";
-import { Header } from "../components/template";
+import { Navbar } from "../components/template";
 import Lottie from "react-lottie";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
 
@@ -17,6 +17,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     document.title = "Loading...";
+    console.log("halo, mau cari apa bos?");
+
     setTimeout(() => {
       document.fonts.load("12px Nunito Sans").then(() => {
         document.title = "Firmansyah Yanuar";
@@ -48,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return isReady ? (
     <div className={`root ${darkModeActive ? "dark" : "light"}`}>
-      <Header />
+      <Navbar />
       <div
         style={{
           margin: `0 auto`,

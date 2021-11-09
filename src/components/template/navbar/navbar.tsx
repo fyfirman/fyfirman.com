@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styles from "./header.module.scss";
-import MenuHeader from "./components/menu-header/menu-header";
-import DarkToggler from "./components/darkToggler/darkToggler";
+import styles from "./navbar.module.scss";
+import MenuHeader from "./components/menu-navbar/menu-navbar";
+import DarkToggler from "./components/dark-toggler/dark-toggler";
 
-const Header = () => {
+const Navbar = () => {
   const router = useRouter();
 
   return (
@@ -35,4 +35,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;
