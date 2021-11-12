@@ -1,30 +1,32 @@
 import Moon from "@assets/images/moon-sharp.svg";
 import Sun from "@assets/images/sunny-sharp.svg";
-// import SwitchOn from "../../audio/switch-on.mp3";
-// import SwitchOff from "../../audio/switch-off.mp3";
-// import useAudio from "../../utils/useAudio";
+import useAudio from "~/hooks/useAudio";
 import styles from "./dark-toggler.module.scss";
 import Image from "next/image";
 import { useDarkMode } from "next-dark-mode";
 
 const DarkToggler = () => {
   const { switchToDarkMode, switchToLightMode, darkModeActive } = useDarkMode();
-  // const [, toggleAudioOn] = useAudio(SwitchOn);
-  // const [, toggleAudioOff] = useAudio(SwitchOff);
+  const [, toggleSwitchOn] = useAudio("/audio/switch-on.mp3");
+  const [, toggleSwitchOff] = useAudio("/audio/switch-off.mp3");
 
   const handleToggle = () => {
     if (darkModeActive) {
       switchToLightMode();
-      // toggleAudioOn();
+      toggleSwitchOn();
     } else {
       switchToDarkMode();
-      // toggleAudioOff();
+      toggleSwitchOff();
     }
   };
 
   return (
     <button onClick={handleToggle} className={styles["dark-toggler"]}>
-      {darkModeActive ? <Image src={Moon} alt="Dark Mode Icon" /> : <Image src={Sun} alt="Light Mode Icon" />}
+      {darkModeActive ? (
+        <Image src={Moon} alt="Dark Mode Icon" />
+      ) : (
+        <Image src={Sun} alt="Light Mode Icon" />
+      )}
     </button>
   );
 };
