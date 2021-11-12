@@ -11,7 +11,16 @@
   transition: background-color 0.5s;
 
   &-shadow {
-    box-shadow: 0px 2px 4px rgb(151 151 151 / 70%)
+    box-shadow: 0px 2px 4px rgb(151 151 151 / 70%);
+  }
+}
+
+.menu-button {
+  background-color: transparent;
+
+
+  & .menu-icon {
+    filter: var(--filter);
   }
 }
 
