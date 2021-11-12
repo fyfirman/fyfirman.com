@@ -4,16 +4,19 @@ const useAudio = (url: string): [boolean, () => void] => {
   const [audio] = useState(new Audio(url));
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const toggle = () => { setIsPlaying(!isPlaying) };
+  const toggle = () => {
+    setIsPlaying(!isPlaying);
+    if (!isPlaying) {
+      void audio.play();
+    } else {
+      audio.pause();
+    }
+  };
 
   useEffect(() => {
-    isPlaying ? audio.play() : audio.pause();
-  }, [isPlaying]);
-
-  useEffect(() => {
-    audio.addEventListener('ended', () => setIsPlaying(false));
+    audio.addEventListener("ended", () => setIsPlaying(false));
     return () => {
-      audio.removeEventListener('ended', () => setIsPlaying(false));
+      audio.removeEventListener("ended", () => setIsPlaying(false));
     };
   }, []);
 

@@ -1,1 +1,1 @@
-export { default } from './sosmed';
+export { default } from "./sosmed";

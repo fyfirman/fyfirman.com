@@ -23,8 +23,8 @@ const Head = (props: HeadProps) => {
   return (
     <NextHead>
       <title>{finalTitle}</title>
-      <meta name="description" content={env.metaDesc} />
-      <link rel="icon" href="/img/logo.svg" />
+      <meta content={env.metaDesc} name="description" />
+      <link href="/img/logo.svg" rel="icon" />
     </NextHead>
   );
 };

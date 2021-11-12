@@ -4,9 +4,9 @@ import type { AppProps } from "next/app";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import animationData from "@assets/lotties/loading-animation.json";
-import { Navbar } from "../components/template";
 import Lottie from "react-lottie";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
+import { Navbar } from "../components/template";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isReady, setIsReady] = useState(false);
@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     console.log("halo, mau cari apa bos?");
 
     setTimeout(() => {
-      document.fonts.load("12px Nunito Sans").then(() => {
+      void document.fonts.load("12px Nunito Sans").then(() => {
         document.title = "Firmansyah Yanuar";
         setIsReady(true);
       });
@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const lottieOptions = {
     loop: true,
     autoplay: true,
-    animationData: animationData,
+    animationData,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
@@ -66,7 +66,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             textAlign: "end",
           }}
         >
-          <object type="image/svg+xml" className="end">
+          <object className="end" type="image/svg+xml">
             Firmansyah Yanuar
           </object>
         </footer>
@@ -74,20 +74,18 @@ function MyApp({ Component, pageProps }: AppProps) {
       {render3D && (
         <div className="spline-container right">
           <iframe
-            title="3d-spline-danbo"
+            frameBorder="0"
             id="spline-danbo"
             src="/spline/danbo/index.html"
-            frameBorder="0"
+            title="3d-spline-danbo"
           />
         </div>
       )}
     </div>
   ) : (
-    <>
-      <div style={{ display: "flex", alignItems: "center", height: "100vh" }}>
-        <Lottie options={lottieOptions} height={250} width={250} />
-      </div>
-    </>
+    <div style={{ display: "flex", alignItems: "center", height: "100vh" }}>
+      <Lottie height={250} options={lottieOptions} width={250} />
+    </div>
   );
 }
 

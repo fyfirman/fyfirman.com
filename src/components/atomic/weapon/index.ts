@@ -1,1 +1,1 @@
-export { default } from './weapon';
+export { default } from "./weapon";

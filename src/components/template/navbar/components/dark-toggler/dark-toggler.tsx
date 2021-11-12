@@ -1,9 +1,9 @@
 import Moon from "@assets/images/moon-sharp.svg";
 import Sun from "@assets/images/sunny-sharp.svg";
-import useAudio from "~/hooks/useAudio";
-import styles from "./dark-toggler.module.scss";
 import Image from "next/image";
 import { useDarkMode } from "next-dark-mode";
+import styles from "./dark-toggler.module.scss";
+import useAudio from "~/hooks/useAudio";
 
 const DarkToggler = () => {
   const { switchToDarkMode, switchToLightMode, darkModeActive } = useDarkMode();
@@ -21,11 +21,11 @@ const DarkToggler = () => {
   };
 
   return (
-    <button onClick={handleToggle} className={styles["dark-toggler"]}>
+    <button className={styles["dark-toggler"]} onClick={handleToggle}>
       {darkModeActive ? (
-        <Image src={Moon} alt="Dark Mode Icon" />
+        <Image alt="Dark Mode Icon" src={Moon as string} />
       ) : (
-        <Image src={Sun} alt="Light Mode Icon" />
+        <Image alt="Light Mode Icon" src={Sun as string} />
       )}
     </button>
   );

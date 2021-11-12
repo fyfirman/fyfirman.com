@@ -11,7 +11,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint \"**/*.{js,jsx,ts,tsx,yml,yaml}\"",
+    "lint:fix": "eslint --fix \"**/*.{js,jsx,ts,tsx,yml,yaml}\"",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -33,9 +34,18 @@
     "@types/node": "16.11.6",
     "@types/react": "17.0.33",
     "@types/react-lottie": "^1.2.6",
-    "eslint": "7",
+    "eslint": "7.30.0",
     "eslint-config-next": "12.0.1",
+    "eslint-config-kentcdodds": "^19.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-yml": "^0.10.0",
     "husky": "^7.0.0",
+    "prettier": "^2.4.1",
     "typescript": "4.4.4"
   },
   "husky": {

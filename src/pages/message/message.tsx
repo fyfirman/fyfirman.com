@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useMemo, useState } from "react";
-import styles from "./message.module.scss";
 import { Head } from "@components/template";
+import styles from "./message.module.scss";
 import MessageServices from "~/services/message.services";
 
 const MessagePage = () => {
@@ -35,8 +35,8 @@ const MessagePage = () => {
 
       setIsSuccess(true);
       setIsLoading(false);
-    } catch (error) {
-      if (error instanceof Error) {
+    } catch (e: unknown) {
+      if (e instanceof Error) {
         setError({ isError: true, message: error.message });
       } else {
         setError({ isError: true, message: "Undefined Error" });
@@ -63,36 +63,41 @@ const MessagePage = () => {
             <li>Anything you like</li>
           </ul>
           <p className="text-body">
-            You can send <b>anonymously</b> or <b>write your name</b>. If you want to reply, please
-            state in the message.
+            You can send <b>anonymously</b> or <b>write your name</b>. If you
+            want to reply, please state in the message.
           </p>
           <p className="text-body">
-            Please speak with <b>human language</b>, not a programming language. 😁
+            Please speak with <b>human language</b>, not a programming language.
+            😁
           </p>
         </div>
-        <form style={{ display: "flex", flex: 1, gap: 16, flexDirection: "column" }}>
+        <form
+          style={{ display: "flex", flex: 1, gap: 16, flexDirection: "column" }}
+        >
           <input
-            type="text"
             className={styles.input}
             onChange={(e) => setSenderName(e.target.value)}
             placeholder="Name (You can leave it blank)"
+            type="text"
           />
           <textarea
-            placeholder="Put your message here"
-            onChange={(e) => setMessage(e.target.value)}
             className={styles.input}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Put your message here"
           />
           <input
-            type="submit"
             className={styles["send-button"]}
-            value={buttonText}
-            onClick={handleSubmit}
             disabled={isSuccess || isLoading}
+            onClick={handleSubmit}
+            type="submit"
+            value={buttonText}
           />
           <span
-            className={`${styles["error-message"]} ${error && !isSuccess ? "visible" : "hidden"}`}
+            className={`${styles["error-message"]} ${
+              error.isError && !isSuccess ? "visible" : "hidden"
+            }`}
           >
-            {error?.message ?? ""}
+            {error.isError ? error.message : ""}
           </span>
         </form>
       </div>

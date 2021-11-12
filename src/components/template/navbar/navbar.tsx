@@ -13,19 +13,23 @@ const Navbar = () => {
       <div className={styles.header}>
         <Link href="/" passHref>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.logo} src="/img/logo.svg" alt="fyfirman logo" />
+          <img
+            alt="fyfirman logo"
+            className={styles.logo}
+            src="/img/logo.svg"
+          />
         </Link>
         <div className={styles.nav}>
           {!router.pathname.includes("message") ? (
             <>
-              <MenuHeader to="project-section" title="Project" />
-              <MenuHeader to="contact-section" title="Contact" />
-              <MenuHeader to="/message" title="Message" link />
+              <MenuHeader title="Project" to="project-section" />
+              <MenuHeader title="Contact" to="contact-section" />
+              <MenuHeader link title="Message" to="/message" />
             </>
           ) : (
             <>
-              <MenuHeader to="/" title="Home" link />
-              <MenuHeader to="/message" title="Message" link />
+              <MenuHeader link title="Home" to="/" />
+              <MenuHeader link title="Message" to="/message" />
             </>
           )}
           <DarkToggler />

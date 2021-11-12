@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "./sosmed.module.scss";
+import React, { memo } from "react";
 import Image from "next/image";
+import styles from "./sosmed.module.scss";
 
 interface SosmedProps {
   href: string;
@@ -11,20 +11,29 @@ interface SosmedProps {
 
 const Sosmed = (props: SosmedProps) => {
   const { href, name, isMiddle, position } = props;
-  const imageURI = require(`../../../assets/images/sosmed/${name.toLowerCase().split(" ").join("-")}.svg`);
 
   return (
     <a
+      className={`${styles.sosmed} ${styles[position]} ${
+        isMiddle ? styles.middle : undefined
+      }`}
       href={href}
-      className={`${styles.sosmed} ${styles[position]} ${isMiddle ? styles.middle : undefined}`}
-      target="_blank"
       rel="noopener noreferrer"
+      target="_blank"
     >
       <div className={styles.svg}>
-        <Image src={imageURI} alt={`${name} Icon`} />
+        <Image
+          alt={`${name} Icon`}
+          // Cannot resolve how to dynamically import with typescript
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          src={require(`../../../assets/images/sosmed/${name
+            .toLowerCase()
+            .split(" ")
+            .join("-")}.svg`)}
+        />
       </div>
     </a>
   );
 };
 
-export default Sosmed;
+export default memo(Sosmed);

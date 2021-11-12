@@ -17,12 +17,17 @@ const ProjectCard = (props: ProjectCardProps) => {
   return (
     <div className={styles["card-container"]}>
       <div className={styles["card-image"]}>
-        <Image src={imageURI} alt={`${title} Snapshot`} />
+        <Image alt={`${title} Snapshot`} src={imageURI} />
       </div>
       <h4 className={styles["card-title"]}>{title}</h4>
       <p className="text-body">{desc}</p>
       <p className="text-body">Build with : {stack.join(", ")}</p>
-      <a className={`${styles["card-button"]} ${notAvailable ? "not-available" : ""}`} href={href}>
+      <a
+        className={`${styles["card-button"]} ${
+          notAvailable ? "not-available" : ""
+        }`}
+        href={href}
+      >
         {!notAvailable ? "See Project ›" : "Not available yet"}
       </a>
     </div>
