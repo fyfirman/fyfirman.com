@@ -30,6 +30,10 @@
   line-height: 0;
 }
 
+.logo:hover{
+  cursor: pointer;
+}
+
 .nav{
   display: flex;
   gap: min(20px, max(calc(10vw - 120px), 16px))
