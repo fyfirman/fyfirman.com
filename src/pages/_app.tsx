@@ -12,7 +12,7 @@ import { clsx } from "~/helpers/classname-helper";
 import { useTabletAndBelowMediaQuery } from "~/hooks";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [isReady, setIsReady] = useState(true);
+  const [isReady, setIsReady] = useState(false);
   const { darkModeActive } = useDarkMode();
   const isMobile = useTabletAndBelowMediaQuery();
   const render3D = useMediaQuery({
