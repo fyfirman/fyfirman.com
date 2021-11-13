@@ -25,26 +25,15 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
   const [isMobileVisible, setIsMobileMenuVisible] = useState(false);
 
   return (
-    <header
-      className={clsx([
-        styles.container,
-        isShadowVisible && styles["container-shadow"],
-      ])}
-    >
-      <div
-        className={clsx([styles.header, isMobile && styles["header-mobile"]])}
-      >
+    <header className={clsx([styles.container, isShadowVisible && styles["container-shadow"]])}>
+      <div className={clsx([styles.header, isMobile && styles["header-mobile"]])}>
         <Link href="/" passHref>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            alt="fyfirman logo"
-            className={styles.logo}
-            src="/img/logo.svg"
-          />
+          <img alt="fyfirman logo" className={styles.logo} src="/img/logo.svg" />
         </Link>
         <Desktop>
           <div className={styles.nav}>
-            {!router.pathname.includes("message") ? (
+            {!router.pathname.includes("message") && false ? (
               <>
                 <MenuHeader title="Project" to="project-section" />
                 <MenuHeader title="Contact" to="contact-section" />
@@ -54,6 +43,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
               <>
                 <MenuHeader link title="Home" to="/" />
                 <MenuHeader link title="Message" to="/message" />
+                <MenuHeader link title="About" to="/about" />
               </>
             )}
             <DarkToggler />
@@ -61,26 +51,16 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
         </Desktop>
         <TabletAndBelow>
           <>
-            <Button
-              className={styles["menu-button"]}
-              onClick={() => setIsMobileMenuVisible((prev) => !prev)}
-            >
+            <Button className={styles["menu-button"]} onClick={() => setIsMobileMenuVisible((prev) => !prev)}>
               <Image
                 alt="Menu Icon"
                 className={styles["menu-icon"]}
                 height={36}
-                src={
-                  isMobileVisible
-                    ? (CloseOutline as string)
-                    : (MenuOutline as string)
-                }
+                src={isMobileVisible ? (CloseOutline as string) : (MenuOutline as string)}
                 width={36}
               />
             </Button>
-            <MobileMenuModal
-              onClose={() => setIsMobileMenuVisible(false)}
-              visible={isMobileVisible}
-            />
+            <MobileMenuModal onClose={() => setIsMobileMenuVisible(false)} visible={isMobileVisible} />
           </>
         </TabletAndBelow>
       </div>

@@ -6,12 +6,15 @@ import { useMediaQuery } from "react-responsive";
 import animationData from "@assets/lotties/loading-animation.json";
 import Lottie from "react-lottie";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
-import { Navbar } from "../components/template";
+import { Desktop, Navbar } from "../components/template";
 import styles from "../styles/App.module.scss";
+import { clsx } from "~/helpers/classname-helper";
+import { useTabletAndBelowMediaQuery } from "~/hooks";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isReady, setIsReady] = useState(false);
   const { darkModeActive } = useDarkMode();
+  const isMobile = useTabletAndBelowMediaQuery();
   const render3D = useMediaQuery({
     query: "(min-device-width: 1080px)",
   });
@@ -54,25 +57,17 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Navbar />
       <div className={styles["body-container"]}>
         <Component {...pageProps} />
-        <footer
-          style={{
-            marginTop: `2rem`,
-            textAlign: "end",
-          }}
-        >
-          <object className="end" type="image/svg+xml">
-            Firmansyah Yanuar
-          </object>
+        <footer className={clsx([styles.footer, isMobile && styles.mobile])}>
+          <Desktop>
+            <object className="end" type="image/svg+xml">
+              Firmansyah Yanuar
+            </object>
+          </Desktop>
         </footer>
       </div>
       {render3D && (
         <div className="spline-container right">
-          <iframe
-            frameBorder="0"
-            id="spline-danbo"
-            src="/spline/danbo/index.html"
-            title="3d-spline-danbo"
-          />
+          <iframe frameBorder="0" id="spline-danbo" src="/spline/danbo/index.html" title="3d-spline-danbo" />
         </div>
       )}
     </div>

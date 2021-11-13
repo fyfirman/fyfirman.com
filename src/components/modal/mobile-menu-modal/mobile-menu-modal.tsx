@@ -1,12 +1,22 @@
 import { useEffect } from "react";
+import Moon from "@assets/images/moon-sharp.svg";
+import Sun from "@assets/images/sunny-sharp.svg";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import styles from "./mobile-menu-modal.module.scss";
 import { ModalProps } from "~/interfaces/modal";
 import useAppDarkMode from "~/hooks/useAppDarkMode";
+import { clsx } from "~/helpers/classname-helper";
 
-const menuList = ["Project", "Contact", "Message"];
+const menuList = [
+  { title: "Home", url: "/" },
+  { title: "Message", url: "/message" },
+  { title: "About", url: "/about" },
+];
 
-const MobileMenuModal: React.FC<ModalProps> = ({ visible }) => {
+const MobileMenuModal: React.FC<ModalProps> = ({ visible, onClose }) => {
   const [isDarkMode, toggleDarkMode] = useAppDarkMode();
+  const router = useRouter();
 
   useEffect(() => {
     if (!visible) {
@@ -16,23 +26,31 @@ const MobileMenuModal: React.FC<ModalProps> = ({ visible }) => {
     }
   }, [visible]);
 
-  if (!visible) {
-    return null;
-  }
+  const navigateTo = (to: string) => {
+    if (onClose) onClose();
+    void router.push(to);
+  };
 
   return (
-    <div className={styles.root}>
-      {menuList.map((menu) => (
-        <a key={menu} className={styles.menu}>
-          {menu}
+    <div className={clsx([styles.root, visible && styles.visible])}>
+      {menuList.map((menu, index) => (
+        <a
+          key={index}
+          className={styles.menu}
+          onClick={() => navigateTo(menu.url)}
+          onKeyPress={() => navigateTo(menu.url)}
+        >
+          {menu.title}
         </a>
       ))}
-      <a
-        className={styles.menu}
-        onClick={toggleDarkMode}
-        onKeyPress={toggleDarkMode}
-      >
-        {!isDarkMode ? "Dark Mode" : "Light Mode"}
+
+      <a className={styles.menu} onClick={toggleDarkMode} onKeyPress={toggleDarkMode}>
+        {isDarkMode ? (
+          <Image alt="Dark Mode Icon" src={Moon as string} />
+        ) : (
+          <Image alt="Light Mode Icon" src={Sun as string} />
+        )}
+        {isDarkMode ? "Dark Mode" : "Light Mode"}
       </a>
     </div>
   );

@@ -5,6 +5,10 @@
   color: var(--text-headings);
   font-size: 48px;
   margin-bottom: 8px;
+  letter-spacing: 0.04em;
+  &.mobile {
+    text-align: center;
+  }
 }
 
 .title {
@@ -17,6 +21,9 @@
   font-size: 24px;
   letter-spacing: 0.2em;
   margin-bottom: 60px;
+  &.mobile {
+    text-align: center;
+  }
 }
 
 .headings2 {
@@ -49,14 +56,23 @@
   justify-content: center;
 }
 
+.jumbotron {
+  display: flex;
+  align-items: center;
+  margin-top: -120px;
+  height: 720px;
+
+  &.mobile {
+    flex-direction: column;
+    margin-top: 10px;
+  }
+}
+
 .aboutMe {
   flex: 4;
   padding-right: 10%;
   z-index: 2;
-}
-
-@media only screen and (max-width: 820px) {
-  .aboutMe {
+  &.mobile {
     padding-right: 0;
   }
 }
@@ -102,6 +118,11 @@
 .photoProfile {
   flex: 2;
   padding: 0;
+
+  &.mobile {
+    width: 65%;
+    max-width: 280px;
+  }
 }
 
 .photoProfile > span {

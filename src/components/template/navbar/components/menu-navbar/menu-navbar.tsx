@@ -18,15 +18,7 @@ const MenuNavbar = (props: MenuNavbarProps) => {
       </a>
     </NextLink>
   ) : (
-    <Link
-      className={styles.button}
-      data-hover={title}
-      duration={500}
-      offset={-100}
-      smooth
-      spy
-      to={to}
-    >
+    <Link className={styles.button} data-hover={title} duration={500} offset={-100} smooth spy to={to}>
       <span>{title}</span>
     </Link>
   );
