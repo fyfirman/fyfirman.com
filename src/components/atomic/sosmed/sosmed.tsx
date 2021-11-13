@@ -14,9 +14,7 @@ const Sosmed = (props: SosmedProps) => {
 
   return (
     <a
-      className={`${styles.sosmed} ${styles[position]} ${
-        isMiddle ? styles.middle : undefined
-      }`}
+      className={`${styles.sosmed} ${styles[position]} ${isMiddle ? styles.middle : undefined}`}
       href={href}
       rel="noopener noreferrer"
       target="_blank"
@@ -26,10 +24,7 @@ const Sosmed = (props: SosmedProps) => {
           alt={`${name} Icon`}
           // Cannot resolve how to dynamically import with typescript
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          src={require(`../../../assets/images/sosmed/${name
-            .toLowerCase()
-            .split(" ")
-            .join("-")}.svg`)}
+          src={require(`../../../assets/images/sosmed/${name.toLowerCase().split(" ").join("-")}.svg`)}
         />
       </div>
     </a>

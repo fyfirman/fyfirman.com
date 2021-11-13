@@ -1,7 +1,4 @@
-import {
-  useDesktopMediaQuery,
-  useTabletAndBelowMediaQuery,
-} from "~/hooks/useAppMediaQuery";
+import { useDesktopMediaQuery, useTabletAndBelowMediaQuery } from "~/hooks/useAppMediaQuery";
 
 export const Desktop = ({ children }: { children: React.ReactElement }) => {
   const isDesktop = useDesktopMediaQuery();
@@ -9,11 +6,7 @@ export const Desktop = ({ children }: { children: React.ReactElement }) => {
   return isDesktop ? children : null;
 };
 
-export const TabletAndBelow = ({
-  children,
-}: {
-  children: React.ReactElement;
-}) => {
+export const TabletAndBelow = ({ children }: { children: React.ReactElement }) => {
   const isTabletAndBelow = useTabletAndBelowMediaQuery();
 
   return isTabletAndBelow ? children : null;

@@ -63,17 +63,14 @@ const MessagePage = () => {
             <li>Anything you like</li>
           </ul>
           <p className="text-body">
-            You can send <b>anonymously</b> or <b>write your name</b>. If you
-            want to reply, please state in the message.
+            You can send <b>anonymously</b> or <b>write your name</b>. If you want to reply, please state in the
+            message.
           </p>
           <p className="text-body">
-            Please speak with <b>human language</b>, not a programming language.
-            😁
+            Please speak with <b>human language</b>, not a programming language. 😁
           </p>
         </div>
-        <form
-          style={{ display: "flex", flex: 1, gap: 16, flexDirection: "column" }}
-        >
+        <form style={{ display: "flex", flex: 1, gap: 16, flexDirection: "column" }}>
           <input
             className={styles.input}
             onChange={(e) => setSenderName(e.target.value)}
@@ -92,11 +89,7 @@ const MessagePage = () => {
             type="submit"
             value={buttonText}
           />
-          <span
-            className={`${styles["error-message"]} ${
-              error.isError && !isSuccess ? "visible" : "hidden"
-            }`}
-          >
+          <span className={`${styles["error-message"]} ${error.isError && !isSuccess ? "visible" : "hidden"}`}>
             {error.isError ? error.message : ""}
           </span>
         </form>

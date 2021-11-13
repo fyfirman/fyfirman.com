@@ -2,9 +2,7 @@ import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 import styles from "./button.module.scss";
 import { clsx } from "~/helpers/classname-helper";
 
-const Button: React.FC<
-  DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
-> = (props) => {
+const Button: React.FC<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>> = (props) => {
   const { children, className, ...rest } = props;
 
   return (

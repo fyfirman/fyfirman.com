@@ -14,11 +14,7 @@ import { useScrollOffset } from "~/hooks";
 import { Button } from "~/components/atomic";
 import { MobileMenuModal } from "~/components/modal";
 
-interface NavbarProps {
-  onMenuClick?: () => void;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
+const Navbar: React.FC<{}> = () => {
   const router = useRouter();
   const isMobile = useTabletAndBelowMediaQuery();
   const isShadowVisible = useScrollOffset(20);
@@ -33,19 +29,22 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
         </Link>
         <Desktop>
           <div className={styles.nav}>
-            {!router.pathname.includes("message") && false ? (
-              <>
-                <MenuHeader title="Project" to="project-section" />
-                <MenuHeader title="Contact" to="contact-section" />
-                <MenuHeader link title="Message" to="/message" />
-              </>
-            ) : (
-              <>
-                <MenuHeader link title="Home" to="/" />
-                <MenuHeader link title="Message" to="/message" />
-                <MenuHeader link title="About" to="/about" />
-              </>
-            )}
+            {
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, no-constant-condition -- will be replaced with firebase remote config
+              !router.pathname.includes("message") && false ? (
+                <>
+                  <MenuHeader title="Project" to="project-section" />
+                  <MenuHeader title="Contact" to="contact-section" />
+                  <MenuHeader link title="Message" to="/message" />
+                </>
+              ) : (
+                <>
+                  <MenuHeader link title="Home" to="/" />
+                  <MenuHeader link title="Message" to="/message" />
+                  <MenuHeader link title="About" to="/about" />
+                </>
+              )
+            }
             <DarkToggler />
           </div>
         </Desktop>
