@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import MenuOutline from "@assets/images/menu-outline.svg";
+import CloseOutline from "@assets/images/close-outline.svg";
 import { Desktop, TabletAndBelow } from "../responsive/responsive";
 import styles from "./navbar.module.scss";
 import MenuHeader from "./components/menu-navbar/menu-navbar";
@@ -11,6 +12,7 @@ import { useTabletAndBelowMediaQuery } from "~/hooks/useAppMediaQuery";
 import { clsx } from "~/helpers";
 import { useScrollOffset } from "~/hooks";
 import { Button } from "~/components/atomic";
+import { MobileMenuModal } from "~/components/modal";
 
 interface NavbarProps {
   onMenuClick?: () => void;
@@ -20,6 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
   const router = useRouter();
   const isMobile = useTabletAndBelowMediaQuery();
   const isShadowVisible = useScrollOffset(20);
+  const [isMobileVisible, setIsMobileMenuVisible] = useState(false);
 
   return (
     <header
@@ -57,15 +60,28 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
           </div>
         </Desktop>
         <TabletAndBelow>
-          <Button className={styles["menu-button"]} onClick={onMenuClick}>
-            <Image
-              alt="Menu Icon"
-              className={styles["menu-icon"]}
-              height={36}
-              src={MenuOutline as string}
-              width={36}
+          <>
+            <Button
+              className={styles["menu-button"]}
+              onClick={() => setIsMobileMenuVisible((prev) => !prev)}
+            >
+              <Image
+                alt="Menu Icon"
+                className={styles["menu-icon"]}
+                height={36}
+                src={
+                  isMobileVisible
+                    ? (CloseOutline as string)
+                    : (MenuOutline as string)
+                }
+                width={36}
+              />
+            </Button>
+            <MobileMenuModal
+              onClose={() => setIsMobileMenuVisible(false)}
+              visible={isMobileVisible}
             />
-          </Button>
+          </>
         </TabletAndBelow>
       </div>
     </header>

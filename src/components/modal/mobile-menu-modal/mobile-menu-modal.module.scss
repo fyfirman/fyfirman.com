@@ -1,0 +1,37 @@
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bg-navbar-mobile);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  overflow-x: hidden;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu {
+  padding: 16px 12px;
+  text-transform: uppercase;
+  font-family: Nunito Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 27px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: 0.3s;
+  color: var(--text-body);
+
+  &:hover,
+  &:focus {
+    transition: 0.3s;
+    transform: scale(0.9);
+  }
+}

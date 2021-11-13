@@ -7,6 +7,7 @@ import animationData from "@assets/lotties/loading-animation.json";
 import Lottie from "react-lottie";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
 import { Navbar } from "../components/template";
+import styles from "../styles/App.module.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isReady, setIsReady] = useState(false);
@@ -31,11 +32,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     const bodyClassName = document.body.className;
 
     if (!bodyClassName.includes("light") && !darkModeActive) {
-      document.body.className = document.body.className.replaceAll("dark", "");
-      document.body.className += "light";
+      document.body.classList.remove("dark");
+      document.body.classList.add("light");
     } else {
-      document.body.className = document.body.className.replaceAll("light", "");
-      document.body.className += "dark";
+      document.body.classList.remove("light");
+      document.body.classList.add("dark");
     }
   }, [darkModeActive]);
 
@@ -51,14 +52,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return isReady ? (
     <div className={`root ${darkModeActive ? "dark" : "light"}`}>
       <Navbar />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-          marginTop: 120,
-        }}
-      >
+      <div className={styles["body-container"]}>
         <Component {...pageProps} />
         <footer
           style={{

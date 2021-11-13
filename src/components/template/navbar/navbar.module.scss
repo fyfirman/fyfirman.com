@@ -17,7 +17,7 @@
 
 .menu-button {
   background-color: transparent;
-
+  z-index: 99999;
 
   & .menu-icon {
     filter: var(--filter);
