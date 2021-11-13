@@ -25,7 +25,7 @@ const Navbar: React.FC<{}> = () => {
       <div className={clsx([styles.header, isMobile && styles["header-mobile"]])}>
         <Link href="/" passHref>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img alt="fyfirman logo" className={styles.logo} src="/img/logo.svg" />
+          <img alt="fyfirman logo" className={styles.logo} height={36} src="/img/logo.svg" width={42} />
         </Link>
         <Desktop>
           <div className={styles.nav}>

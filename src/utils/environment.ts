@@ -1,6 +1,6 @@
 const env = {
-  title: process.env.TITLE ?? "Firmansyah Yanuar",
-  metaDesc: process.env.META_DESC ?? "",
+  title: process.env.NEXT_PUBLIC_TITLE ?? "Firmansyah Yanuar",
+  metaDesc: process.env.NEXT_PUBLIC_META_DESC ?? "",
   firebaseConfig: {
     apiKey: process.env.API_KEY,
     authDomain: process.env.AUTH_DOMAIN,
