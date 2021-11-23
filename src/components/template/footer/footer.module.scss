@@ -1,0 +1,29 @@
+.container {
+  position: relative;
+  padding-top: 160px;
+
+  &.mobile {
+    padding-top: 80px;
+  }
+  & > .spline-danbo {
+    position: absolute;
+    bottom: 0;
+    right: -120px;
+  }
+  &.mobile > .spline-danbo {
+    right: -100px;
+  }
+}
+
+.footer {
+  margin-top: 2rem;
+  text-align: end;
+
+  &.mobile {
+    margin-top: 0;
+  }
+}
+
+.end {
+  filter: var(--filter);
+}

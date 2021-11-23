@@ -136,3 +136,13 @@
   transform: translateX(-10px) translateY(-10px);
   box-shadow: 20px 20px var(--shadow-ava);
 }
+
+.header-container {
+  position: relative;
+}
+
+.spline-geo-1{
+  position: absolute;
+  bottom: -50px;
+  right: -200px;
+}

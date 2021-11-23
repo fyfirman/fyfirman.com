@@ -10,6 +10,7 @@ import { Desktop, Navbar } from "../components/template";
 import styles from "../styles/App.module.scss";
 import { clsx } from "~/helpers/classname-helper";
 import { useTabletAndBelowMediaQuery } from "~/hooks";
+import Footer from "~/components/template/footer/footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isReady, setIsReady] = useState(false);
@@ -53,23 +54,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   return isReady ? (
-    <div className={`root ${darkModeActive ? "dark" : "light"}`}>
+    <div className={`${styles.root} ${darkModeActive ? "dark" : "light"}`}>
       <Navbar />
-      <div className={styles["body-container"]}>
+      <div className={clsx([styles["body-container"], isMobile && styles.mobile])}>
         <Component {...pageProps} />
-        <footer className={clsx([styles.footer, isMobile && styles.mobile])}>
-          <Desktop>
-            <object className="end" type="image/svg+xml">
-              Firmansyah Yanuar
-            </object>
-          </Desktop>
-        </footer>
+        <Footer />
       </div>
-      {render3D && (
-        <div className="spline-container right">
-          <iframe frameBorder="0" id="spline-danbo" src="/spline/danbo/index.html" title="3d-spline-danbo" />
-        </div>
-      )}
     </div>
   ) : (
     <div style={{ display: "flex", alignItems: "center", height: "100vh" }}>
