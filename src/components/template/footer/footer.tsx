@@ -4,13 +4,11 @@ import { clsx } from "~/helpers";
 import { useTabletAndBelowMediaQuery } from "~/hooks";
 // import end from "~/assets/images/end.svg";
 
-const Footer: FC<{
-  noMargin: boolean;
-}> = ({ noMargin }) => {
+const Footer: FC<{}> = () => {
   const isMobile = useTabletAndBelowMediaQuery();
 
   return (
-    <footer className={clsx([styles.container, isMobile && styles.mobile, noMargin && styles["no-margin"]])}>
+    <footer className={clsx([styles.container, isMobile && styles.mobile])}>
       {/* <div className={clsx([styles.footer, isMobile && styles.mobile])}>
         <object className={styles.end} data={end} type="image/svg+xml">
           Firmansyah Yanuar
