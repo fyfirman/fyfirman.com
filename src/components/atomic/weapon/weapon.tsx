@@ -1,6 +1,8 @@
 import React, { memo } from "react";
 import Image from "next/image";
 import styles from "./weapon.module.scss";
+import { useTabletAndBelowMediaQuery } from "~/hooks";
+import { clsx } from "~/helpers";
 
 interface WeaponProps {
   name: string;
@@ -9,8 +11,10 @@ interface WeaponProps {
 const Weapon = (props: WeaponProps) => {
   const { name } = props;
 
+  const isMobile = useTabletAndBelowMediaQuery();
+
   return (
-    <div className={styles.weapon}>
+    <div className={clsx([styles.weapon, isMobile && styles.mobile])}>
       <div className={styles.weaponImage}>
         <Image
           alt={`${name} Logo`}

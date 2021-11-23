@@ -1,6 +1,10 @@
 .weapon {
   position: relative;
   margin: 8px 16px;
+
+  &.mobile {
+    margin: 8px 12px;
+  }
 }
 
 .weaponImage {
