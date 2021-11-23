@@ -141,8 +141,36 @@
   position: relative;
 }
 
-.spline-geo-1{
+.spline-geo-1 {
   position: absolute;
   bottom: -50px;
   right: -200px;
+}
+
+.primary-button {
+  width: 100%;
+  color: var(--text-button);
+  font-family: "Nunito Sans";
+  font-weight: 700;
+  background-color: var(--bg-button);
+  font-size: 18px;
+  border: none;
+  padding: 10px 24px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: 0px 0px var(--shadow-ava);
+  transition: all 0.2s;
+  border: 0.5px solid var(--shadow-ava);
+
+  &:hover {
+    transform: translateX(-6px) translateY(-6px);
+    box-shadow: 12px 12px var(--shadow-ava);
+    cursor: pointer;
+  }
+
+  &:active,
+  &:focus {
+    transform: translateX(3px) translateY(3px);
+    box-shadow: 3px 3px var(--shadow-ava);
+  }
 }

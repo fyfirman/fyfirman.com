@@ -22,7 +22,17 @@ const HomeHeader = () => {
         )}
         <div className={clsx([styles.aboutMe, isMobile && styles.mobile])}>
           <h1 className={clsx([styles.headings, isMobile && styles.mobile])}>Hi, i’m firmansyah!</h1>
-          <h2 className={clsx([styles.title, isMobile && styles.mobile])}>developer | designer</h2>
+          <h2 className={clsx([styles.title, isMobile && styles.mobile])}>
+            {!isMobile ? "Software engineer | freelancer" : "Software engineer freelancer"}
+          </h2>
+          <a
+            className={clsx([styles["primary-button"], isMobile && styles.mobile])}
+            href="https://www.instagram.com/fyfirman/"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Let&apos;s Talk
+          </a>
         </div>
 
         {!isMobile && (
