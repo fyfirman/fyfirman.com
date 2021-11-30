@@ -1,4 +1,5 @@
 import { useDarkMode } from "next-dark-mode";
+import { useCallback } from "react";
 import useAudio from "~/hooks/useAudio";
 
 const useAppDarkMode = (): [boolean, () => void] => {
@@ -6,7 +7,7 @@ const useAppDarkMode = (): [boolean, () => void] => {
   const [, toggleSwitchOn] = useAudio("/audio/switch-on.mp3");
   const [, toggleSwitchOff] = useAudio("/audio/switch-off.mp3");
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     if (darkModeActive) {
       switchToLightMode();
       toggleSwitchOn();
@@ -14,7 +15,7 @@ const useAppDarkMode = (): [boolean, () => void] => {
       switchToDarkMode();
       toggleSwitchOff();
     }
-  };
+  }, [darkModeActive, switchToDarkMode, switchToLightMode, toggleSwitchOff, toggleSwitchOn]);
 
   return [darkModeActive, handleToggle];
 };

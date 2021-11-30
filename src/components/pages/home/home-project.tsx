@@ -74,4 +74,4 @@ const HomeProject = () => {
   );
 };
 
-export default HomeProject;
+export default React.memo(HomeProject);

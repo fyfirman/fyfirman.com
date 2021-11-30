@@ -52,4 +52,4 @@ const HomeWeapon = () => {
   );
 };
 
-export default HomeWeapon;
+export default React.memo(HomeWeapon);

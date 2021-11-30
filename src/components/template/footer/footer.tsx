@@ -1,10 +1,11 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import styles from "./footer.module.scss";
 import { clsx } from "~/helpers";
 import { useTabletAndBelowMediaQuery } from "~/hooks";
 // import end from "~/assets/images/end.svg";
 
 const Footer: FC<{}> = () => {
+  console.log("Footer rerendered");
   const isMobile = useTabletAndBelowMediaQuery();
 
   return (
@@ -24,4 +25,4 @@ const Footer: FC<{}> = () => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

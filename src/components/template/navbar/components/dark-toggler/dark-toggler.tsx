@@ -1,3 +1,4 @@
+import React from "react";
 import Moon from "@assets/images/moon-sharp.svg";
 import Sun from "@assets/images/sunny-sharp.svg";
 import Image from "next/image";
@@ -18,4 +19,4 @@ const DarkToggler = () => {
   );
 };
 
-export default DarkToggler;
+export default React.memo(DarkToggler);

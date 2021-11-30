@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import "@fontsource/nunito-sans";
 import type { AppProps } from "next/app";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import animationData from "@assets/lotties/loading-animation.json";
 import Lottie from "react-lottie";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
@@ -64,4 +64,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default withDarkMode(MyApp);
+export default React.memo(withDarkMode(MyApp));

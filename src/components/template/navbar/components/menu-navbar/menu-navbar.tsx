@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-scroll";
 import NextLink from "next/link";
 import styles from "./menu-navbar.module.scss";
@@ -24,4 +25,4 @@ const MenuNavbar = (props: MenuNavbarProps) => {
   );
 };
 
-export default MenuNavbar;
+export default React.memo(MenuNavbar);

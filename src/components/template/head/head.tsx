@@ -29,4 +29,4 @@ const Head = (props: HeadProps) => {
   );
 };
 
-export default Head;
+export default React.memo(Head);

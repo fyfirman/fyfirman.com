@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -14,11 +14,13 @@ import { useScrollOffset } from "~/hooks";
 import { Button } from "~/components/atomic";
 import { MobileMenuModal } from "~/components/modal";
 
-const Navbar: React.FC<{}> = () => {
+const Navbar = () => {
   const router = useRouter();
   const isMobile = useTabletAndBelowMediaQuery();
   const isShadowVisible = useScrollOffset(20);
   const [isMobileVisible, setIsMobileMenuVisible] = useState(false);
+
+  const toggleMenuMobile = useCallback(() => setIsMobileMenuVisible((prev) => !prev), []);
 
   return (
     <header className={clsx([styles.container, isShadowVisible && styles["container-shadow"]])}>
@@ -50,7 +52,7 @@ const Navbar: React.FC<{}> = () => {
         </Desktop>
         <TabletAndBelow>
           <>
-            <Button className={styles["menu-button"]} onClick={() => setIsMobileMenuVisible((prev) => !prev)}>
+            <Button className={styles["menu-button"]} onClick={toggleMenuMobile}>
               <Image
                 alt="Menu Icon"
                 className={styles["menu-icon"]}
@@ -59,7 +61,7 @@ const Navbar: React.FC<{}> = () => {
                 width={36}
               />
             </Button>
-            <MobileMenuModal onClose={() => setIsMobileMenuVisible(false)} visible={isMobileVisible} />
+            <MobileMenuModal onClose={toggleMenuMobile} visible={isMobileVisible} />
           </>
         </TabletAndBelow>
       </div>
@@ -67,4 +69,4 @@ const Navbar: React.FC<{}> = () => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

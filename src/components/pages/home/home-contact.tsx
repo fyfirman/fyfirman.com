@@ -28,4 +28,4 @@ const HomeContact = () => {
   );
 };
 
-export default HomeContact;
+export default React.memo(HomeContact);
