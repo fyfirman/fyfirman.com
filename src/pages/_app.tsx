@@ -7,6 +7,7 @@ import Lottie from "react-lottie";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
 import { Navbar } from "../components/template";
 import styles from "../styles/App.module.scss";
+import { wrapper } from "../redux/store";
 import { clsx } from "~/helpers/classname-helper";
 import { useTabletAndBelowMediaQuery } from "~/hooks";
 import Footer from "~/components/template/footer/footer";
@@ -64,4 +65,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default React.memo(withDarkMode(MyApp));
+export default React.memo(withDarkMode(wrapper.withRedux(MyApp)));
