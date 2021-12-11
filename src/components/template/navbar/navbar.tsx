@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import MenuOutline from "@assets/images/menu-outline.svg";
 import CloseOutline from "@assets/images/close-outline.svg";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Desktop, TabletAndBelow } from "../responsive/responsive";
 import styles from "./navbar.module.scss";
 import MenuHeader from "./components/menu-navbar/menu-navbar";
@@ -17,6 +17,7 @@ import { MobileMenuModal } from "~/components/modal";
 
 const Navbar = (props) => {
   console.log("navbar props", props);
+  const counter = useSelector((state) => state.counter);
   const router = useRouter();
   const isMobile = useTabletAndBelowMediaQuery();
   const isShadowVisible = useScrollOffset(20);
@@ -31,7 +32,7 @@ const Navbar = (props) => {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img alt="fyfirman logo" className={styles.logo} height={36} src="/img/logo.svg" width={42} />
         </Link>
-        <span>counter: {props.counter}</span>
+        <span>counter: {counter}</span>
         <Desktop>
           <div className={styles.nav}>
             {
@@ -72,4 +73,4 @@ const Navbar = (props) => {
   );
 };
 
-export default React.memo(connect((state) => state)(Navbar));
+export default React.memo(Navbar);
