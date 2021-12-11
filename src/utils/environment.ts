@@ -11,6 +11,7 @@ const env = {
     appId: process.env.APP_ID,
     measurementId: process.env.MEASUREMENT_ID,
   },
+  dummyApiId: process.env.DUMMY_API_ID,
 };
 
 export default env;
