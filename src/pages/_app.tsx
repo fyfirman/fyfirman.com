@@ -11,7 +11,7 @@ import Footer from "~/components/template/footer/footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { darkModeActive } = useDarkMode();
-  const isMobile = useResponsive();
+  const { isMobile } = useResponsive();
 
   useEffect(() => {
     const bodyClassName = document.body.className;

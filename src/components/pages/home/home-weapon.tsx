@@ -21,7 +21,7 @@ const secondaryWeapon: Readonly<IWeaponList> = {
 };
 
 const HomeWeapon = () => {
-  const isMobile = useResponsive();
+  const { isMobile } = useResponsive();
 
   return (
     <>

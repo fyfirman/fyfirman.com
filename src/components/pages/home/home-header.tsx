@@ -7,7 +7,7 @@ import { clsx } from "~/helpers";
 import { useResponsive } from "~/hooks";
 
 const HomeHeader = () => {
-  const isMobile = useResponsive();
+  const { isMobile } = useResponsive();
   const render3D = useMediaQuery({
     query: "(min-device-width: 1080px)",
   });

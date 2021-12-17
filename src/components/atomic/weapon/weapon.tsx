@@ -11,7 +11,7 @@ interface WeaponProps {
 const Weapon = (props: WeaponProps) => {
   const { name } = props;
 
-  const isMobile = useResponsive();
+  const { isMobile } = useResponsive();
 
   return (
     <div className={clsx([styles.weapon, isMobile && styles.mobile])}>

@@ -4,7 +4,7 @@ import { clsx } from "~/helpers";
 import { useResponsive } from "~/hooks";
 
 const Footer: FC<{}> = () => {
-  const isMobile = useResponsive();
+  const { isMobile } = useResponsive();
 
   return (
     <footer className={clsx([styles.container, isMobile && styles.mobile])}>
