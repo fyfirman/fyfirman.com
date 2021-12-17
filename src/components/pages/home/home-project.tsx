@@ -62,13 +62,7 @@ const HomeProject = () => {
       ))}
       {/* <Link to="/project/">See All Project</Link> <br /> */}
       <div className="spline-container">
-        <iframe
-          allowTransparency={true}
-          frameBorder="0"
-          id="spline-geo-2"
-          src="spline/geometric-2/index.html"
-          title="3d-spline-geo-2"
-        />
+        <iframe frameBorder="0" id="spline-geo-2" src="spline/geometric-2/index.html" title="3d-spline-geo-2" />
       </div>
     </>
   );

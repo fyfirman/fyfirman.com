@@ -1,18 +1,18 @@
 /* eslint-disable react/display-name */
 import { memo } from "react";
-import { useDesktopMediaQuery, useTabletAndBelowMediaQuery } from "~/hooks/useAppMediaQuery";
+import { useResponsive } from "~/hooks";
 
 const BaseDesktop = ({ children }: { children: React.ReactElement }) => {
-  const isDesktop = useDesktopMediaQuery();
+  const { isMobile } = useResponsive();
 
-  return isDesktop ? children : null;
+  return !isMobile ? children : null;
 };
 
 export const Desktop = memo(BaseDesktop);
 
 const BaseTabletAndBelow = ({ children }: { children: React.ReactElement }) => {
-  const isTabletAndBelow = useTabletAndBelowMediaQuery();
+  const { isMobile } = useResponsive();
 
-  return isTabletAndBelow ? children : null;
+  return isMobile ? children : null;
 };
 export const TabletAndBelow = memo(BaseTabletAndBelow);

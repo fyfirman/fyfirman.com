@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "~/styles/Home.module.scss";
 import { Weapon } from "~/components/atomic";
-import { useTabletAndBelowMediaQuery } from "~/hooks";
+import { useResponsive } from "~/hooks";
 import { clsx } from "~/helpers";
 
 interface IWeaponList {
@@ -21,7 +21,7 @@ const secondaryWeapon: Readonly<IWeaponList> = {
 };
 
 const HomeWeapon = () => {
-  const isMobile = useTabletAndBelowMediaQuery();
+  const isMobile = useResponsive();
 
   return (
     <>

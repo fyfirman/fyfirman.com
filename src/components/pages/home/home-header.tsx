@@ -4,10 +4,10 @@ import Self from "@assets/images/self.jpg";
 import { useMediaQuery } from "react-responsive";
 import styles from "~/styles/Home.module.scss";
 import { clsx } from "~/helpers";
-import { useTabletAndBelowMediaQuery } from "~/hooks";
+import { useResponsive } from "~/hooks";
 
 const HomeHeader = () => {
-  const isMobile = useTabletAndBelowMediaQuery();
+  const isMobile = useResponsive();
   const render3D = useMediaQuery({
     query: "(min-device-width: 1080px)",
   });
@@ -43,7 +43,6 @@ const HomeHeader = () => {
       </div>
       {render3D && (
         <iframe
-          allowTransparency={true}
           className={styles["spline-geo-1"]}
           frameBorder="0"
           id="spline-geo-1"

@@ -1,32 +1,17 @@
 import "../styles/globals.css";
 import "@fontsource/nunito-sans";
 import type { AppProps } from "next/app";
-import React, { useState, useEffect } from "react";
-import animationData from "@assets/lotties/loading-animation.json";
-import Lottie from "react-lottie";
+import React, { useEffect } from "react";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
 import { Navbar } from "../components/template";
 import styles from "../styles/App.module.scss";
 import { clsx } from "~/helpers/classname-helper";
-import { useTabletAndBelowMediaQuery } from "~/hooks";
+import { useResponsive } from "~/hooks";
 import Footer from "~/components/template/footer/footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [isReady, setIsReady] = useState(false);
   const { darkModeActive } = useDarkMode();
-  const isMobile = useTabletAndBelowMediaQuery();
-
-  useEffect(() => {
-    document.title = "Loading...";
-    console.log("halo, mau cari apa bos?");
-
-    setTimeout(() => {
-      void document.fonts.load("12px Nunito Sans").then(() => {
-        document.title = "Firmansyah Yanuar";
-        setIsReady(true);
-      });
-    }, 1000);
-  }, []);
+  const isMobile = useResponsive();
 
   useEffect(() => {
     const bodyClassName = document.body.className;
@@ -40,26 +25,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, [darkModeActive]);
 
-  const lottieOptions = {
-    loop: true,
-    autoplay: true,
-    animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  return isReady ? (
+  return (
     <div className={`${styles.root} ${darkModeActive ? "dark" : "light"}`}>
       <Navbar />
       <div className={clsx([styles["body-container"], isMobile && styles.mobile])}>
         <Component {...pageProps} />
         <Footer />
       </div>
-    </div>
-  ) : (
-    <div style={{ display: "flex", alignItems: "center", height: "100vh" }}>
-      <Lottie height={250} options={lottieOptions} width={250} />
     </div>
   );
 }
