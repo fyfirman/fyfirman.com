@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import MenuOutline from "@assets/images/menu-outline.svg";
 import CloseOutline from "@assets/images/close-outline.svg";
@@ -15,7 +14,6 @@ import { Button } from "~/components/atomic";
 import { MobileMenuModal } from "~/components/modal";
 
 const Navbar = () => {
-  const router = useRouter();
   const isMobile = useTabletAndBelowMediaQuery();
   const isShadowVisible = useScrollOffset(20);
   const [isMobileVisible, setIsMobileMenuVisible] = useState(false);
@@ -31,22 +29,9 @@ const Navbar = () => {
         </Link>
         <Desktop>
           <div className={styles.nav}>
-            {
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, no-constant-condition -- will be replaced with firebase remote config
-              !router.pathname.includes("message") && false ? (
-                <>
-                  <MenuHeader title="Project" to="project-section" />
-                  <MenuHeader title="Contact" to="contact-section" />
-                  <MenuHeader link title="Message" to="/message" />
-                </>
-              ) : (
-                <>
-                  <MenuHeader link title="Home" to="/" />
-                  <MenuHeader link title="Message" to="/message" />
-                  <MenuHeader link title="About" to="/about" />
-                </>
-              )
-            }
+            <MenuHeader link title="Home" to="/" />
+            <MenuHeader link title="Message" to="/message" />
+            <MenuHeader link title="About" to="/about" />
             <DarkToggler />
           </div>
         </Desktop>
