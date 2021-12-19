@@ -4,19 +4,19 @@ backend:
 media_folder: public/img/netlify-cms
 public_folder: img/netlify-cms
 collections:
-  - name: "pages"
-    label: "Pages"
+  - name: pages
+    label: Pages
     files:
-    - label: "Hello World"
-      name: "hello-world"
-      file: "src/content/hello-world.md"
+    - label: Hello World
+      name: hello-world
+      file: src/content/hello-world.md
       fields:
-        - { label: "Title", name: "title", widget: "string"}
-        - { label: "Publish Date", name: "date", widget: "datetime" }
-        - { label: "Body", name: "body", widget: "markdown"}
-        - label: 'Tags'
-          name: "tags"
+        - { label: Title, name: title, widget: string}
+        - { label: Publish Date, name: date, widget: datetime }
+        - { label: Body, name: body, widget: markdown}
+        - label: Tags
+          name: tags
           widget: list
           fields:
-            - { label: "Name", name: "name", widget: "string"}
-            - { label: "Another Attribute", name: "anotherAttribute", widget: "text"}
+            - { label: Name, name: name, widget: string}
+            - { label: Another Attribute, name: anotherAttribute, widget: text}

@@ -5,10 +5,10 @@ import env from "~/utils/environment";
 interface HeadProps {
   title?: string;
   hideWebTitle?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const Head: FC<HeadProps>= (props) => {
+const Head: FC<HeadProps> = (props) => {
   const { title, hideWebTitle = false, children } = props;
 
   const finalTitle = useMemo(() => {

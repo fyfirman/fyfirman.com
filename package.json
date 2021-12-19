@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
+    "@babel/eslint-plugin": "^7.16.5",
     "@babel/preset-react": "^7.16.5",
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
