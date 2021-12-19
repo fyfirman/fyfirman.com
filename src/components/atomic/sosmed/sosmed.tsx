@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import Image from "next/image";
 import styles from "./sosmed.module.scss";
 
 interface SosmedProps {
@@ -20,7 +19,7 @@ const Sosmed = (props: SosmedProps) => {
       target="_blank"
     >
       <div className={styles.svg}>
-        <Image
+        <img
           alt={`${name} Icon`}
           // Cannot resolve how to dynamically import with typescript
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  i18n: {
-    localeDetection: false,
-  },
   reactStrictMode: true,
   webpack: (cfg) => {
     cfg.module.rules.push({
@@ -11,5 +8,8 @@ module.exports = {
       options: { mode: ["react-component"] },
     });
     return cfg;
+  },
+  images: {
+    disableStaticImages: true,
   },
 };

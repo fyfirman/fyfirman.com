@@ -1,7 +1,8 @@
 import { useEffect } from "react";
+// @ts-expect-error ignore assets
 import Moon from "@assets/images/moon-sharp.svg";
+// @ts-expect-error ignore assets
 import Sun from "@assets/images/sunny-sharp.svg";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "./mobile-menu-modal.module.scss";
 import { ModalProps } from "~/interfaces/modal";
@@ -46,9 +47,9 @@ const MobileMenuModal: React.FC<ModalProps> = ({ visible, onClose }) => {
 
       <a className={styles.menu} onClick={toggleDarkMode} onKeyPress={toggleDarkMode}>
         {isDarkMode ? (
-          <Image alt="Dark Mode Icon" src={Moon as string} />
+          <img alt="Dark Mode Icon" src={Moon as string} />
         ) : (
-          <Image alt="Light Mode Icon" src={Sun as string} />
+          <img alt="Light Mode Icon" src={Sun as string} />
         )}
         {isDarkMode ? "Dark Mode" : "Light Mode"}
       </a>

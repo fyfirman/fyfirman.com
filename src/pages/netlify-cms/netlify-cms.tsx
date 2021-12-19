@@ -1,7 +1,7 @@
 import React from "react";
 import { Head } from "@components/template";
 // @ts-expect-error should be right, but need definition of content folder
-import { attributes, react as Content } from "@/content/hello-world.md";
+import { attributes, react as Content } from "@content/hello-world.md";
 
 const MessagePage = () => {
   const { title, tags, date } = attributes;

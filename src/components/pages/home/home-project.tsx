@@ -1,7 +1,11 @@
 import React from "react";
+/* @ts-expect-error ignore */
 import pacisBot from "@assets/images/project/pacis-bot.jpg";
+/* @ts-expect-error ignore */
 import himatifApps from "@assets/images/project/himatif-apps.jpg";
+/* @ts-expect-error ignore */
 import careIn from "@assets/images/project/carein.jpg";
+/* @ts-expect-error ignore */
 import terimaCurhatASI from "@assets/images/project/terima-curhat-asi.jpg";
 import { ProjectCard } from "~/components/atomic";
 import styles from "~/styles/Home.module.scss";
@@ -9,7 +13,7 @@ import styles from "~/styles/Home.module.scss";
 interface IProject {
   desc: string;
   href: string;
-  imageURI: StaticImageData;
+  imageURI: any;
   stack: string[];
   title: string;
   notAvailable?: boolean;

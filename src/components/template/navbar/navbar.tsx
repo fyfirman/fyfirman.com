@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+/* @ts-expect-error ignore */
 import MenuOutline from "@assets/images/menu-outline.svg";
+/* @ts-expect-error ignore */
 import CloseOutline from "@assets/images/close-outline.svg";
 import dynamic from "next/dynamic";
 import { Desktop, TabletAndBelow } from "../responsive/responsive";
@@ -39,7 +40,7 @@ const Navbar = () => {
         <TabletAndBelow>
           <>
             <Button className={styles["menu-button"]} onClick={toggleMenuMobile}>
-              <Image
+              <img
                 alt="Menu Icon"
                 className={styles["menu-icon"]}
                 height={36}

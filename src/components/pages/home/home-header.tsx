@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+// @ts-expect-error ignore assets
 import Self from "@assets/images/self.jpg";
 import { useMediaQuery } from "react-responsive";
 import styles from "~/styles/Home.module.scss";
@@ -17,7 +17,7 @@ const HomeHeader = () => {
       <div className={clsx([styles.jumbotron, isMobile && styles.mobile])}>
         {isMobile && (
           <div className={clsx([styles.photoProfile, styles.mobile])}>
-            <Image alt="Firmansyah Yanuar Photo" src={Self} />
+            {<img alt="Firmansyah Yanuar 1" src={Self as string} />}
           </div>
         )}
         <div className={clsx([styles.aboutMe, isMobile && styles.mobile])}>
@@ -35,11 +35,7 @@ const HomeHeader = () => {
           </a>
         </div>
 
-        {!isMobile && (
-          <div className={styles.photoProfile}>
-            <Image alt="Firmansyah Yanuar Photo" src={Self} />
-          </div>
-        )}
+        {!isMobile && <div className={styles.photoProfile}>{<img alt="Firmansyah Yanuar" src={Self as string} />}</div>}
       </div>
       {render3D && (
         <iframe

@@ -1,7 +1,7 @@
+/* @ts-expect-error ignore */
 import Self from "@assets/images/self.jpg";
 import { Head } from "@components/template";
 import { useMediaQuery } from "react-responsive";
-import Image from "next/image";
 import styles from "~/styles/Home.module.scss";
 
 const About = () => {
@@ -32,7 +32,7 @@ const About = () => {
 
           {!movePhoto && (
             <div className={styles.photoProfile}>
-              <Image alt="Firmansyah Yanuar Photo" src={Self} />
+              <img alt="Firmansyah Yanuar" src={Self} />
             </div>
           )}
         </div>

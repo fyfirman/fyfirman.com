@@ -1,10 +1,9 @@
 import React from "react";
-import Image from "next/image";
 import styles from "./project-card.module.scss";
 
 interface ProjectCardProps {
   href: string;
-  imageURI: StaticImageData;
+  imageURI: any;
   title: string;
   desc: string;
   stack: string[];
@@ -17,7 +16,7 @@ const ProjectCard = (props: ProjectCardProps) => {
   return (
     <div className={styles["card-container"]}>
       <div className={styles["card-image"]}>
-        <Image alt={`${title} Snapshot`} src={imageURI} />
+        <img alt={`${title} Snapshot`} src={imageURI} />
       </div>
       <span className={styles["card-title"]}>{title}</span>
       <p className="text-body">{desc}</p>
