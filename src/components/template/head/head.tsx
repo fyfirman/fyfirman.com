@@ -1,14 +1,15 @@
-import React, { useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import NextHead from "next/head";
 import env from "~/utils/environment";
 
 interface HeadProps {
   title?: string;
   hideWebTitle?: boolean;
+  children: React.ReactNode;
 }
 
-const Head = (props: HeadProps) => {
-  const { title, hideWebTitle = false } = props;
+const Head: FC<HeadProps>= (props) => {
+  const { title, hideWebTitle = false, children } = props;
 
   const finalTitle = useMemo(() => {
     if (hideWebTitle && title) {
@@ -25,6 +26,7 @@ const Head = (props: HeadProps) => {
       <title>{finalTitle}</title>
       <meta content={env.metaDesc} name="description" />
       <link href="/img/logo.svg" rel="icon" />
+      {children}
     </NextHead>
   );
 };

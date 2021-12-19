@@ -13,7 +13,8 @@
     "start": "next start",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,yml,yaml}\"",
     "lint:fix": "eslint --fix \"**/*.{js,jsx,ts,tsx,yml,yaml}\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "export": "npm run build && next export"
   },
   "dependencies": {
     "@fontsource/nunito-sans": "^4.1.0",
@@ -29,6 +30,8 @@
     "sass": "^1.43.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-react": "^7.16.5",
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
     "@types/node": "16.11.6",
@@ -45,6 +48,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-yml": "^0.10.0",
+    "frontmatter-markdown-loader": "^3.6.3",
     "husky": "^7.0.0",
     "prettier": "^2.4.1",
     "typescript": "4.4.4"
