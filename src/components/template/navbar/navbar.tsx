@@ -11,6 +11,7 @@ import { useResponsive, useScrollOffset } from "~/hooks";
 import { clsx } from "~/helpers";
 import { Button } from "~/components/atomic";
 import { MobileMenuModal } from "~/components/modal";
+import { cloudinaryLoader } from "@/src/lib/image/cloudinary-loader";
 
 const DarkToggler = dynamic(() => import("./components/dark-toggler/dark-toggler"), { ssr: false });
 
@@ -43,6 +44,7 @@ const Navbar = () => {
                 alt="Menu Icon"
                 className={styles["menu-icon"]}
                 height={36}
+                loader={cloudinaryLoader}
                 src={isMobileVisible ? (CloseOutline as string) : (MenuOutline as string)}
                 width={36}
               />

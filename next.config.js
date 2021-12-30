@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  i18n: {
-    localeDetection: false,
-  },
   reactStrictMode: true,
   webpack: (cfg) => {
     cfg.module.rules.push({
@@ -11,5 +8,11 @@ module.exports = {
       options: { mode: ["react-component"] },
     });
     return cfg;
+  },
+  images: {
+    deviceSizes: [360, 420, 720],
+    domains: ["res.cloudinary.com"],
+    loader: "cloudinary",
+    path: "https://res.cloudinary.com/fyfirman/image/upload/",
   },
 };

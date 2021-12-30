@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./project-card.module.scss";
+import { cloudinaryLoader } from "@/src/lib/image/cloudinary-loader";
 
 interface ProjectCardProps {
   href: string;
@@ -17,7 +18,7 @@ const ProjectCard = (props: ProjectCardProps) => {
   return (
     <div className={styles["card-container"]}>
       <div className={styles["card-image"]}>
-        <Image alt={`${title} Snapshot`} src={imageURI} />
+        <Image alt={`${title} Snapshot`} loader={cloudinaryLoader} src={imageURI} />
       </div>
       <span className={styles["card-title"]}>{title}</span>
       <p className="text-body">{desc}</p>

@@ -7,6 +7,7 @@ import styles from "./mobile-menu-modal.module.scss";
 import { ModalProps } from "~/interfaces/modal";
 import useAppDarkMode from "~/hooks/useAppDarkMode";
 import { clsx } from "~/helpers/classname-helper";
+import { cloudinaryLoader } from "@/src/lib/image/cloudinary-loader";
 
 const menuList = [
   { title: "Home", url: "/" },
@@ -46,9 +47,9 @@ const MobileMenuModal: React.FC<ModalProps> = ({ visible, onClose }) => {
 
       <a className={styles.menu} onClick={toggleDarkMode} onKeyPress={toggleDarkMode}>
         {isDarkMode ? (
-          <Image alt="Dark Mode Icon" src={Moon as string} />
+          <Image alt="Dark Mode Icon" loader={cloudinaryLoader} src={Moon as string} />
         ) : (
-          <Image alt="Light Mode Icon" src={Sun as string} />
+          <Image alt="Light Mode Icon" loader={cloudinaryLoader} src={Sun as string} />
         )}
         {isDarkMode ? "Dark Mode" : "Light Mode"}
       </a>

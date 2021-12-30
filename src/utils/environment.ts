@@ -11,6 +11,9 @@ const env = {
     appId: process.env.APP_ID,
     measurementId: process.env.MEASUREMENT_ID,
   },
+  cloudinary: {
+    cloudName: process.env.CLOUD_NAME,
+  },
 };
 
 export default env;

@@ -5,6 +5,7 @@ import { useMediaQuery } from "react-responsive";
 import styles from "~/styles/Home.module.scss";
 import { clsx } from "~/helpers";
 import { useResponsive } from "~/hooks";
+import { cloudinaryLoader } from "@/src/lib/image/cloudinary-loader";
 
 const HomeHeader = () => {
   const { isMobile } = useResponsive();
@@ -17,7 +18,7 @@ const HomeHeader = () => {
       <div className={clsx([styles.jumbotron, isMobile && styles.mobile])}>
         {isMobile && (
           <div className={clsx([styles.photoProfile, styles.mobile])}>
-            <Image alt="Firmansyah Yanuar Photo" src={Self} />
+            <Image alt="Firmansyah Yanuar Photo" loader={cloudinaryLoader} src={Self} />
           </div>
         )}
         <div className={clsx([styles.aboutMe, isMobile && styles.mobile])}>
@@ -37,7 +38,7 @@ const HomeHeader = () => {
 
         {!isMobile && (
           <div className={styles.photoProfile}>
-            <Image alt="Firmansyah Yanuar Photo" src={Self} />
+            <Image alt="Firmansyah Yanuar Photo" loader={cloudinaryLoader} src={Self} />
           </div>
         )}
       </div>

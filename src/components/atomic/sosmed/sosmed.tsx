@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import Image from "next/image";
 import styles from "./sosmed.module.scss";
+import { cloudinaryLoader } from "@/src/lib/image/cloudinary-loader";
 
 interface SosmedProps {
   href: string;
@@ -24,6 +25,7 @@ const Sosmed = (props: SosmedProps) => {
           alt={`${name} Icon`}
           // Cannot resolve how to dynamically import with typescript
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          loader={cloudinaryLoader}
           src={require(`../../../assets/images/sosmed/${name.toLowerCase().split(" ").join("-")}.svg`)}
         />
       </div>

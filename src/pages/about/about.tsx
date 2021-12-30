@@ -3,6 +3,7 @@ import { Head } from "@components/template";
 import { useMediaQuery } from "react-responsive";
 import Image from "next/image";
 import styles from "~/styles/Home.module.scss";
+import { cloudinaryLoader } from "@/src/lib/image/cloudinary-loader";
 
 const About = () => {
   const movePhoto = useMediaQuery({ query: "(max-width: 820px)" });
@@ -32,7 +33,7 @@ const About = () => {
 
           {!movePhoto && (
             <div className={styles.photoProfile}>
-              <Image alt="Firmansyah Yanuar Photo" src={Self} />
+              <Image alt="Firmansyah Yanuar Photo" loader={cloudinaryLoader} src={Self} />
             </div>
           )}
         </div>
