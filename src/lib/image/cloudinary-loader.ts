@@ -7,17 +7,16 @@ setConfig({
 });
 
 export const cloudinaryLoader = ({ src, width, quality }: ImageLoaderProps) => {
-  console.log(env.cloudinary.cloudName);
   const url = buildUrl(extractPublicId(src), {
+    // TODO: change cloud name
+    cloud: {
+      cloudName: "fyfirman",
+    },
     transformations: {
       resize: {
         width,
       },
       quality,
-      effect: {
-        name: "pixelate",
-        value: 40,
-      },
     },
   });
   return url;
