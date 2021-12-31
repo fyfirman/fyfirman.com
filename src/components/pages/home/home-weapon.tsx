@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "~/styles/Home.module.scss";
 import { Weapon } from "~/components/atomic";
-import { useResponsive } from "~/hooks";
+import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers";
 
 interface IWeaponList {

@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import Image from "next/image";
 import styles from "./weapon.module.scss";
-import { useResponsive } from "~/hooks";
+import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers";
 
 interface WeaponProps {

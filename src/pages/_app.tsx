@@ -3,10 +3,10 @@ import "@fontsource/nunito-sans";
 import type { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
-import { Navbar } from "../components/template";
 import styles from "../styles/App.module.scss";
+import Navbar from "~/components/template/navbar";
 import { clsx } from "~/helpers/classname-helper";
-import { useResponsive } from "~/hooks";
+import useResponsive from "~/hooks/useResponsive";
 import Footer from "~/components/template/footer/footer";
 
 function MyApp({ Component, pageProps }: AppProps) {

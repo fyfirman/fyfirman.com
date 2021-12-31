@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styles from "./footer.module.scss";
 import { clsx } from "~/helpers";
-import { useResponsive } from "~/hooks";
+import useResponsive from "~/hooks/useResponsive";
 
 const Footer: FC<{}> = () => {
   const { isMobile } = useResponsive();

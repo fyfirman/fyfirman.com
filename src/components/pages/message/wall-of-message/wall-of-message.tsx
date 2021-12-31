@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import styles from "./wall-of-message.module.scss";
-import WallOfMessageCard from "./wall-of-message-card";
 import { IMessage } from "~/interfaces/message";
-import { useResponsive } from "~/hooks";
+import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers/classname-helper";
+import WallOfMessageCard from "~/components/atomic/wall-of-message-card";
 
 interface WallOfMessageProps {
   data: IMessage[];

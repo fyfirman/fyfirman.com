@@ -7,12 +7,13 @@ import dynamic from "next/dynamic";
 import { Desktop, TabletAndBelow } from "../responsive/responsive";
 import styles from "./navbar.module.scss";
 import MenuHeader from "./components/menu-navbar/menu-navbar";
-import { useResponsive, useScrollOffset } from "~/hooks";
+import useScrollOffset from "~/hooks/useScrollOffset";
+import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers";
-import { Button } from "~/components/atomic";
-import { MobileMenuModal } from "~/components/modal";
+import Button from "~/components/atomic/button";
 
 const DarkToggler = dynamic(() => import("./components/dark-toggler/dark-toggler"), { ssr: false });
+const MobileMenuModal = dynamic(() => import("~/components/modal/mobile-menu-modal"), { ssr: false });
 
 const Navbar = () => {
   const { isMobile } = useResponsive();

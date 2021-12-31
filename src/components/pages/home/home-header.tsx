@@ -4,7 +4,7 @@ import Self from "@assets/images/self.jpg";
 import { useMediaQuery } from "react-responsive";
 import styles from "~/styles/Home.module.scss";
 import { clsx } from "~/helpers";
-import { useResponsive } from "~/hooks";
+import useResponsive from "~/hooks/useResponsive";
 
 const HomeHeader = () => {
   const { isMobile } = useResponsive();
