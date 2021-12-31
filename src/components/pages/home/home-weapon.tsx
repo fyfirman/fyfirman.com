@@ -24,7 +24,7 @@ const HomeWeapon = () => {
   const { isMobile } = useResponsive();
 
   return (
-    <>
+    <div id="home-weapon">
       <h2 className={styles.headings2}>My Weapons</h2>
       <div className={styles.weaponContainer}>
         <div style={{ flex: 1 }}>
@@ -48,7 +48,7 @@ const HomeWeapon = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
