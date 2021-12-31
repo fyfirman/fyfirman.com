@@ -28,10 +28,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div className={`${styles.root} ${darkModeActive ? "dark" : "light"}`}>
       <Navbar />
-      <div className={clsx([styles["body-container"], isMobile && styles.mobile])}>
+      <main className={clsx([styles["body-container"], isMobile && styles.mobile])}>
         <Component {...pageProps} />
         <Footer />
-      </div>
+      </main>
     </div>
   );
 }

@@ -22,7 +22,10 @@ body {
   --text-button: #ffffffd9;
   --text-highlight: white;
   --text-headings: black;
+  --text-secondary: #000000AA;
   --border-input: #00000055;
+  --border-card: #000000AA;
+  --hover-checkbox: #00000030;
 
   transition: background-color 0.5s;
   background-color: var(--bg);
@@ -44,7 +47,11 @@ body.dark {
   --text-button: #141414;
   --text-headings: white;
   --text-highlight: black;
+  --text-secondary: #ffffffAA;
   --border-input: #ffffff55;
+  --border-card: #ffffffAA;
+  --hover-checkbox: #ffffff30;
+
   transition: background-color 0.5s;
   background-color: var(--bg);
 }

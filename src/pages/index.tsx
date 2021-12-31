@@ -9,12 +9,12 @@ const Home: NextPage = () => {
     <>
       <Head title="Home" />
 
-      <main className={styles.main}>
+      <div className={styles.main}>
         <HomeHeader />
         <HomeWeapon />
         <HomeProject />
         <HomeContact />
-      </main>
+      </div>
     </>
   );
 };

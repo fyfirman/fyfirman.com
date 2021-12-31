@@ -37,7 +37,9 @@
     "react/jsx-sort-props": ["warn", { "reservedFirst": ["key"] }],
     "react/react-in-jsx-scope": ["off"],
     "@babel/no-unused-expressions": 0,
-    "no-negated-condition": "off"
+    "no-negated-condition": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off"
+
   },
   "settings": {
     "import/resolver": {

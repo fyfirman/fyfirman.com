@@ -1,0 +1,31 @@
+.container {
+  border: 0.25px solid var(--border-card);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s;
+}
+.container:hover {
+  box-shadow: 6px 6px var(--shadow-ava);
+  transform: translateX(-3px) translateY(-3px);
+}
+.container > div{
+  display: flex;
+  flex: 1;
+}
+.sender {
+  font-weight: bold;
+  color: var(--text-headings);
+
+  &.anonim {
+    font-style: italic;
+  }
+}
+.message {
+  margin-bottom: 8px;
+  color: var(--text-headings);
+}
+.date {
+  font-size: 11px;
+  align-self: end;
+}

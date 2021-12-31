@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Head } from "@components/template";
+import { useListVals } from "react-firebase-hooks/database";
 import styles from "./message.module.scss";
 import MessageForm from "~/components/pages/message/message-form";
+import WallOfMessage from "~/components/pages/message/wall-of-message/wall-of-message";
+import { IMessage } from "~/interfaces/message";
+import app from "~/utils/firebase";
 
 const MessagePage = () => {
+  const [values, isLoading] = useListVals<IMessage>(
+    app.database().ref("messages").orderByChild("isPublic").equalTo(true),
+  );
+
+  const filteredData: IMessage[] = useMemo(() => {
+    if (!values) {
+      return [];
+    }
+
+    return values.sort((prev, next) => (prev.createdAt < next.createdAt ? 1 : -1));
+  }, [values]);
+
   return (
     <div>
       <Head title="Message" />
-      <h3 className={styles.title}>Send me a message</h3>
+      <h1 className={styles.title}>Send me a message</h1>
       <div className={styles["message-container"]}>
         <div style={{ flex: 1 }}>
           <p className="text-body">
@@ -31,6 +47,8 @@ const MessagePage = () => {
         </div>
         <MessageForm />
       </div>
+      <h1 className={styles.title}>Wall of message</h1>
+      {!isLoading && values && <WallOfMessage data={filteredData} />}
     </div>
   );
 };
