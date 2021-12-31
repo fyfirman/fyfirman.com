@@ -9,7 +9,7 @@ const About = () => {
 
   return (
     <div className={styles.container}>
-      <Head title="Home" />
+      <Head title="About" />
 
       <main className={styles.main}>
         {/* About section */}

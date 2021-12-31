@@ -8,11 +8,13 @@ import Navbar from "~/components/template/navbar";
 import { clsx } from "~/helpers/classname-helper";
 import useResponsive from "~/hooks/useResponsive";
 import Footer from "~/components/template/footer/footer";
+import useGTM from "~/hooks/useGTM";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { darkModeActive } = useDarkMode();
   const { isMobile } = useResponsive();
 
+  useGTM();
   useEffect(() => {
     const bodyClassName = document.body.className;
 
