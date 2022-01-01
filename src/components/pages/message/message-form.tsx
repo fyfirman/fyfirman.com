@@ -38,7 +38,7 @@ const MessageForm = () => {
       setIsLoading(false);
     } catch (e: unknown) {
       if (e instanceof Error) {
-        setError({ isError: true, message: error.message });
+        setError({ isError: true, message: e.message });
       } else {
         setError({ isError: true, message: "Undefined Error" });
       }
