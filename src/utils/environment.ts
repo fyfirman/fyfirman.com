@@ -11,6 +11,8 @@ const env = {
     appId: process.env.NEXT_PUBLIC_APP_ID,
     measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
     gtmId: process.env.NEXT_PUBLIC_GTM_ID,
+    gtmAuth: process.env.NEXT_PUBLIC_GTM_AUTH,
+    gtmEnvId: process.env.NEXT_PUBLIC_GTM_ENV_ID,
   },
 };
 
