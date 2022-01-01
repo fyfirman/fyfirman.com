@@ -49,7 +49,7 @@ const projectList: IProject[] = [
 
 const HomeProject = () => {
   return (
-    <>
+    <div id="home-project">
       <h2 className={styles.headings2} id="project-section">
         Selected Project
       </h2>
@@ -64,7 +64,7 @@ const HomeProject = () => {
       <div className="spline-container">
         <iframe frameBorder="0" id="spline-geo-2" src="spline/geometric-2/index.html" title="3d-spline-geo-2" />
       </div>
-    </>
+    </div>
   );
 };
 

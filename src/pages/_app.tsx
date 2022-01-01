@@ -3,16 +3,18 @@ import "@fontsource/nunito-sans";
 import type { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
-import { Navbar } from "../components/template";
 import styles from "../styles/App.module.scss";
+import Navbar from "~/components/template/navbar";
 import { clsx } from "~/helpers/classname-helper";
-import { useResponsive } from "~/hooks";
+import useResponsive from "~/hooks/useResponsive";
 import Footer from "~/components/template/footer/footer";
+import useGTM from "~/hooks/useGTM";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { darkModeActive } = useDarkMode();
   const { isMobile } = useResponsive();
 
+  useGTM();
   useEffect(() => {
     const bodyClassName = document.body.className;
 
@@ -28,10 +30,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div className={`${styles.root} ${darkModeActive ? "dark" : "light"}`}>
       <Navbar />
-      <div className={clsx([styles["body-container"], isMobile && styles.mobile])}>
+      <main className={clsx([styles["body-container"], isMobile && styles.mobile])}>
         <Component {...pageProps} />
         <Footer />
-      </div>
+      </main>
     </div>
   );
 }

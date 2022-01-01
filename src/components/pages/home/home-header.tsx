@@ -4,7 +4,7 @@ import Self from "@assets/images/self.jpg";
 import { useMediaQuery } from "react-responsive";
 import styles from "~/styles/Home.module.scss";
 import { clsx } from "~/helpers";
-import { useResponsive } from "~/hooks";
+import useResponsive from "~/hooks/useResponsive";
 
 const HomeHeader = () => {
   const { isMobile } = useResponsive();
@@ -13,10 +13,10 @@ const HomeHeader = () => {
   });
 
   return (
-    <div className={styles["header-container"]}>
+    <div className={styles["header-container"]} id="home-header">
       <div className={clsx([styles.jumbotron, isMobile && styles.mobile])}>
         {isMobile && (
-          <div className={clsx([styles.photoProfile, styles.mobile])}>
+          <div className={clsx([styles.photoProfile, styles.mobile])} id="photo-profile-desktop">
             <Image alt="Firmansyah Yanuar Photo" src={Self} />
           </div>
         )}
@@ -28,6 +28,7 @@ const HomeHeader = () => {
           <a
             className={clsx([styles["primary-button"], isMobile && styles.mobile])}
             href="https://www.instagram.com/fyfirman/"
+            id="lets-talk-button"
             rel="noreferrer"
             target="_blank"
           >
@@ -37,7 +38,7 @@ const HomeHeader = () => {
 
         {!isMobile && (
           <div className={styles.photoProfile}>
-            <Image alt="Firmansyah Yanuar Photo" src={Self} />
+            <Image alt="Firmansyah Yanuar Photo" id="photo-profile-desktop" src={Self} />
           </div>
         )}
       </div>

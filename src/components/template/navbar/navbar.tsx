@@ -1,25 +1,19 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import MenuOutline from "@assets/images/menu-outline.svg";
-import CloseOutline from "@assets/images/close-outline.svg";
 import dynamic from "next/dynamic";
 import { Desktop, TabletAndBelow } from "../responsive/responsive";
 import styles from "./navbar.module.scss";
 import MenuHeader from "./components/menu-navbar/menu-navbar";
-import { useResponsive, useScrollOffset } from "~/hooks";
+import useScrollOffset from "~/hooks/useScrollOffset";
+import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers";
-import { Button } from "~/components/atomic";
-import { MobileMenuModal } from "~/components/modal";
 
 const DarkToggler = dynamic(() => import("./components/dark-toggler/dark-toggler"), { ssr: false });
+const NavbarMobile = dynamic(() => import("./navbar-mobile"), { ssr: false });
 
 const Navbar = () => {
   const { isMobile } = useResponsive();
   const isShadowVisible = useScrollOffset(20);
-  const [isMobileVisible, setIsMobileMenuVisible] = useState(false);
-
-  const toggleMenuMobile = useCallback(() => setIsMobileMenuVisible((prev) => !prev), []);
 
   return (
     <header className={clsx([styles.container, isShadowVisible && styles["container-shadow"]])}>
@@ -37,18 +31,7 @@ const Navbar = () => {
           </div>
         </Desktop>
         <TabletAndBelow>
-          <>
-            <Button className={styles["menu-button"]} onClick={toggleMenuMobile}>
-              <Image
-                alt="Menu Icon"
-                className={styles["menu-icon"]}
-                height={36}
-                src={isMobileVisible ? (CloseOutline as string) : (MenuOutline as string)}
-                width={36}
-              />
-            </Button>
-            <MobileMenuModal onClose={toggleMenuMobile} visible={isMobileVisible} />
-          </>
+          <NavbarMobile />
         </TabletAndBelow>
       </div>
     </header>

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "~/styles/Home.module.scss";
 import { Weapon } from "~/components/atomic";
-import { useResponsive } from "~/hooks";
+import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers";
 
 interface IWeaponList {
@@ -24,7 +24,7 @@ const HomeWeapon = () => {
   const { isMobile } = useResponsive();
 
   return (
-    <>
+    <div id="home-weapon">
       <h2 className={styles.headings2}>My Weapons</h2>
       <div className={styles.weaponContainer}>
         <div style={{ flex: 1 }}>
@@ -48,7 +48,7 @@ const HomeWeapon = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

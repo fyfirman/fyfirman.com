@@ -1,5 +1,5 @@
 import Self from "@assets/images/self.jpg";
-import { Head } from "@components/template";
+import Head from "@components/template/head";
 import { useMediaQuery } from "react-responsive";
 import Image from "next/image";
 import styles from "~/styles/Home.module.scss";
@@ -9,7 +9,7 @@ const About = () => {
 
   return (
     <div className={styles.container}>
-      <Head title="Home" />
+      <Head title="About" />
 
       <main className={styles.main}>
         {/* About section */}

@@ -1,9 +1,11 @@
 import React, { SyntheticEvent, useMemo, useState } from "react";
 import styles from "./message-form.module.scss";
 import MessageServices from "~/services/message.services";
+import Checkbox from "~/components/atomic/checkbox";
 
 const MessageForm = () => {
   const [senderName, setSenderName] = useState("");
+  const [isPublic, setIsPublic] = useState<boolean>(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState({
     isError: false,
@@ -30,13 +32,13 @@ const MessageForm = () => {
     setIsLoading(true);
 
     try {
-      await MessageServices.sendMessage(message, senderName);
+      await MessageServices.sendMessage(message, senderName, { isPublic });
 
       setIsSuccess(true);
       setIsLoading(false);
     } catch (e: unknown) {
       if (e instanceof Error) {
-        setError({ isError: true, message: error.message });
+        setError({ isError: true, message: e.message });
       } else {
         setError({ isError: true, message: "Undefined Error" });
       }
@@ -56,6 +58,7 @@ const MessageForm = () => {
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Put your message here"
       />
+      <Checkbox id="isPublic" label="Post in wall of message" onChange={setIsPublic} />
       <input
         className={styles["send-button"]}
         disabled={isSuccess || isLoading}

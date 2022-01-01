@@ -1,20 +1,23 @@
 import type { NextPage } from "next";
-import { Head } from "@components/template";
+import Head from "@components/template/head";
 import React from "react";
 import styles from "../styles/Home.module.scss";
-import { HomeContact, HomeHeader, HomeProject, HomeWeapon } from "~/components/pages/home";
+import HomeHeader from "~/components/pages/home/home-header";
+import HomeWeapon from "~/components/pages/home/home-weapon";
+import HomeProject from "~/components/pages/home/home-project";
+import HomeContact from "~/components/pages/home/home-contact";
 
 const Home: NextPage = () => {
   return (
     <>
       <Head title="Home" />
 
-      <main className={styles.main}>
+      <div className={styles.main}>
         <HomeHeader />
         <HomeWeapon />
         <HomeProject />
         <HomeContact />
-      </main>
+      </div>
     </>
   );
 };

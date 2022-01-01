@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import { memo } from "react";
-import { useResponsive } from "~/hooks";
+import useResponsive from "~/hooks/useResponsive";
 
 const BaseDesktop = ({ children }: { children: React.ReactElement }) => {
   const { isMobile } = useResponsive();

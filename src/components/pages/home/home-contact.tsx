@@ -4,7 +4,7 @@ import { Sosmed } from "~/components/atomic";
 
 const HomeContact = () => {
   return (
-    <>
+    <div id="home-contact">
       <h2 className={styles.headings2}>Get In Touch With Me</h2>
       <div style={{ maxWidth: "600px" }}>
         <p className="text-body">
@@ -24,7 +24,7 @@ const HomeContact = () => {
         <Sosmed href="https://www.youtube.com/channel/UC2KC2T2XtzkG-IQs3MItv5Q" name="Youtube" position="right" />
         <Sosmed href="https://fyfirman.medium.com" name="Medium" position="right" />
       </div>
-    </>
+    </div>
   );
 };
 
