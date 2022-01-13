@@ -2,7 +2,7 @@
 import env from "~/utils/environment";
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-export const GTMPageView = (url: string) => {
+export const trackPageView = (url: string) => {
   interface PageEventProps {
     event: string;
     page: string;
