@@ -33,6 +33,7 @@
     "sass": "^1.43.4"
   },
   "devDependencies": {
+    "@babel/eslint-plugin": "^7.16.5",
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
     "@testing-library/jest-dom": "^5.16.1",
