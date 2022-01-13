@@ -14,22 +14,28 @@ export const formatTimeStampToFullDate = (second: number) => {
 export const formatDateDifference = (date: Date) => {
   const now = new Date();
 
-  const diffMonths = differenceInMonths(now, date);
+  const diffMonths = differenceInMonths(date, now);
   if (diffMonths > 0) {
     return format(date, "dd-MM-yyyy H:mm");
   }
 
-  const diffWeeks = differenceInWeeks(now, date);
-  if (diffWeeks > 1) {
+  const diffWeeks = differenceInWeeks(date, now);
+  if (diffWeeks > 0) {
+    if (diffWeeks === 1) {
+      return "One week ago";
+    }
     return `${diffWeeks} weeks ago`;
   }
 
-  const diffDays = differenceInDays(now, date);
-  if (diffDays > 1) {
-    return `${diffWeeks} days ago`;
+  const diffDays = differenceInDays(date, now);
+  if (diffDays > 0) {
+    if (diffDays === 1) {
+      return "One day ago";
+    }
+    return `${diffDays} days ago`;
   }
 
-  const diffHours = differenceInHours(now, date);
+  const diffHours = differenceInHours(date, now);
   if (diffHours > 0) {
     if (diffHours === 1) {
       return "About an hour ago";
@@ -37,7 +43,7 @@ export const formatDateDifference = (date: Date) => {
     return `${diffHours} hours ago`;
   }
 
-  const diffMinutes = differenceInMinutes(now, date);
+  const diffMinutes = differenceInMinutes(date, now);
   if (diffMinutes > 1) {
     return `${diffMinutes} minutes ago`;
   }

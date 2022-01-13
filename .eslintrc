@@ -5,11 +5,11 @@
     "kentcdodds",
     "kentcdodds/react",
     "kentcdodds/jsx-a11y",
+    "kentcdodds/jest",
     "plugin:@next/next/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "plugin:yml/standard",
-    "plugin:yml/prettier"
+    "plugin:jest/recommended"
   ],
   "plugins": ["prettier"],
   "rules": {
@@ -38,8 +38,9 @@
     "react/react-in-jsx-scope": ["off"],
     "@babel/no-unused-expressions": 0,
     "no-negated-condition": "off",
-    "@typescript-eslint/prefer-nullish-coalescing": "off"
-
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "testing-library/no-container": "off",
+    "testing-library/no-node-access": "off"
   },
   "settings": {
     "import/resolver": {
@@ -58,9 +59,20 @@
       "rules": {}
     },
     {
-      "files": ["*.yaml", "*.yml"],
-      "parser": "yaml-eslint-parser"
-    }
+      "files": ["**/*.test.ts(x)?"],
+      "env": {
+        "jest/globals": true
+      },
+      "plugins": ["eslint-plugin-jest"],
+      "rules": {
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+        "jest/valid-describe": "warn"
+      }
+    },
   ],
   "ignorePatterns": ["public/**/*.js"]
 }

@@ -11,18 +11,16 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: getScriptGTM(),
-              }}
-            />
-            <noscript
-              dangerouslySetInnerHTML={{
-                __html: getNoScriptGTM(),
-              }}
-            />
-          </>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: getScriptGTM(),
+            }}
+          />
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: getNoScriptGTM(),
+            }}
+          />
         </Head>
         <body>
           <Main />
