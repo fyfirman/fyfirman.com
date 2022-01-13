@@ -9,8 +9,6 @@
     "plugin:@next/next/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "plugin:yml/standard",
-    "plugin:yml/prettier",
     "plugin:jest/recommended"
   ],
   "plugins": ["prettier"],
@@ -75,10 +73,6 @@
         "jest/valid-describe": "warn"
       }
     },
-    {
-      "files": ["*.yaml", "*.yml"],
-      "parser": "yaml-eslint-parser"
-    }
   ],
   "ignorePatterns": ["public/**/*.js"]
 }
