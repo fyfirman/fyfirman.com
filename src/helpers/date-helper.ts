@@ -11,15 +11,19 @@ export const formatTimeStampToFullDate = (second: number) => {
   return format(new Date(second), "dd-MM-yyyy H:mm");
 };
 
-export const formatDateDifference = (date: Date) => {
+export const formatDateDifference = (oldDate: Date) => {
   const now = new Date();
 
-  const diffMonths = differenceInMonths(date, now);
-  if (diffMonths > 0) {
-    return format(date, "dd-MM-yyyy H:mm");
+  if (oldDate.getTime() > now.getTime()) {
+    return "Invalid oldDate";
   }
 
-  const diffWeeks = differenceInWeeks(date, now);
+  const diffMonths = differenceInMonths(now, oldDate);
+  if (diffMonths > 0) {
+    return format(oldDate, "dd-MM-yyyy H:mm");
+  }
+
+  const diffWeeks = differenceInWeeks(now, oldDate);
   if (diffWeeks > 0) {
     if (diffWeeks === 1) {
       return "One week ago";
@@ -27,7 +31,7 @@ export const formatDateDifference = (date: Date) => {
     return `${diffWeeks} weeks ago`;
   }
 
-  const diffDays = differenceInDays(date, now);
+  const diffDays = differenceInDays(now, oldDate);
   if (diffDays > 0) {
     if (diffDays === 1) {
       return "One day ago";
@@ -35,7 +39,7 @@ export const formatDateDifference = (date: Date) => {
     return `${diffDays} days ago`;
   }
 
-  const diffHours = differenceInHours(date, now);
+  const diffHours = differenceInHours(now, oldDate);
   if (diffHours > 0) {
     if (diffHours === 1) {
       return "About an hour ago";
@@ -43,7 +47,7 @@ export const formatDateDifference = (date: Date) => {
     return `${diffHours} hours ago`;
   }
 
-  const diffMinutes = differenceInMinutes(date, now);
+  const diffMinutes = differenceInMinutes(now, oldDate);
   if (diffMinutes > 1) {
     return `${diffMinutes} minutes ago`;
   }
