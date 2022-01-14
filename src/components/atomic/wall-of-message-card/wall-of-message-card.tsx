@@ -14,9 +14,9 @@ const WallOfMessageCard = ({ data }: WallOfMessageProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={clsx([styles.sender, isAnonim && styles.anonim])}>{!isAnonim ? senderName : "// anonim"}</div>
-      <div className={styles.message}>{message}</div>
-      <div className={styles.date}>{formatTimeStampToDateDifference(createdAt)}</div>
+      <span className={clsx([styles.sender, isAnonim && styles.anonim])}>{!isAnonim ? senderName : "// anonim"}</span>
+      <p className={styles.message}>{message}</p>
+      <span className={styles.date}>{formatTimeStampToDateDifference(createdAt)}</span>
     </div>
   );
 };
