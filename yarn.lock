@@ -1425,6 +1425,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-stack-grid@^0.7.3":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@types/react-stack-grid/-/react-stack-grid-0.7.3.tgz#d98219de7cd03d16e1d1cc93d704b75bd75b390e"
+  integrity sha512-pncNHcm7G8IDtiWptwB+gfRjwE/aBGBUZodvVDmKdswyet4P+3fe0ngavi0wH56VZkQOyFjiMRpA+LrdwJoyAA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@17.0.33":
   version "17.0.33"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.33.tgz#e01ae3de7613dac1094569880bb3792732203ad5"
