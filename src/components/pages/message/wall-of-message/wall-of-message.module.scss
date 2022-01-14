@@ -1,12 +1,4 @@
 .container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  grid-auto-rows: auto 1fr;
-  grid-column-end: span 1;
-  grid-template-areas: "main_content top" "main_content bottom";
-  column-gap: 16px;
-  row-gap: 16px;
-
   &.mobile {
     grid-template-columns: auto;
     margin-bottom: 10vh;

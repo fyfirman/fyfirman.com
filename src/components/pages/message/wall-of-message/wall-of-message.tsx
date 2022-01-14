@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import StackGrid from "react-stack-grid";
 import styles from "./wall-of-message.module.scss";
 import { IMessage } from "~/interfaces/message";
 import useResponsive from "~/hooks/useResponsive";
@@ -15,11 +16,16 @@ const WallOfMessage: FC<WallOfMessageProps> = ({ data }) => {
   return (
     <div>
       {data.length > 0 ? (
-        <div className={clsx([styles.container, isMobile && styles.mobile])}>
+        <StackGrid
+          className={clsx([styles.container, isMobile && styles.mobile])}
+          columnWidth={isMobile ? "100%" : "33.3%"}
+          gutterHeight={15}
+          gutterWidth={15}
+        >
           {data.map((message, index) => (
             <WallOfMessageCard key={index} data={message} />
           ))}
-        </div>
+        </StackGrid>
       ) : (
         <span>Data kosong</span>
       )}

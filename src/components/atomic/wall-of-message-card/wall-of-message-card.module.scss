@@ -32,11 +32,6 @@
   color: var(--text-headings);
   flex: 1;
   -webkit-box-orient: vertical;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
   margin: 0;
 }
 .date {
