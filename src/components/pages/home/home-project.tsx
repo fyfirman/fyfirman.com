@@ -23,7 +23,7 @@ const projectList: IProject[] = [
     desc: "A startup that has just started its business, providing a matchmaking game platform to compete with each other.",
     href: "https://velocity-league.com",
     imageURI: velocityLeague,
-    stack: ["React", "Typescript", ""],
+    stack: ["React", "Typescript"],
   },
   {
     desc: "Auto-fill questionnare on PACIS Unpad",
