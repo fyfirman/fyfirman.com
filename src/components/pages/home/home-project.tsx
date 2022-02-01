@@ -3,6 +3,8 @@ import pacisBot from "@assets/images/project/pacis-bot.jpg";
 import himatifApps from "@assets/images/project/himatif-apps.jpg";
 import careIn from "@assets/images/project/carein.jpg";
 import terimaCurhatASI from "@assets/images/project/terima-curhat-asi.jpg";
+import velocityLeague from "@assets/images/project/velocity-league.jpg";
+import curhatASIWeb from "@assets/images/project/curhat-asi-web.jpg";
 import { ProjectCard } from "~/components/atomic";
 import styles from "~/styles/Home.module.scss";
 
@@ -16,6 +18,13 @@ interface IProject {
 }
 
 const projectList: IProject[] = [
+  {
+    title: "Velocity League",
+    desc: "A startup that has just started its business, providing a matchmaking game platform to compete with each other.",
+    href: "https://velocity-league.com",
+    imageURI: velocityLeague,
+    stack: ["React", "Typescript"],
+  },
   {
     desc: "Auto-fill questionnare on PACIS Unpad",
     href: "https://github.com/fyfirman/pacis-questionnaire-bot",
@@ -45,7 +54,17 @@ const projectList: IProject[] = [
     stack: ["React Native", "Laravel", "MySQL"],
     title: "Terima Curhat ASI",
   },
+  {
+    desc: "Dashboard of Curhat ASI to analyze user activities",
+    href: "#",
+    imageURI: curhatASIWeb,
+    notAvailable: true,
+    stack: ["React", "Typescript"],
+    title: "Curhat ASI Web",
+  },
 ];
+
+const NUM_OF_COLUMN = 2;
 
 const HomeProject = () => {
   return (
@@ -53,10 +72,10 @@ const HomeProject = () => {
       <h2 className={styles.headings2} id="project-section">
         Selected Project
       </h2>
-      {[...(Array(2) as number[])].map((_, i) => (
+      {[...(Array(Math.round(projectList.length / NUM_OF_COLUMN)) as number[])].map((_, i) => (
         <div key={i} className={`${styles.projectContainer} ${i % 2 === 0 ? styles.first : styles.last}`}>
-          {[...(Array(2) as number[])].map((__, j) => (
-            <ProjectCard key={2 * i + j} {...projectList[2 * i + j]} />
+          {[...(Array(NUM_OF_COLUMN) as number[])].map((__, j) => (
+            <ProjectCard key={2 * j + j} {...projectList[2 * i + j]} />
           ))}
         </div>
       ))}
