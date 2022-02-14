@@ -94,13 +94,21 @@ const HomeHeader = () => {
         )}
       </div>
       {!env.disableSpline && render3D && (
-        <iframe
+        <motion.iframe
+          animate={{ x: 0, y: 0, opacity: 1 }}
           className={styles["spline-geo-1"]}
           frameBorder="0"
           id="spline-geo-1"
+          initial={{ x: 20, y: 20, opacity: 0 }}
           loading="lazy"
           src="spline/geometric-1/index.html"
           title="3d-spline-geo-1"
+          transition={{
+            duration: 1,
+            delay: 1.5,
+            x: { repeat: Infinity, repeatType: "mirror", duration: 5 },
+            y: { repeat: Infinity, repeatType: "mirror", duration: 3 },
+          }}
         />
       )}
     </div>
