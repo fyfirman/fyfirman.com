@@ -7,6 +7,7 @@ import velocityLeague from "@assets/images/project/velocity-league.jpg";
 import curhatASIWeb from "@assets/images/project/curhat-asi-web.jpg";
 import { ProjectCard } from "~/components/atomic";
 import styles from "~/styles/Home.module.scss";
+import env from "~/utils/environment";
 
 interface IProject {
   desc: string;
@@ -80,9 +81,17 @@ const HomeProject = () => {
         </div>
       ))}
       {/* <Link to="/project/">See All Project</Link> <br /> */}
-      <div className="spline-container">
-        <iframe frameBorder="0" id="spline-geo-2" src="spline/geometric-2/index.html" title="3d-spline-geo-2" />
-      </div>
+      {!env.disableSpline && (
+        <div className="spline-container">
+          <iframe
+            frameBorder="0"
+            id="spline-geo-2"
+            loading="lazy"
+            src="spline/geometric-2/index.html"
+            title="3d-spline-geo-2"
+          />
+        </div>
+      )}
     </div>
   );
 };
