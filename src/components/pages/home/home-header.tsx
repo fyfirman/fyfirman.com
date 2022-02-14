@@ -26,7 +26,7 @@ const HomeHeader = () => {
       <div className={clsx([styles.jumbotron, isMobile && styles.mobile])}>
         {isMobile && (
           <div className={clsx([styles.photoProfile, styles.mobile])} id="photo-profile-desktop">
-            <Image alt="Firmansyah Yanuar Photo" src={Self} />
+            <Image alt="Firmansyah Yanuar Photo" priority={isMobile} src={Self} />
           </div>
         )}
         <div className={clsx([styles.aboutMe, isMobile && styles.mobile])}>
@@ -89,7 +89,7 @@ const HomeHeader = () => {
             initial={{ scale: 0, opacity: 0 }}
             transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
           >
-            <Image alt="Firmansyah Yanuar Photo" id="photo-profile-desktop" src={Self} />
+            <Image alt="Firmansyah Yanuar Photo" id="photo-profile-desktop" priority={!isMobile} src={Self} />
           </motion.div>
         )}
       </div>
