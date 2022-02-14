@@ -1,0 +1,35 @@
+{
+  "typescriptReactArrowFunctionExportComponent": {
+    "prefix": "tscomp",
+    "body": [
+      "import React from 'react';",
+      "import styles from './${TM_FILENAME_BASE}.module.scss';",
+      "",
+      "interface ${TM_FILENAME_BASE/([a-z]*)-*([a-z]*)/${1:/capitalize}${2:/capitalize}/g}Props {",
+      "  ${1}",
+      "};",
+      "",
+      "const ${TM_FILENAME_BASE/([a-z]*)-*([a-z]*)/${1:/capitalize}${2:/capitalize}/g}: React.FC<${TM_FILENAME_BASE/([a-z]*)-*([a-z]*)/${1:/capitalize}${2:/capitalize}/g}Props> = (props) => {",
+      "  return <div className={styles.container}>$0</div>;",
+      "};",
+      "",
+      "export default ${TM_FILENAME_BASE/([a-z]*)-*([a-z]*)/${1:/capitalize}${2:/capitalize}/g};",
+      ""
+    ],
+    "description": "Creates a React Arrow Function Component"
+  },
+  "importImage": {
+    "prefix": "impg",
+    "body": [
+      "import ${1}Image from \"~/assets/images/${1}.png\";",
+    ],
+    "description": "Import global variable"
+  },
+  "importIcon": {
+    "prefix": "imc",
+    "body": [
+      "import ${1}Icon from \"~/assets/images/icon-${1}.svg\";",
+    ],
+    "description": "Import global variable"
+  },
+}
