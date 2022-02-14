@@ -21,7 +21,7 @@ const env: Environment = {
     gtmAuth: process.env.NEXT_PUBLIC_GTM_AUTH,
     gtmEnvId: process.env.NEXT_PUBLIC_GTM_ENV_ID,
   },
-  disableSpline: process.env.NEXT_PUBLIC_DISABLE_SPLINE as boolean,
+  disableSpline: process.env.NEXT_PUBLIC_DISABLE_SPLINE === "true",
 };
 
 export default env;
