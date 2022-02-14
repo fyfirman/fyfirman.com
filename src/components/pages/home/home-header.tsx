@@ -58,8 +58,8 @@ const HomeHeader = () => {
               scale: { repeat: Infinity, repeatType: "mirror", duration: 1.5 },
             }}
             variants={variants}
-            whileHover={{ scale: 1.2, transition: { duration: 0.5 } }}
-            whileTap={{ scale: 0.95, transition: { duration: 0.5 } }}
+            whileHover={{ scale: 1.2, transition: { duration: 0.5, type: "spring", stiffness: 150 } }}
+            whileTap={{ scale: 0.95, transition: { duration: 0.25, type: "spring", stiffness: 120 } }}
           >
             <motion.a
               animate={{ backgroundColor: darkModeActive ? "#ffffff" : "hsla(0, 0%, 0%, 0.851)" }}
