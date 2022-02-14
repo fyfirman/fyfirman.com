@@ -1,53 +1,75 @@
 import React from "react";
+import { motion, Variants } from "framer-motion";
 import styles from "~/styles/Home.module.scss";
 import { Weapon } from "~/components/atomic";
 import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers";
+import { primaryWeapon, secondaryWeapon } from "~/data/weapon-list";
 
-interface IWeaponList {
-  firstRow: string[];
-  secondRow: string[];
-  [key: string]: string[];
-}
+const getContainerAnimation = (inverse: boolean): Variants => ({
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+      staggerDirection: inverse ? -1 : 1,
+      delayChildren: 1,
+      duration: 0.3,
+    },
+  },
+});
 
-const primaryWeapon: Readonly<IWeaponList> = {
-  firstRow: ["React", "NodeJS", "Git", "Figma"],
-  secondRow: ["MongoDB", "MySQL", "Ubuntu Server"],
-};
-
-const secondaryWeapon: Readonly<IWeaponList> = {
-  firstRow: ["Laravel", "Docker", "CodeIginiter"],
-  secondRow: ["Java", "Python"],
-};
+const getItemAnimation = (inverse: boolean): Variants => ({
+  hidden: { x: inverse ? -250 : 250, opacity: 0 },
+  show: {
+    x: 0,
+    opacity: 1,
+  },
+});
 
 const HomeWeapon = () => {
   const { isMobile } = useResponsive();
 
   return (
     <div id="home-weapon">
-      <h2 className={styles.headings2}>My Weapons</h2>
-      <div className={styles.weaponContainer}>
-        <div style={{ flex: 1 }}>
-          <h3 className={clsx([styles.weaponType, isMobile && styles.mobile])}>Primary</h3>
-          {Object.keys(primaryWeapon).map((key) => (
-            <div key={`primary-${key}`} style={{ display: "flex", justifyContent: "center" }}>
-              {primaryWeapon[key].map((name: string) => (
-                <Weapon key={name} name={name} />
-              ))}
-            </div>
-          ))}
-        </div>
-        <div style={{ flex: 1 }}>
-          <h3 className={clsx([styles.weaponType, isMobile && styles.mobile])}>Secondary</h3>
-          {Object.keys(secondaryWeapon).map((key) => (
-            <div key={`secondary-${key}`} style={{ display: "flex", justifyContent: "center" }}>
-              {secondaryWeapon[key].map((name: string) => (
-                <Weapon key={name} name={name} />
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
+      <motion.h2
+        animate={{ y: 0, opacity: 1 }}
+        className={styles.headings2}
+        initial={{ y: -100, opacity: 0 }}
+        transition={{ duration: 1 }}
+      >
+        My Weapons
+      </motion.h2>
+      <motion.div className={styles.weaponContainer}>
+        {[
+          { name: "Primary", data: primaryWeapon },
+          { name: "Secondary", data: secondaryWeapon },
+        ].map((weaponData, index) => (
+          <div key={weaponData.name} style={{ flex: 1 }}>
+            <motion.h3
+              animate={{ x: 0, opacity: 1 }}
+              className={clsx([styles.weaponType, isMobile && styles.mobile])}
+              initial={{ x: index === 0 ? -250 : 250, opacity: 0 }}
+              transition={{ ease: "anticipate", duration: 0.75, delay: 0.5 }}
+            >
+              {weaponData.name}
+            </motion.h3>
+            {Object.keys(weaponData.data).map((key) => (
+              <motion.div
+                key={`${weaponData.name}-${key}`}
+                animate="show"
+                initial="hidden"
+                style={{ display: "flex", justifyContent: "center" }}
+                variants={getContainerAnimation(index === 0)}
+              >
+                {weaponData.data[key].map((name: string) => (
+                  <Weapon key={name} name={name} variants={getItemAnimation(index === 0)} />
+                ))}
+              </motion.div>
+            ))}
+          </div>
+        ))}
+      </motion.div>
     </div>
   );
 };

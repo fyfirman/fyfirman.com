@@ -1,5 +1,6 @@
-import React, { memo } from "react";
+import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import styles from "./weapon.module.scss";
 import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers";
@@ -8,13 +9,14 @@ interface WeaponProps {
   name: string;
 }
 
-const Weapon = (props: WeaponProps) => {
+// eslint-disable-next-line react/display-name
+const Weapon = React.forwardRef((props: WeaponProps, ref) => {
   const { name } = props;
 
   const { isMobile } = useResponsive();
 
   return (
-    <div className={clsx([styles.weapon, isMobile && styles.mobile])}>
+    <div className={clsx([styles.weapon, isMobile && styles.mobile])} ref={ref}>
       <div className={styles.weaponImage}>
         <Image
           alt={`${name} Logo`}
@@ -28,6 +30,6 @@ const Weapon = (props: WeaponProps) => {
       </span>
     </div>
   );
-};
+});
 
-export default memo(Weapon);
+export default motion(Weapon, { forwardMotionProps: true });

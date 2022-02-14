@@ -83,9 +83,14 @@ const HomeHeader = () => {
         </div>
 
         {!isMobile && (
-          <div className={styles.photoProfile}>
+          <motion.div
+            animate={{ scale: 1, opacity: 1 }}
+            className={styles.photoProfile}
+            initial={{ scale: 0, opacity: 0 }}
+            transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
+          >
             <Image alt="Firmansyah Yanuar Photo" id="photo-profile-desktop" src={Self} />
-          </div>
+          </motion.div>
         )}
       </div>
       {!env.disableSpline && render3D && (
