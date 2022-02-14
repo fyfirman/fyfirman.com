@@ -1,4 +1,4 @@
-import React from "react";
+import React, { LegacyRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./weapon.module.scss";
@@ -16,7 +16,7 @@ const Weapon = React.forwardRef((props: WeaponProps, ref) => {
   const { isMobile } = useResponsive();
 
   return (
-    <div className={clsx([styles.weapon, isMobile && styles.mobile])} ref={ref}>
+    <div className={clsx([styles.weapon, isMobile && styles.mobile])} ref={ref as LegacyRef<HTMLDivElement>}>
       <div className={styles.weaponImage}>
         <Image
           alt={`${name} Logo`}
