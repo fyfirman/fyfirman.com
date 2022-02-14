@@ -14,7 +14,9 @@
     "lint": "eslint \"**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix \"**/*.{ts,tsx}\"",
     "prepare": "husky install",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "deploy:preview": "vercel",
+    "deploy:prod": "vercel --prod"
   },
   "dependencies": {
     "@fontsource/nunito-sans": "^4.1.0",
