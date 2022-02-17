@@ -6,6 +6,7 @@
   vertical-align: middle;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   > img {
     margin: 0;
@@ -17,5 +18,11 @@
     > img {
       color: black;
     }
+  }
+
+  &.primary {
+    background-color: var(--bg-button);
+    color: var(--text-button);
+    padding: 8px 12px;
   }
 }
