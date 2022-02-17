@@ -3,7 +3,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./weapon.module.scss";
 import useResponsive from "~/hooks/useResponsive";
-import { clsx } from "~/helpers";
+import { clsx } from "~/helpers/classname-helper";
 
 interface WeaponProps {
   name: string;

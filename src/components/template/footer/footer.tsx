@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { version } from "../../../../package.json";
 import styles from "./footer.module.scss";
-import { clsx } from "~/helpers";
+import { clsx } from "~/helpers/classname-helper";
 import useResponsive from "~/hooks/useResponsive";
 import env from "~/utils/environment";
 

@@ -5,7 +5,7 @@ import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
 import { useDarkMode } from "next-dark-mode";
 import styles from "~/styles/Home.module.scss";
-import { clsx } from "~/helpers";
+import { clsx } from "~/helpers/classname-helper";
 import useResponsive from "~/hooks/useResponsive";
 import env from "~/utils/environment";
 

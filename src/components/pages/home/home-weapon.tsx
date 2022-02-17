@@ -3,7 +3,7 @@ import { motion, Variants } from "framer-motion";
 import styles from "~/styles/Home.module.scss";
 import { Weapon } from "~/components/atomic";
 import useResponsive from "~/hooks/useResponsive";
-import { clsx } from "~/helpers";
+import { clsx } from "~/helpers/classname-helper";
 import { primaryWeapon, secondaryWeapon } from "~/data/weapon-list";
 
 const getContainerAnimation = (inverse: boolean): Variants => ({
