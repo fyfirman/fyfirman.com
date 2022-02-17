@@ -5,6 +5,7 @@ import ConstantDelay from "./constant-delay";
 import Unnamed from "./unnamed";
 import Untitled from "./untitled";
 import UseCycle from "./useCycle";
+import WavyAnimation from "./wavy-animation";
 
 const framerExample: FC[] = [
   ConstantDelay,
@@ -13,6 +14,7 @@ const framerExample: FC[] = [
   UseCycle,
   AnimationControlsExample,
   AnimationControlsShowcase,
+  WavyAnimation,
 ];
 
 export default framerExample;

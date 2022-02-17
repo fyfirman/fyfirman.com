@@ -1,12 +1,18 @@
 import { motion, MotionStyle, useAnimation, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/atomic";
+import Select from "~/components/atomic/select/select";
 
 const boxStyle: MotionStyle = {
   backgroundColor: "black",
   color: "white",
   width: 50,
   height: 50,
+};
+
+type CustomOption = {
+  delayCustom: number;
+  easeCustom: string;
 };
 
 const variants: Variants = {
@@ -19,10 +25,10 @@ const variants: Variants = {
       ease: "anticipate",
     },
   },
-  standby: (delayCustom: number) => ({
+  standby: ({ delayCustom, easeCustom }: CustomOption) => ({
     scale: [1, 1.5, 1],
     transition: {
-      ease: "easeInOut",
+      ease: easeCustom,
       duration: 1.5,
       delay: delayCustom,
       repeat: Infinity,
@@ -32,13 +38,27 @@ const variants: Variants = {
   }),
 };
 
+const easingOptions = [
+  { value: "linear" },
+  { value: "easeIn" },
+  { value: "easeOut" },
+  { value: "easeInOut" },
+  { value: "circIn" },
+  { value: "circOut" },
+  { value: "circInOut" },
+  { value: "backIn" },
+  { value: "backOut" },
+  { value: "backInOut" },
+  { value: "anticipate" },
+];
+
 const WavyAnimation: React.FC = () => {
   const boxControls = useAnimation();
 
   const [reset, setReset] = useState(false);
+  const [easeOption, setEaseOption] = useState("easeInOut");
 
   useEffect(() => {
-    console.log("executed");
     boxControls.set("hidden");
     void boxControls.start("visible");
     setTimeout(() => {
@@ -46,9 +66,20 @@ const WavyAnimation: React.FC = () => {
     }, 500);
   }, [boxControls, reset]);
 
+  useEffect(() => {
+    void boxControls.start("standby");
+  }, [easeOption]);
+
   return (
     <div>
       <h1>Wavy Animation</h1>
+      <Select
+        onChange={(e) => {
+          setEaseOption(e.target.value);
+        }}
+        options={easingOptions}
+        style={{ marginBottom: 50 }}
+      />
       <motion.div style={{ display: "flex", gap: 40, flexDirection: "row", marginBottom: 20, height: 200 }}>
         {Array(10)
           .fill(null)
@@ -56,7 +87,7 @@ const WavyAnimation: React.FC = () => {
             <motion.div
               key={index}
               animate={boxControls}
-              custom={index * 0.2}
+              custom={{ delayCustom: index * 0.2, easeCustom: easeOption } as CustomOption}
               initial="hidden"
               style={boxStyle}
               variants={variants}
