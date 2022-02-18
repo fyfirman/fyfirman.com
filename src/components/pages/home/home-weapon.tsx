@@ -1,34 +1,49 @@
-import React from "react";
-import { motion, Variants } from "framer-motion";
+import React, { useEffect } from "react";
+import { motion, useAnimation, Variants } from "framer-motion";
 import styles from "~/styles/Home.module.scss";
 import { Weapon } from "~/components/atomic";
 import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers/classname-helper";
 import { primaryWeapon, secondaryWeapon } from "~/data/weapon-list";
 
-const getContainerAnimation = (inverse: boolean): Variants => ({
-  hidden: { opacity: 0 },
-  show: {
+const itemAnimation: Variants = {
+  hidden: { scale: 0, opacity: 0 },
+  visible: ({ delayCustom }: { delayCustom: number }) => ({
+    scale: 1,
     opacity: 1,
     transition: {
-      staggerChildren: 0.3,
-      staggerDirection: inverse ? -1 : 1,
-      delayChildren: 1,
-      duration: 0.3,
+      duration: 0.5,
+      ease: "anticipate",
+      delay: delayCustom + 1.5,
     },
+  }),
+  standby: ({ delayCustom }: { delayCustom: number }) => ({
+    scale: [1, 1.15, 1],
+    transition: {
+      ease: "easeInOut",
+      duration: 1.5,
+      delay: delayCustom,
+      repeat: Infinity,
+      repeatType: "mirror",
+      repeatDelay: 1,
+    },
+  }),
+  hover: {
+    scale: 1,
   },
-});
-
-const getItemAnimation = (inverse: boolean): Variants => ({
-  hidden: { x: inverse ? -250 : 250, opacity: 0 },
-  show: {
-    x: 0,
-    opacity: 1,
-  },
-});
+};
 
 const HomeWeapon = () => {
   const { isMobile } = useResponsive();
+  const boxControls = useAnimation();
+
+  useEffect(() => {
+    boxControls.set("hidden");
+    void boxControls.start("visible");
+    setTimeout(() => {
+      void boxControls.start("standby");
+    }, 1500);
+  }, [boxControls]);
 
   return (
     <div id="home-weapon">
@@ -50,20 +65,23 @@ const HomeWeapon = () => {
               animate={{ x: 0, opacity: 1 }}
               className={clsx([styles.weaponType, isMobile && styles.mobile])}
               initial={{ x: index === 0 ? -250 : 250, opacity: 0 }}
-              transition={{ ease: "anticipate", duration: 0.75, delay: 0.5 }}
+              transition={{ ease: "anticipate", duration: 0.75, delay: 1 }}
             >
               {weaponData.name}
             </motion.h3>
             {Object.keys(weaponData.data).map((key) => (
-              <motion.div
-                key={`${weaponData.name}-${key}`}
-                animate="show"
-                initial="hidden"
-                style={{ display: "flex", justifyContent: "center" }}
-                variants={getContainerAnimation(index === 0)}
-              >
-                {weaponData.data[key].map((name: string) => (
-                  <Weapon key={name} name={name} variants={getItemAnimation(index === 0)} />
+              <motion.div key={`${weaponData.name}-${key}`} style={{ display: "flex", justifyContent: "center" }}>
+                {weaponData.data[key].map((name: string, itemIndex) => (
+                  <Weapon
+                    key={name}
+                    animate={boxControls}
+                    custom={{ delayCustom: itemIndex * 0.4 }}
+                    initial="hidden"
+                    name={name}
+                    onHoverEnd={() => boxControls.start("standby")}
+                    onHoverStart={() => boxControls.start("hover")}
+                    variants={itemAnimation}
+                  />
                 ))}
               </motion.div>
             ))}
