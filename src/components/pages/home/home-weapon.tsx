@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import styles from "~/styles/Home.module.scss";
 import { Weapon } from "~/components/atomic";
 import useResponsive from "~/hooks/useResponsive";
@@ -16,7 +17,7 @@ const itemAnimation: Variants = {
     transition: {
       duration: 0.5,
       ease: "anticipate",
-      delay: delayCustom + delayWeapon,
+      delay: delayCustom,
     },
   }),
   standby: ({ delayCustom }: { delayCustom: number }) => ({
@@ -38,14 +39,20 @@ const itemAnimation: Variants = {
 const HomeWeapon = () => {
   const { isMobile } = useResponsive();
   const boxControls = useAnimation();
+  const [ref, inView] = useInView();
 
   useEffect(() => {
-    boxControls.set("hidden");
-    void boxControls.start("visible");
-    setTimeout(() => {
-      void boxControls.start("standby");
-    }, delayWeapon * 1000);
-  }, [boxControls]);
+    const isDirectlyView = window.scrollY < 100;
+    if (inView) {
+      setTimeout(
+        () => {
+          void boxControls.start("visible");
+          void boxControls.start("standby");
+        },
+        isDirectlyView ? delayWeapon * 1000 : 0,
+      );
+    }
+  }, [boxControls, inView]);
 
   return (
     <div id="home-weapon">
@@ -72,7 +79,11 @@ const HomeWeapon = () => {
               {weaponData.name}
             </motion.h3>
             {Object.keys(weaponData.data).map((key) => (
-              <motion.div key={`${weaponData.name}-${key}`} style={{ display: "flex", justifyContent: "center" }}>
+              <motion.div
+                key={`${weaponData.name}-${key}`}
+                ref={ref}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
                 {weaponData.data[key].map((name: string, itemIndex) => (
                   <Weapon
                     key={name}
