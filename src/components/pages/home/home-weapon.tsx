@@ -6,6 +6,8 @@ import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers/classname-helper";
 import { primaryWeapon, secondaryWeapon } from "~/data/weapon-list";
 
+const delayWeapon = 1.25; // in second
+
 const itemAnimation: Variants = {
   hidden: { scale: 0, opacity: 0 },
   visible: ({ delayCustom }: { delayCustom: number }) => ({
@@ -14,7 +16,7 @@ const itemAnimation: Variants = {
     transition: {
       duration: 0.5,
       ease: "anticipate",
-      delay: delayCustom + 1.5,
+      delay: delayCustom + delayWeapon,
     },
   }),
   standby: ({ delayCustom }: { delayCustom: number }) => ({
@@ -42,7 +44,7 @@ const HomeWeapon = () => {
     void boxControls.start("visible");
     setTimeout(() => {
       void boxControls.start("standby");
-    }, 1500);
+    }, delayWeapon * 1000);
   }, [boxControls]);
 
   return (
@@ -65,7 +67,7 @@ const HomeWeapon = () => {
               animate={{ x: 0, opacity: 1 }}
               className={clsx([styles.weaponType, isMobile && styles.mobile])}
               initial={{ x: index === 0 ? -250 : 250, opacity: 0 }}
-              transition={{ ease: "anticipate", duration: 0.75, delay: 1 }}
+              transition={{ ease: "anticipate", duration: 0.75, delay: 0.75 }}
             >
               {weaponData.name}
             </motion.h3>
