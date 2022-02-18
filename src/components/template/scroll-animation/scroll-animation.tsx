@@ -1,18 +1,26 @@
+/* eslint-disable react/display-name */
 import React, { useEffect, useRef } from "react";
-import { createDomMotionComponent, HTMLMotionProps, motion, useAnimation } from "framer-motion";
+import { HTMLMotionProps, motion, useAnimation } from "framer-motion";
 import { useInView, IntersectionOptions } from "react-intersection-observer";
 import { HTMLElements } from "framer-motion/types/render/html/supported-elements";
+
+const Component = React.forwardRef<unknown, { element: HTMLElements } & HTMLMotionProps<any>>(
+  ({ element, children, ...rest }, ref) => React.createElement(element, { ref, ...rest }, children),
+);
+
+const MotionComponent = motion(Component);
 
 interface ScrollAnimationProps extends HTMLMotionProps<"div"> {
   intersectionOptions?: IntersectionOptions;
   animateOnce?: boolean;
-  as?: HTMLElements;
+  element?: HTMLElements;
 }
 
 const ScrollAnimation: React.FC<ScrollAnimationProps> = ({
   children,
   intersectionOptions,
   animateOnce = true,
+  element = "div",
   ...rest
 }) => {
   const controls = useAnimation();
@@ -31,9 +39,9 @@ const ScrollAnimation: React.FC<ScrollAnimationProps> = ({
   }, [animateOnce, controls, inView]);
 
   return (
-    <motion.div animate={controls} as="" initial="initial" ref={ref} {...rest}>
+    <MotionComponent animate={controls} element={element} initial="initial" ref={ref} {...rest}>
       {children}
-    </motion.div>
+    </MotionComponent>
   );
 };
 
