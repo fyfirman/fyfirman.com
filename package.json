@@ -14,7 +14,9 @@
     "lint": "eslint \"**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix \"**/*.{ts,tsx}\"",
     "prepare": "husky install",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "deploy:preview": "vercel",
+    "deploy:prod": "vercel --prod"
   },
   "dependencies": {
     "@fontsource/nunito-sans": "^4.1.0",
@@ -25,11 +27,13 @@
     "firebase": "^8.10.0",
     "gray-matter": "^4.0.3",
     "mdx-bundler": "^9.0.1",
+    "framer-motion": "^6.2.6",
     "next": "12.0.7",
     "next-dark-mode": "^3.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-firebase-hooks": "3.0.4",
+    "react-intersection-observer": "^8.33.1",
     "react-lottie": "^1.2.3",
     "react-responsive": "^9.0.0-beta.4",
     "react-scroll": "^1.8.4",
@@ -38,8 +42,6 @@
   },
   "devDependencies": {
     "@babel/eslint-plugin": "^7.16.5",
-    "@commitlint/cli": "^14.1.0",
-    "@commitlint/config-conventional": "^14.1.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@types/node": "16.11.6",
@@ -47,6 +49,8 @@
     "@types/react-lottie": "^1.2.6",
     "@types/react-scroll": "^1.8.3",
     "@types/react-stack-grid": "^0.7.3",
+    "commitlint": "^16.2.1",
+    "commitlint-config-gitmoji": "^2.2.5",
     "eslint": "^8.0.0",
     "eslint-config-kentcdodds": "^20.0.1",
     "eslint-config-next": "12.0.1",
