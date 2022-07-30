@@ -1,9 +1,9 @@
-import "../styles/globals.css";
+import "~/styles/globals.css";
 import "@fontsource/nunito-sans";
 import type { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
-import styles from "../styles/App.module.scss";
+import styles from "~/styles/App.module.scss";
 import Navbar from "~/components/template/navbar";
 import { clsx } from "~/helpers/classname-helper";
 import useResponsive from "~/hooks/useResponsive";
