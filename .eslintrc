@@ -24,19 +24,19 @@
         "md": "ignorePackages"
       }
     ],
-    "import/default": 2,
-    "import/export": 2,
-    "import/namespace": 2,
-    "import/named": 2,
-    "import/newline-after-import": 2,
-    "import/no-unresolved": [2, { "commonjs": true, "amd": true }],
-    "import/no-extraneous-dependencies": 2,
+    "import/default": "error",
+    "import/export": "error",
+    "import/namespace": "error",
+    "import/named": "error",
+    "import/newline-after-import": "error",
+    "import/no-unresolved": ["error", { "commonjs": true, "amd": true }],
+    "import/no-extraneous-dependencies": "error",
     "import/order": "error",
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/accessible-emoji": "off",
     "react/jsx-sort-props": ["warn", { "reservedFirst": ["key"] }],
     "react/react-in-jsx-scope": ["off"],
-    "@babel/no-unused-expressions": 0,
+    "@babel/no-unused-expressions": "off",
     "no-negated-condition": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "testing-library/no-container": "off",
@@ -72,7 +72,7 @@
         "jest/valid-expect": "error",
         "jest/valid-describe": "warn"
       }
-    },
+    }
   ],
   "ignorePatterns": ["public/**/*.js"]
 }
