@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
+import { BlogFrontmatter, Frontmatter } from "./mdx-types";
 
 export const ROOT = process.cwd();
 export const BLOGS_PATH = path.join(process.cwd(), "content/blogs");
@@ -9,10 +10,6 @@ export const BLOGS_PATH = path.join(process.cwd(), "content/blogs");
 export const getFileContent = (filename: string) => {
   return fs.readFileSync(path.join(BLOGS_PATH, filename), "utf8");
 };
-
-export interface Frontmatter {
-  [key: string]: number | string | Date;
-}
 
 const serializeFrontmatter = (frontmatter: Frontmatter): Frontmatter => {
   const result: Frontmatter = {};
@@ -64,9 +61,10 @@ export const getAllBlogPosts = () => {
       const source = getFileContent(fileName);
       const slug = fileName.replace(/\.mdx?$/, "");
       const { data } = matter(source);
+      console.log("🚀 ~ file: mdx.ts ~ line 64 ~ .map ~ data", data);
 
       return {
-        frontmatter: data,
+        frontmatter: serializeFrontmatter(data) as BlogFrontmatter,
         slug,
       };
     });
