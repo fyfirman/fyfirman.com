@@ -1,5 +1,5 @@
 export interface Frontmatter {
-  [key: string]: number | string | Date;
+  [key: string]: number | string | Date | unknown;
 }
 
 export enum BlogLanguage {
@@ -9,7 +9,7 @@ export enum BlogLanguage {
 
 export interface BlogFrontmatter extends Frontmatter {
   title: string;
-  published: string;
+  publishedAt: string;
   description: string;
   language: BlogLanguage;
 }

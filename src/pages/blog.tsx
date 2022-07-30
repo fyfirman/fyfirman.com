@@ -3,15 +3,11 @@ import Head from "@components/template/head";
 import React from "react";
 import velocityLeague from "@assets/images/project/velocity-league.jpg";
 import styles from "~/styles/Blog.module.scss";
-import { getAllBlogPosts } from "~/utils/mdx/mdx";
-import { BlogFrontmatter } from "~/utils/mdx/mdx-types";
+import { BlogPost, getAllBlogPosts } from "~/utils/mdx/mdx";
 import BlogCard from "~/components/atomic/blog-card";
 
 interface BlogListProps {
-  blogList: {
-    frontmatter: BlogFrontmatter;
-    slug: string;
-  }[];
+  blogList: BlogPost[];
 }
 
 const BlogList: NextPage<BlogListProps> = ({ blogList }) => {
@@ -19,15 +15,16 @@ const BlogList: NextPage<BlogListProps> = ({ blogList }) => {
     <>
       <Head title="Blog" />
 
-      <div className={styles.main}>blog list</div>
+      <h1 className={styles.headings}>Blog - What&apos;s inside fyfirman</h1>
       <div className={styles.cardContainer}>
-        {blogList.map(({ frontmatter, slug }) => (
+        {blogList.map(({ title, publishedAt, slug, readingTime }) => (
           <BlogCard
             key={slug}
-            desc={frontmatter.description}
             href={`/blog/${slug}`}
             imageURI={velocityLeague}
-            title={frontmatter.title}
+            publishedDate={new Date(publishedAt)}
+            readingTime={readingTime}
+            title={title}
           />
         ))}
       </div>
@@ -37,6 +34,7 @@ const BlogList: NextPage<BlogListProps> = ({ blogList }) => {
 
 export const getStaticProps: GetStaticProps<BlogListProps> = async () => {
   const data = getAllBlogPosts();
+
   return {
     props: {
       blogList: data,

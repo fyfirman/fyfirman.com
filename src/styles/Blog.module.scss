@@ -1,2 +1,16 @@
+.headings {
+  margin-bottom: 64px;
+  font-family: Nunito Sans;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-headings);
+  font-size: 30px;
+  letter-spacing: 2px;
+}
+
 .cardContainer {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  column-gap: 48px;
+  row-gap: 64px;
 }

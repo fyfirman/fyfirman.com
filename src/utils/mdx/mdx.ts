@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
+import readingTime, { ReadTimeResults } from "reading-time";
 import { BlogFrontmatter, Frontmatter } from "./mdx-types";
 
 export const ROOT = process.cwd();
@@ -53,7 +54,12 @@ export const getSingleBlogPost = async (slug: string) => {
   return getCompiledMDX(source);
 };
 
-export const getAllBlogPosts = () => {
+export interface BlogPost extends BlogFrontmatter {
+  slug: string;
+  readingTime: ReadTimeResults;
+}
+
+export const getAllBlogPosts = (): BlogPost[] => {
   return fs
     .readdirSync(BLOGS_PATH)
     .filter((postPath) => /\.mdx?$/.test(postPath))
@@ -61,11 +67,11 @@ export const getAllBlogPosts = () => {
       const source = getFileContent(fileName);
       const slug = fileName.replace(/\.mdx?$/, "");
       const { data } = matter(source);
-      console.log("🚀 ~ file: mdx.ts ~ line 64 ~ .map ~ data", data);
 
       return {
-        frontmatter: serializeFrontmatter(data) as BlogFrontmatter,
+        ...(serializeFrontmatter(data) as BlogFrontmatter),
         slug,
+        readingTime: readingTime(source),
       };
     });
 };

@@ -1,34 +1,31 @@
 import React from "react";
 import Image from "next/image";
+import { ReadTimeResults } from "reading-time";
 import styles from "./blog-card.module.scss";
+import { formatReadableDate } from "~/helpers/date-helper";
+import { getReadingTimeInMin } from "~/helpers/read-time-helper";
 
 interface BlogCardProps {
   href: string;
   imageURI: StaticImageData;
   title: string;
-  desc: string;
-  notAvailable?: boolean;
+  publishedDate: Date;
+  readingTime: ReadTimeResults;
 }
 
 const BlogCard = (props: BlogCardProps) => {
-  const { href, imageURI, title, desc, notAvailable = false } = props;
+  const { href, imageURI, title, publishedDate, readingTime } = props;
 
   return (
-    <div className={styles["card-container"]}>
+    <a className={styles["card-container"]} href={href}>
       <div className={styles["card-image"]}>
-        <Image alt={`${title} Snapshot`} src={imageURI} />
+        <Image alt={`${title} Cover Image`} src={imageURI} />
       </div>
       <span className={styles["card-title"]}>{title}</span>
-      <p className="text-body">{desc}</p>
-      <a
-        className={`${styles["card-button"]} ${notAvailable ? "not-available" : ""}`}
-        href={href}
-        rel="noreferrer"
-        target="_blank"
-      >
-        {!notAvailable ? "See Project ›" : "Not available yet"}
-      </a>
-    </div>
+      <span className={styles.body}>
+        {formatReadableDate(publishedDate)} - {getReadingTimeInMin(readingTime)} min read
+      </span>
+    </a>
   );
 };
 

@@ -38,6 +38,7 @@
     "react/react-in-jsx-scope": ["off"],
     "@babel/no-unused-expressions": "off",
     "no-negated-condition": "off",
+    "no-console": "error",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "testing-library/no-container": "off",
     "testing-library/no-node-access": "off"
