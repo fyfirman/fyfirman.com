@@ -25,6 +25,7 @@ const Navbar = () => {
         <Desktop>
           <div className={styles.nav}>
             <MenuHeader link title="Home" to="/" />
+            <MenuHeader link title="Blog" to="/blog" />
             <MenuHeader link title="Message" to="/message" />
             <MenuHeader link title="About" to="/about" />
             <DarkToggler />

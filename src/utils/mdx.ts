@@ -4,10 +4,10 @@ import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
 
 export const ROOT = process.cwd();
-export const POSTS_PATH = path.join(process.cwd(), "content/posts");
+export const BLOGS_PATH = path.join(process.cwd(), "content/blogs");
 
 export const getFileContent = (filename: string) => {
-  return fs.readFileSync(path.join(POSTS_PATH, filename), "utf8");
+  return fs.readFileSync(path.join(BLOGS_PATH, filename), "utf8");
 };
 
 export interface Frontmatter {
@@ -42,17 +42,7 @@ const getCompiledMDX = async (source: string) => {
 
       return options;
     },
-    files: {
-      "./demo.tsx": `
-    import * as React from 'react'
-    
-    function Demo() {
-      return <div className="hello-guys">Neat demo!</div>
-    }
-    
-    export default Demo
-        `,
-    },
+    files: {},
   });
 
   return {
@@ -61,14 +51,14 @@ const getCompiledMDX = async (source: string) => {
   };
 };
 
-export const getSinglePost = async (slug: string) => {
+export const getSingleBlogPost = async (slug: string) => {
   const source = getFileContent(`${slug}.mdx`);
   return getCompiledMDX(source);
 };
 
-export const getAllPosts = () => {
+export const getAllBlogPosts = () => {
   return fs
-    .readdirSync(POSTS_PATH)
+    .readdirSync(BLOGS_PATH)
     .filter((postPath) => /\.mdx?$/.test(postPath))
     .map((fileName) => {
       const source = getFileContent(fileName);
