@@ -10,7 +10,7 @@ interface FieldProps extends React.InputHTMLAttributes<HTMLSelectElement> {
   options: SelectOption[];
 }
 
-const Select: React.FC<FieldProps> = (props) => {
+const Select: React.VFC<FieldProps> = (props) => {
   const { placeholder, className, options, ...rest } = props;
   return (
     <select className={clsx([styles.container, className])} {...rest}>

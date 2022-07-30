@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import StackGrid from "react-stack-grid";
 import styles from "./wall-of-message.module.scss";
 import { IMessage } from "~/interfaces/message";
@@ -10,7 +10,7 @@ interface WallOfMessageProps {
   data: IMessage[];
 }
 
-const WallOfMessage: FC<WallOfMessageProps> = ({ data }) => {
+const WallOfMessage: React.VFC<WallOfMessageProps> = ({ data }) => {
   const { isMobile } = useResponsive();
 
   return (

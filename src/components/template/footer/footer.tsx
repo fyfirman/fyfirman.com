@@ -1,11 +1,11 @@
-import React, { FC } from "react";
+import React from "react";
 import { version } from "../../../../package.json";
 import styles from "./footer.module.scss";
 import { clsx } from "~/helpers/classname-helper";
 import useResponsive from "~/hooks/useResponsive";
 import env from "~/utils/environment";
 
-const Footer: FC<{}> = () => {
+const Footer: React.VFC<{}> = () => {
   const { isMobile } = useResponsive();
 
   return (
