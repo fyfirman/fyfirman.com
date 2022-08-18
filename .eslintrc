@@ -40,6 +40,7 @@
     "no-negated-condition": "off",
     "no-console": "error",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-var-requires": "off",
     "testing-library/no-container": "off",
     "testing-library/no-node-access": "off"
   },

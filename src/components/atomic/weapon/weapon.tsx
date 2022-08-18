@@ -22,7 +22,7 @@ const Weapon = React.forwardRef((props: WeaponProps, ref) => {
           alt={`${name} Logo`}
           // Cannot resolve how to dynamically import with typescript
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          src={require(`../../../assets/images/stack/${name.toLowerCase().split(" ").join("-")}.svg`)}
+          src={require(`@assets/images/stack/${name.toLowerCase().split(" ").join("-")}.svg`)}
         />
       </div>
       <span className={styles.tooltip} data-hover={name}>

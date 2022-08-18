@@ -12,4 +12,5 @@ export interface BlogFrontmatter extends Frontmatter {
   publishedAt: string;
   description: string;
   language: BlogLanguage;
+  coverImage: string;
 }
