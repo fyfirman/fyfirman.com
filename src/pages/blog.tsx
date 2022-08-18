@@ -2,7 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Head from "@components/template/head";
 import React from "react";
 import styles from "~/styles/Blog.module.scss";
-import { BlogPost, getAllBlogPosts } from "~/utils/mdx/mdx";
+import { BlogPost, getAllBlogPosts } from "~/utils/mdx/blog.mdx";
 import BlogCard from "~/components/atomic/blog-card";
 
 interface BlogListProps {

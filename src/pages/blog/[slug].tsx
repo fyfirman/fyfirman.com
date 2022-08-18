@@ -1,24 +1,28 @@
 import { useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
 import { GetStaticProps } from "next";
-import { getAllBlogPosts, getSingleBlogPost } from "~/utils/mdx/mdx";
+import { getAllBlogPosts, getSingleBlogPost } from "~/utils/mdx/blog.mdx";
+import Head from "~/components/template/head";
+import { BlogFrontmatter } from "~/utils/mdx/mdx-types";
 
 interface BlogDetailProps {
   code: string;
+  frontmatter: BlogFrontmatter;
 }
 
-const BlogDetail = ({ code }: BlogDetailProps) => {
+const BlogDetail = ({ code, frontmatter }: BlogDetailProps) => {
   const Component = useMemo(() => getMDXComponent(code), [code]);
 
   return (
-    <div>
+    <>
+      <Head desc={frontmatter.description} title={frontmatter.title} />
       <Component />
-    </div>
+    </>
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (!params || !params.slug) {
+export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }) => {
+  if (!params?.slug) {
     return {
       notFound: true,
     };

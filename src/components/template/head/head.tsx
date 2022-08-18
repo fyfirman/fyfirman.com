@@ -4,11 +4,12 @@ import env from "~/utils/environment";
 
 interface HeadProps {
   title?: string;
+  desc?: string;
   hideWebTitle?: boolean;
 }
 
 const Head = (props: HeadProps) => {
-  const { title, hideWebTitle = false } = props;
+  const { title, hideWebTitle = false, desc = env.metaDesc } = props;
 
   const finalTitle = useMemo(() => {
     if (hideWebTitle && title) {
@@ -23,7 +24,7 @@ const Head = (props: HeadProps) => {
   return (
     <NextHead>
       <title>{finalTitle}</title>
-      <meta content={env.metaDesc} name="description" />
+      <meta content={desc} name="description" />
       <link href="/img/logo.svg" rel="icon" />
     </NextHead>
   );
