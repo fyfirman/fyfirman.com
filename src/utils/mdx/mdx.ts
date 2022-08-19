@@ -1,5 +1,6 @@
 import path from "path";
 import { bundleMDX } from "mdx-bundler";
+import rehypePrism from "rehype-prism-plus";
 import remarkMdxImages from "remark-mdx-images";
 import { Frontmatter } from "./mdx-types";
 
@@ -27,10 +28,9 @@ export const getCompiledMDX = async (source: string) => {
 
   const { code, frontmatter } = await bundleMDX({
     source,
-    // cwd: path.join(ROOT, "public", "img"),
     mdxOptions(options) {
       options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkMdxImages];
-      options.rehypePlugins = [...(options.rehypePlugins ?? [])];
+      options.rehypePlugins = [...(options.rehypePlugins ?? []), rehypePrism];
 
       return options;
     },

@@ -1,0 +1,42 @@
+.wrapper {
+  max-width: 693px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--text-body);
+  }
+
+  p {
+    font-size: large;
+    color: var(--text-body);
+  }
+
+  h1 > code,
+  h2 > code,
+  h3 > code,
+  h4 > code,
+  h5 > code,
+  h6 > code,
+  p > code {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2px 6px;
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  &.dark {
+    h1 > code,
+    h2 > code,
+    h3 > code,
+    h4 > code,
+    h5 > code,
+    h6 > code,
+    p > code {
+      background-color: #fd61d927;
+      color: #fd61d9;
+    }
+  }
+}

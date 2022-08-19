@@ -39,6 +39,7 @@
     "react-scroll": "^1.8.4",
     "react-stack-grid": "^0.7.1",
     "reading-time": "^1.5.0",
+    "rehype-prism-plus": "^1.4.2",
     "sass": "^1.43.4"
   },
   "devDependencies": {

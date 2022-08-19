@@ -1,0 +1,59 @@
+---
+title: How to Fix FOUT (Flash of Unstyled Text) in React
+publishedAt: 2021-01-02
+description: FOUT stands for Flash of Unstyled Text, it happens cause your browser is rendered element before your font is loaded. To fix that we should handle while the font is loading.
+language: en
+coverImage: hello-world-1.jpg
+---
+
+import terimaCurhatASI from "../src/assets/images/project/terima-curhat-asi.jpg";
+
+# How to Fix FOUT (Flash of Unstyled Text) in React
+
+![Example of Flash of Unstyled Text (FOUT)](https://cdn-images-1.medium.com/max/800/1*XXCHdVl4xqFAzjPeGHzz8A.gif)
+
+Can you see the font is changing from `default` to the expected font? That's called **FOUT (Flash of Unstyled Text)**. This happened to cause your browser rendered element before your font has loaded. It makes your website look cheap and you look like a beginner. 😟
+
+Be grateful because in 2021 there is already an API to solve this problem. The name is **FontFaceSet API**, you can check the [documentation here](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/).
+
+Let’s get started!
+
+### #0 FYI
+
+I am using `fontsource` to import my external font. Just because, I am using the `gatsby` framework. It doesn't matter what you use, because this method works on any framework. Including the non-react framework.
+
+```jsx
+import "@fontsource/merriweather";
+```
+
+### #1 Create `state`
+
+```jsx
+const [isReady, setIsReady] = useState(false);
+```
+
+First we create a `state` to store the state whether the website is ready to render or not.
+
+```jsx
+return isReady && <div>{/* Your component goes here */}</div>;
+```
+
+Don’t forget to add a condition if the state shows it’s not ready, then don’t render the element.
+
+### #2 Check & Load fonts
+
+To check the font we use `FontFaceSet` as follows:
+
+```jsx
+useEffect(() => {
+  document.fonts.load("12px Merriweather").then(() => setIsReady(true));
+}, []);
+```
+
+`Merriweather` is fontface name, you can change that. `12px` is dummy `fontSize` to check. The following line of code is a Promise so that we can add commands when the font has been successfully loaded.
+
+### #3 And wallaaaaa…
+
+![Result](https://cdn-images-1.medium.com/max/800/1*HJvW4PbIS2xa02d2_yYr7w.gif)
+
+Thanks for your time to read this post. This is my first post on `dev.to`, i hope i can keep on writing on this platform 😆 . If you don't mind please give a reaction to support me. 💗

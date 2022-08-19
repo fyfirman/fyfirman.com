@@ -3,6 +3,8 @@ import "@fontsource/nunito-sans";
 import type { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import withDarkMode, { useDarkMode } from "next-dark-mode";
+import "~/styles/code-light.scss";
+import "~/styles/code-dark.scss";
 import styles from "~/styles/App.module.scss";
 import Navbar from "~/components/template/navbar";
 import { clsx } from "~/helpers/classname-helper";
