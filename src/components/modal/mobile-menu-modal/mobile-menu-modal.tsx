@@ -11,6 +11,7 @@ import { clsx } from "~/helpers/classname-helper";
 
 const menuList: { title: string; url: string }[] = [
   { title: "Home", url: "/" },
+  { title: "Blog", url: "/blog" },
   { title: "Message", url: "/message" },
   { title: "About", url: "/about" },
 ];
