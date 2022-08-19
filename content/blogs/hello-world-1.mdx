@@ -1,11 +1,36 @@
 ---
-title: Hello World 1
+title: How to import image on MDX
 publishedAt: 2021-02-13
 description: This is some description
 language: id
 coverImage: hello-world-1.jpg
 ---
 
-# Hello World 1
+import terimaCurhatASI from "../src/assets/images/project/terima-curhat-asi.jpg";
+import Image from "next/image";
 
-Hi, this is my first blog post!
+# How to import image on MDX
+
+## Classic Img HTML with Public URL
+
+```
+<img alt="test" src="/img/og-image.jpg" />
+```
+
+<img alt="test" src="/img/og-image.jpg" />
+
+## Classic Img HTML with module import
+
+```
+import terimaCurhatASI from "../src/assets/images/project/terima-curhat-asi.jpg";
+
+<img alt="test" src={terimaCurhatASI} />
+```
+
+<img alt="test" src={terimaCurhatASI} />
+
+## Next Image
+
+```
+  <Image src={terimaCurhatASI} alt="hello world" />
+```
