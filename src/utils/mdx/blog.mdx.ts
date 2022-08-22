@@ -16,7 +16,10 @@ export const getSingleBlogPost = async (slug: string) => {
   const { code, frontmatter } = await getCompiledMDX(source);
   return {
     code,
-    frontmatter: serializeFrontmatter(frontmatter) as BlogFrontmatter,
+    frontmatter: {
+      ...(serializeFrontmatter(frontmatter) as BlogFrontmatter),
+      readingTime: readingTime(source),
+    },
   };
 };
 

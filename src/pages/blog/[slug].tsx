@@ -8,6 +8,7 @@ import Head from "~/components/template/head";
 import { BlogFrontmatter } from "~/utils/mdx/mdx-types";
 import MdxImage from "~/components/atomic/mdx-image/mdx-image";
 import { clsx } from "~/helpers/classname-helper";
+import BlogHeader from "~/components/atomic/blog-header/blog-header";
 
 interface BlogDetailProps {
   code: string;
@@ -15,6 +16,7 @@ interface BlogDetailProps {
 }
 
 const BlogDetail = ({ code, frontmatter }: BlogDetailProps) => {
+  console.log("🚀 ~ file: [slug].tsx ~ line 19 ~ BlogDetail ~ frontmatter", frontmatter);
   const { darkModeActive } = useDarkMode();
   const Component = useMemo(() => getMDXComponent(code), [code]);
 
@@ -22,6 +24,12 @@ const BlogDetail = ({ code, frontmatter }: BlogDetailProps) => {
     <>
       <Head desc={frontmatter.description} title={frontmatter.title} />
       <div className={clsx([styles.wrapper, darkModeActive && styles.dark])}>
+        <BlogHeader
+          language={frontmatter.language}
+          publishedAt={new Date(frontmatter.publishedAt)}
+          readingTime={frontmatter.readingTime ?? 0}
+          title={frontmatter.title}
+        />
         <Component components={{ img: MdxImage }} />
       </div>
     </>

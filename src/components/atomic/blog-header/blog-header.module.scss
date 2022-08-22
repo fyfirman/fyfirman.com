@@ -1,0 +1,14 @@
+.container {
+  margin-bottom: 2rem;
+
+  h1 {
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+
+  .infoContainer {
+    display: flex;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+  }
+}
