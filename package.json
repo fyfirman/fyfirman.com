@@ -8,6 +8,7 @@
   "version": "1.2.5",
   "private": true,
   "scripts": {
+    "check-types": "tsc --noEmit",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
