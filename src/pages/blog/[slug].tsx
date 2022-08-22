@@ -16,7 +16,6 @@ interface BlogDetailProps {
 }
 
 const BlogDetail = ({ code, frontmatter }: BlogDetailProps) => {
-  console.log("🚀 ~ file: [slug].tsx ~ line 19 ~ BlogDetail ~ frontmatter", frontmatter);
   const { darkModeActive } = useDarkMode();
   const Component = useMemo(() => getMDXComponent(code), [code]);
 
@@ -27,7 +26,7 @@ const BlogDetail = ({ code, frontmatter }: BlogDetailProps) => {
         <BlogHeader
           language={frontmatter.language}
           publishedAt={new Date(frontmatter.publishedAt)}
-          readingTime={frontmatter.readingTime ?? 0}
+          readingTime={frontmatter.readingTime}
           title={frontmatter.title}
         />
         <Component components={{ img: MdxImage }} />

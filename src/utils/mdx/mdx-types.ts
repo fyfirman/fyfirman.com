@@ -1,3 +1,5 @@
+import { ReadTimeResults } from "reading-time";
+
 export interface Frontmatter {
   [key: string]: number | string | Date | unknown;
 }
@@ -13,4 +15,5 @@ export interface BlogFrontmatter extends Frontmatter {
   description: string;
   language: BlogLanguage;
   coverImage: string;
+  readingTime: ReadTimeResults;
 }
