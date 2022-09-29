@@ -37,7 +37,6 @@ const AnimationControlsShowcase: React.FC = () => {
   const [reset, setReset] = useState(false);
 
   useEffect(() => {
-    console.log("executed");
     boxControls.set("hidden");
     void boxControls.start("visible");
     setTimeout(() => {
