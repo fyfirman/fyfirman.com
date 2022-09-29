@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    box-shadow: 2px 4px 12px 0px rgba(0, 0, 0, 0.1);
+
+    @media only screen and (max-width: 720px) {
+      width: 100%;
+    }
+  }
+
+  .alt-text {
+    margin-top: 12px;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: medium;
+  }
+}

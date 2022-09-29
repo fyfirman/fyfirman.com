@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import styles from "./wall-of-message-card.module.scss";
 import { IMessage } from "~/interfaces/message";
-import { clsx } from "~/helpers";
+import { clsx } from "~/helpers/classname-helper";
 import { formatTimeStampToDateDifference } from "~/helpers/date-helper";
 
 interface WallOfMessageProps {

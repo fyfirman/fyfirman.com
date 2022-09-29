@@ -55,4 +55,8 @@ export const formatDateDifference = (oldDate: Date) => {
   return `Just now`;
 };
 
+export const formatReadableDate = (date: Date) => {
+  return format(date, "dd MMM yyyy");
+};
+
 export const formatTimeStampToDateDifference = (second: number) => formatDateDifference(new Date(second));

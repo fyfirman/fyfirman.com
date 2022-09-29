@@ -9,7 +9,7 @@ body {
 
 body {
   --bg: white;
-  --bg-button: #000000d9;
+  --bg-button: hsla(0, 0%, 0%, 0.851);
   --bg-highlight: #000000d9;
   --bg-sosmed-middle: black;
   --bg-weapon: white;

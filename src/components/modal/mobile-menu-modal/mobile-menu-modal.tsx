@@ -3,13 +3,15 @@ import Moon from "@assets/images/moon-sharp.svg";
 import Sun from "@assets/images/sunny-sharp.svg";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import styles from "./mobile-menu-modal.module.scss";
 import { ModalProps } from "~/interfaces/modal";
 import useAppDarkMode from "~/hooks/useAppDarkMode";
 import { clsx } from "~/helpers/classname-helper";
 
-const menuList = [
+const menuList: { title: string; url: string }[] = [
   { title: "Home", url: "/" },
+  { title: "Blog", url: "/blog" },
   { title: "Message", url: "/message" },
   { title: "About", url: "/about" },
 ];
@@ -34,24 +36,26 @@ const MobileMenuModal: React.FC<ModalProps> = ({ visible, onClose }) => {
   return (
     <div className={clsx([styles.root, visible && styles.visible])}>
       {menuList.map((menu, index) => (
-        <a
-          key={index}
-          className={styles.menu}
-          onClick={() => navigateTo(menu.url)}
-          onKeyPress={() => navigateTo(menu.url)}
-        >
-          {menu.title}
-        </a>
+        <Link key={index} href={menu.url} passHref>
+          <a
+            className={styles.menu}
+            href={menu.url}
+            onClick={() => navigateTo(menu.url)}
+            onKeyPress={() => navigateTo(menu.url)}
+          >
+            {menu.title}
+          </a>
+        </Link>
       ))}
 
-      <a className={styles.menu} onClick={toggleDarkMode} onKeyPress={toggleDarkMode}>
+      <button className={styles.menu} onClick={toggleDarkMode} onKeyPress={toggleDarkMode}>
         {isDarkMode ? (
           <Image alt="Dark Mode Icon" src={Moon as string} />
         ) : (
           <Image alt="Light Mode Icon" src={Sun as string} />
         )}
         {isDarkMode ? "Dark Mode" : "Light Mode"}
-      </a>
+      </button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { useCallback } from "react";
 import styles from "./checkbox.module.scss";
 
 interface CheckboxProps {
@@ -7,7 +7,7 @@ interface CheckboxProps {
   onChange?: (value: boolean) => void;
 }
 
-const Checkbox: FC<CheckboxProps> = ({ id, label, onChange }) => {
+const Checkbox: React.VFC<CheckboxProps> = ({ id, label, onChange }) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => {
       if (onChange) onChange(event.target.checked);

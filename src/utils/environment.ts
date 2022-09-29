@@ -1,4 +1,11 @@
-const env = {
+interface Environment {
+  title: string;
+  metaDesc: string;
+  firebaseConfig: any;
+  disableSpline: boolean;
+}
+
+const env: Environment = {
   title: process.env.NEXT_PUBLIC_TITLE ?? "Firmansyah Yanuar",
   metaDesc: process.env.NEXT_PUBLIC_META_DESC ?? "",
   firebaseConfig: {
@@ -14,6 +21,7 @@ const env = {
     gtmAuth: process.env.NEXT_PUBLIC_GTM_AUTH,
     gtmEnvId: process.env.NEXT_PUBLIC_GTM_ENV_ID,
   },
+  disableSpline: process.env.NEXT_PUBLIC_DISABLE_SPLINE === "true",
 };
 
 export default env;

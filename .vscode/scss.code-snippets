@@ -1,0 +1,7 @@
+{
+  "Media query": {
+    "prefix": "mq",
+    "body": ["@media only screen and (max-width: ${1}px) {", "  ", "}"],
+    "description": "Creates media query"
+  }
+}

@@ -6,7 +6,7 @@ import styles from "./navbar.module.scss";
 import MenuHeader from "./components/menu-navbar/menu-navbar";
 import useScrollOffset from "~/hooks/useScrollOffset";
 import useResponsive from "~/hooks/useResponsive";
-import { clsx } from "~/helpers";
+import { clsx } from "~/helpers/classname-helper";
 
 const DarkToggler = dynamic(() => import("./components/dark-toggler/dark-toggler"), { ssr: false });
 const NavbarMobile = dynamic(() => import("./navbar-mobile"), { ssr: false });
@@ -25,6 +25,7 @@ const Navbar = () => {
         <Desktop>
           <div className={styles.nav}>
             <MenuHeader link title="Home" to="/" />
+            <MenuHeader link title="Blog" to="/blog" />
             <MenuHeader link title="Message" to="/message" />
             <MenuHeader link title="About" to="/about" />
             <DarkToggler />

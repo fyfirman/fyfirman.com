@@ -11,9 +11,9 @@ const DarkToggler = () => {
   return (
     <button className={styles["dark-toggler"]} onClick={toggleDarkMode}>
       {isDarkModeActive ? (
-        <Image alt="Dark Mode Icon" src={Moon as string} />
+        <Image alt="Dark Mode Icon" height={24} priority src={Moon as string} width={24} />
       ) : (
-        <Image alt="Light Mode Icon" src={Sun as string} />
+        <Image alt="Light Mode Icon" height={24} priority src={Sun as string} width={24} />
       )}
     </button>
   );

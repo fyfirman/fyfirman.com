@@ -22,9 +22,7 @@ const Sosmed = (props: SosmedProps) => {
       <div className={styles.svg}>
         <Image
           alt={`${name} Icon`}
-          // Cannot resolve how to dynamically import with typescript
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          src={require(`../../../assets/images/sosmed/${name.toLowerCase().split(" ").join("-")}.svg`)}
+          src={require(`@assets/images/sosmed/${name.toLowerCase().split(" ").join("-")}.svg`) as StaticImageData}
         />
       </div>
     </a>
