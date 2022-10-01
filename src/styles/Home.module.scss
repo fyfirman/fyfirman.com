@@ -125,28 +125,6 @@
   padding: 2px;
 }
 
-.photoProfile {
-  flex: 2;
-  padding: 0;
-
-  &.mobile {
-    width: 60%;
-    max-width: 280px;
-  }
-}
-
-.photoProfile > span {
-  margin: 0;
-  box-shadow: 10px 10px var(--shadow-ava);
-  transition: all 0.3s;
-  border: 0.5px solid var(--shadow-ava);
-}
-
-.photoProfile > span:hover {
-  transform: translateX(-10px) translateY(-10px);
-  box-shadow: 20px 20px var(--shadow-ava);
-}
-
 .header-container {
   position: relative;
 }
@@ -172,5 +150,4 @@
   &:hover {
     cursor: pointer;
   }
-
 }

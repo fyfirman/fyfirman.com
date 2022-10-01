@@ -1,4 +1,4 @@
-import Self from "@assets/images/self.jpg";
+import Firmansyah from "@assets/images/firmansyah.png";
 import Head from "@components/template/head";
 import { useMediaQuery } from "react-responsive";
 import Image from "next/image";
@@ -19,8 +19,8 @@ const About = () => {
             <p className="text-body">
               I entered computer world starting from my mother&apos;s orders to type a document when I was in elementary
               school. From there I wondered what the computer could do. The first thing I did was create a graphic
-              design to sell game jockey services on Facebook. I found my designs very beautiful, then I called myself
-              as the youngest great graphic designer at the age of 12. Really childish Haha.
+              design to sell game jockey services on Facebook. I found my designs very beautiful, then I called
+              Firmansyah as the youngest great graphic designer at the age of 12. Really childish Haha.
             </p>
             <p className="text-body">
               Several years later, I was introduced to programming. I feel challenged because programming is like
@@ -32,7 +32,7 @@ const About = () => {
 
           {!movePhoto && (
             <div className={styles.photoProfile}>
-              <Image alt="Firmansyah Yanuar Photo" src={Self} />
+              <Image alt="Firmansyah Yanuar Photo" src={Firmansyah} />
             </div>
           )}
         </div>

@@ -1,6 +1,4 @@
 import React from "react";
-import Image from "next/image";
-import Self from "@assets/images/self.jpg";
 import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
 import { useDarkMode } from "next-dark-mode";
@@ -8,6 +6,7 @@ import styles from "~/styles/Home.module.scss";
 import { clsx } from "~/helpers/classname-helper";
 import useResponsive from "~/hooks/useResponsive";
 import env from "~/utils/environment";
+import PhotoProfile from "~/components/atomic/photo-profile/photo-profile";
 
 const variants = {
   hidden: { opacity: 0, y: -100 },
@@ -24,11 +23,7 @@ const HomeHeader = () => {
   return (
     <div className={styles["header-container"]} id="home-header">
       <div className={clsx([styles.jumbotron, isMobile && styles.mobile])}>
-        {isMobile && (
-          <div className={clsx([styles.photoProfile, styles.mobile])} id="photo-profile-desktop">
-            <Image alt="Firmansyah Yanuar Photo" priority={isMobile} src={Self} />
-          </div>
-        )}
+        {isMobile && <PhotoProfile />}
         <div className={clsx([styles.aboutMe, isMobile && styles.mobile])}>
           <motion.h1
             animate="visible"
@@ -82,16 +77,7 @@ const HomeHeader = () => {
           </motion.div>
         </div>
 
-        {!isMobile && (
-          <motion.div
-            animate={{ scale: 1, opacity: 1 }}
-            className={styles.photoProfile}
-            initial={{ scale: 0, opacity: 0 }}
-            transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
-          >
-            <Image alt="Firmansyah Yanuar Photo" id="photo-profile-desktop" priority={!isMobile} src={Self} />
-          </motion.div>
-        )}
+        {!isMobile && <PhotoProfile />}
       </div>
       {!env.disableSpline && render3D && (
         <motion.iframe
