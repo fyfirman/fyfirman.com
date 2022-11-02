@@ -13,7 +13,7 @@ const menuList: { title: string; url: string }[] = [
   { title: "Home", url: "/" },
   { title: "Blog", url: "/blog" },
   { title: "Message", url: "/message" },
-  { title: "About", url: "/about" },
+  // { title: "About", url: "/about" },
 ];
 
 const MobileMenuModal: React.FC<ModalProps> = ({ visible, onClose }) => {

@@ -41,4 +41,13 @@ const About = () => {
   );
 };
 
+export const getStaticProps = async () => {
+  return {
+    redirect: {
+      destination: "/404",
+      permanent: false,
+    },
+  };
+};
+
 export default About;

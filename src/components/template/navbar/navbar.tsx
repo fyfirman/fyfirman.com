@@ -7,16 +7,18 @@ import MenuHeader from "./components/menu-navbar/menu-navbar";
 import useScrollOffset from "~/hooks/useScrollOffset";
 import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers/classname-helper";
+import useAppDarkMode from "~/hooks/useAppDarkMode";
 
 const DarkToggler = dynamic(() => import("./components/dark-toggler/dark-toggler"), { ssr: false });
 const NavbarMobile = dynamic(() => import("./navbar-mobile"), { ssr: false });
 
 const Navbar = () => {
   const { isMobile } = useResponsive();
+  const [isDarkMode] = useAppDarkMode();
   const isShadowVisible = useScrollOffset(20);
 
   return (
-    <header className={clsx([styles.container, isShadowVisible && styles["container-shadow"]])}>
+    <header className={clsx([styles.container, isShadowVisible && styles["container-shadow"], isDarkMode && "dark"])}>
       <div className={clsx([styles.header, isMobile && styles["header-mobile"]])}>
         <Link href="/" passHref>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -27,7 +29,7 @@ const Navbar = () => {
             <MenuHeader link title="Home" to="/" />
             <MenuHeader link title="Blog" to="/blog" />
             <MenuHeader link title="Message" to="/message" />
-            <MenuHeader link title="About" to="/about" />
+            {/* <MenuHeader link title="About" to="/about" /> */}
             <DarkToggler />
           </div>
         </Desktop>
