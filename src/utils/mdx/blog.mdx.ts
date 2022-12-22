@@ -43,5 +43,6 @@ export const getAllBlogPosts = (): BlogPost[] => {
         slug,
         readingTime: readingTime(source),
       };
-    });
+    })
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 };
