@@ -2,12 +2,16 @@
 import React from "react";
 import styles from "./mdx-image.module.scss";
 
-const MdxImage: React.VFC<React.ImgHTMLAttributes<HTMLImageElement>> = ({ alt, ...rest }) => {
+interface MdxImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  altComponent?: React.Component;
+}
+
+const MdxImage: React.VFC<MdxImageProps> = ({ alt, altComponent, ...rest }) => {
   return (
-    <div className={styles.container}>
+    <span className={styles.container}>
       <img alt={alt} {...rest} />
-      <span className={styles["alt-text"]}>{alt}</span>
-    </div>
+      <span className={styles["alt-text"]}>{altComponent ?? alt}</span>
+    </span>
   );
 };
 
