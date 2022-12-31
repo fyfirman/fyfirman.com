@@ -13,13 +13,21 @@ interface BlogCardProps {
   readingTime: ReadTimeResults;
 }
 
+const imageWidth = 500;
+
 const BlogCard = (props: BlogCardProps) => {
   const { href, imageURI, title, publishedDate, readingTime } = props;
 
   return (
     <a className={styles["card-container"]} href={href}>
       <div className={styles["card-image"]}>
-        <Image alt={`${title} Cover Image`} src={imageURI} />
+        <Image
+          alt={`${title} Cover Image`}
+          height={(imageWidth * 9) / 16}
+          placeholder="blur"
+          src={imageURI}
+          width={imageWidth}
+        />
       </div>
       <span className={styles["card-title"]}>{title}</span>
       <span className={styles.body}>
