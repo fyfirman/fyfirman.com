@@ -3,8 +3,8 @@ import Image from "next/image";
 import MenuOutline from "@assets/images/menu-outline.svg";
 import CloseOutline from "@assets/images/close-outline.svg";
 import dynamic from "next/dynamic";
-import styles from "./navbar.module.scss";
 import Button from "~/components/atomic/button";
+import styles from "./navbar.module.scss";
 
 const MobileMenuModal = dynamic(() => import("~/components/modal/mobile-menu-modal"), { ssr: false });
 const NavbarMobile = () => {

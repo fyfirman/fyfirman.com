@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
-import UtilsServices from "./utils.services";
 import app from "~/utils/firebase";
 import { IMessageOption } from "~/interfaces/message";
+import UtilsServices from "./utils.services";
 
 const MESSAGE_MAX_LENGTH = 200;
 const SENDER_NAME_MAX_LENGTH = 30;

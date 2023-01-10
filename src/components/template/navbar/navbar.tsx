@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Desktop, TabletAndBelow } from "../responsive/responsive";
-import styles from "./navbar.module.scss";
-import MenuHeader from "./components/menu-navbar/menu-navbar";
 import useScrollOffset from "~/hooks/useScrollOffset";
 import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers/classname-helper";
 import useAppDarkMode from "~/hooks/useAppDarkMode";
+import { Desktop, TabletAndBelow } from "../responsive/responsive";
+import MenuHeader from "./components/menu-navbar/menu-navbar";
+import styles from "./navbar.module.scss";
 
 const DarkToggler = dynamic(() => import("./components/dark-toggler/dark-toggler"), { ssr: false });
 const NavbarMobile = dynamic(() => import("./navbar-mobile"), { ssr: false });

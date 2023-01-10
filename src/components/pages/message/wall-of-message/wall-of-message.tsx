@@ -1,10 +1,10 @@
 import React from "react";
 import StackGrid from "react-stack-grid";
-import styles from "./wall-of-message.module.scss";
 import { IMessage } from "~/interfaces/message";
 import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers/classname-helper";
 import WallOfMessageCard from "~/components/atomic/wall-of-message-card";
+import styles from "./wall-of-message.module.scss";
 
 interface WallOfMessageProps {
   data: IMessage[];

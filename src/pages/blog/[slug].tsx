@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
 import { GetStaticProps } from "next";
 import { useDarkMode } from "next-dark-mode";
-import styles from "./blog-detail.module.scss";
 import { getAllBlogPosts, getSingleBlogPost } from "~/utils/mdx/blog.mdx";
 import Head from "~/components/template/head";
 import { BlogFrontmatter } from "~/utils/mdx/mdx-types";
@@ -10,6 +9,7 @@ import MdxImage from "~/components/atomic/mdx-image/mdx-image";
 import { clsx } from "~/helpers/classname-helper";
 import BlogHeader from "~/components/atomic/blog-header/blog-header";
 import Youtube from "~/components/atomic/youtube/youtube";
+import styles from "./blog-detail.module.scss";
 
 interface BlogDetailProps {
   code: string;

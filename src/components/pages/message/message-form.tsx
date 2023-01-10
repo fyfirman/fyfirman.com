@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useMemo, useState } from "react";
-import styles from "./message-form.module.scss";
 import MessageServices from "~/services/message.services";
 import Checkbox from "~/components/atomic/checkbox";
+import styles from "./message-form.module.scss";
 
 const MessageForm = () => {
   const [senderName, setSenderName] = useState("");

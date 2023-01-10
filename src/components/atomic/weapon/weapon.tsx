@@ -1,9 +1,9 @@
 import React, { LegacyRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import styles from "./weapon.module.scss";
 import useResponsive from "~/hooks/useResponsive";
 import { clsx } from "~/helpers/classname-helper";
+import styles from "./weapon.module.scss";
 
 interface WeaponProps {
   name: string;

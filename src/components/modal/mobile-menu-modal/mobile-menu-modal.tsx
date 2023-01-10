@@ -4,10 +4,10 @@ import Sun from "@assets/images/sunny-sharp.svg";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import styles from "./mobile-menu-modal.module.scss";
 import { ModalProps } from "~/interfaces/modal";
 import useAppDarkMode from "~/hooks/useAppDarkMode";
 import { clsx } from "~/helpers/classname-helper";
+import styles from "./mobile-menu-modal.module.scss";
 
 const menuList: { title: string; url: string }[] = [
   { title: "Home", url: "/" },

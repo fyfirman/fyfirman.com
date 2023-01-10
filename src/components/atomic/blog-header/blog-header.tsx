@@ -1,10 +1,10 @@
 import React from "react";
 import { ReadTimeResults } from "reading-time";
-import styles from "./blog-header.module.scss";
 import { BlogLanguage } from "~/utils/mdx/mdx-types";
 import { getReadingTimeInMin } from "~/helpers/read-time-helper";
 import { formatReadableDate } from "~/helpers/date-helper";
 import { getEmojiLanguage } from "~/helpers/string-helper";
+import styles from "./blog-header.module.scss";
 
 interface BlogHeaderProps {
   title: string;

@@ -23,7 +23,7 @@ const HomeHeader = () => {
   return (
     <div className={styles["header-container"]} id="home-header">
       <div className={clsx([styles.jumbotron, isMobile && styles.mobile])}>
-        {isMobile && <PhotoProfile />}
+        {isMobile ? <PhotoProfile /> : null}
         <div className={clsx([styles.aboutMe, isMobile && styles.mobile])}>
           <motion.h1
             animate="visible"
@@ -77,9 +77,9 @@ const HomeHeader = () => {
           </motion.div>
         </div>
 
-        {!isMobile && <PhotoProfile />}
+        {!isMobile ? <PhotoProfile /> : null}
       </div>
-      {!env.disableSpline && render3D && (
+      {!env.disableSpline && render3D ? (
         <motion.iframe
           animate={{ x: 0, y: 0, opacity: 1 }}
           className={styles["spline-geo-1"]}
@@ -96,7 +96,7 @@ const HomeHeader = () => {
             y: { repeat: Infinity, repeatType: "mirror", duration: 3 },
           }}
         />
-      )}
+      ) : null}
     </div>
   );
 };

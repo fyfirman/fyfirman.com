@@ -1,12 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { headerVariants } from "./home-project.animation";
 import { ProjectCard } from "~/components/atomic";
 import projectList from "~/data/project-list";
 import { useAOS } from "~/hooks/useAOS";
 import styles from "~/styles/Home.module.scss";
 import env from "~/utils/environment";
 import ScrollAnimation from "~/components/template/scroll-animation/scroll-animation";
+import { headerVariants } from "./home-project.animation";
 
 const NUM_OF_COLUMN = 2;
 
@@ -40,7 +40,7 @@ const HomeProject = () => {
         </div>
       ))}
       {/* <Link to="/project/">See All Project</Link> <br /> */}
-      {!env.disableSpline && (
+      {!env.disableSpline ? (
         <div className="spline-container">
           <iframe
             frameBorder="0"
@@ -50,7 +50,7 @@ const HomeProject = () => {
             title="3d-spline-geo-2"
           />
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

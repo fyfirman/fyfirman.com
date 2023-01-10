@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Firmansyah from "@assets/images/firmansyah.png";
-import styles from "./photo-profile.module.scss";
 import useResponsive from "~/hooks/useResponsive";
+import styles from "./photo-profile.module.scss";
 
 const PhotoProfile: React.VFC = () => {
   const { isMobile } = useResponsive();

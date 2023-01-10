@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
-import styles from "./button.module.scss";
 import { clsx } from "~/helpers/classname-helper";
+import styles from "./button.module.scss";
 
 export type ButtonVariant = "primary" | "secondary";
 

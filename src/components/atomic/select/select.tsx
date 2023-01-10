@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./select.module.scss";
 import { clsx } from "~/helpers/classname-helper";
+import styles from "./select.module.scss";
 
 export type SelectOption = { value: string | number; label?: string };
 

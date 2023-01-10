@@ -2,10 +2,10 @@ import React, { useMemo } from "react";
 import Head from "@components/template/head";
 import { useListVals } from "react-firebase-hooks/database";
 import dynamic from "next/dynamic";
-import styles from "./message.module.scss";
 import MessageForm from "~/components/pages/message/message-form";
 import { IMessage } from "~/interfaces/message";
 import app from "~/utils/firebase";
+import styles from "./message.module.scss";
 
 const WallOfMessage = dynamic(() => import("~/components/pages/message/wall-of-message"), { ssr: false });
 
@@ -50,7 +50,7 @@ const MessagePage = () => {
         <MessageForm />
       </div>
       <h1 className={styles.title}>Wall of message</h1>
-      {!isLoading && values && <WallOfMessage data={filteredData} />}
+      {!isLoading && values ? <WallOfMessage data={filteredData} /> : null}
     </div>
   );
 };

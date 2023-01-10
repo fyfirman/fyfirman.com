@@ -30,11 +30,11 @@ const About = () => {
             </p>
           </div>
 
-          {!movePhoto && (
+          {!movePhoto ? (
             <div className={styles.photoProfile}>
               <Image alt="Firmansyah Yanuar Photo" src={Firmansyah} />
             </div>
-          )}
+          ) : null}
         </div>
       </main>
     </div>
