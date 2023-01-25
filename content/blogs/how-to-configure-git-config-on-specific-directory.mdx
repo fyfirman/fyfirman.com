@@ -1,0 +1,58 @@
+---
+title: How To Configure Git Config On Specific Directory
+publishedAt: 2022-12-28
+description: Git config contain user data who commit the changes of code. The data can be seen by cloning the repository and check the commit details with command `git log` or GUI client.
+language: en
+coverImage: how-to-fix-fout.jpg
+---
+
+Git config contain user data who commit the changes of code. The data can be seen by cloning the repository and check the commit details with command `git log` or GUI client. There would be awful moment if we attach funny name or credentials of the company in the wrong place. Thus, we need to manage the git config carefully.
+
+For example we have these directory
+
+```
+|-- work
+|   |-- project-a
+|   |-- project-b
+|   |-- project-c
+`-- side-project
+    |-- project-d
+    `-- project-e
+``` 
+
+For work folder we want to set the email as `firmansyah.yanuar@company.com` and the name as `Firmansyah Yanuar` since that's should be using company email to be seen professional. Then, for the side project we want to set the email as `fyfirman@gmail.com` and the name as `The Lazy Coders`. In my experience the email important we open sourcing the project to get green github activities.
+
+The git config itself stored in your root folder that you can check it in `~/.gitconfig`. To initial or modify the config we can use these commands:
+
+```
+git config --global user.name Firmansyah Yanuar
+git config --global user.email firmansyah.yanuar@company.com
+```
+
+Then the configuration would be setted as a global configuration which mean whenever you commit that configuration would be used.
+
+## Configurate manually
+
+We can configurate manually on each project by using these command:
+
+```
+cd path/to/repository
+git config user.name Firmansyah Yanuar
+git config user.email fyfirman@gmail.com
+```
+
+That command would affect only for the directory you had. That is very straight forward but imagine we have a lot of repositories.
+
+## Configurate with `.gitconfig`
+
+```
+[user]
+	name = Firmansyah Yanuar
+	email = firmansyah.yanuar@autobahn-security.com
+[init]
+	defaultBranch = main
+[includeIf "gitdir:~/code/explore/"]
+	path = ~/.casualgitconfig
+[includeIf "gitdir:~/code/other/"]
+	path = ~/.casualgitconfig
+```
