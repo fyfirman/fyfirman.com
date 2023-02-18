@@ -5,7 +5,6 @@
   flex-direction: column;
   transition: all 0.2s;
   word-break: break-word;
-  min-width: 20vw;
   height: fit-content;
 }
 .container:hover {
@@ -13,10 +12,10 @@
   transform: translateX(-3px) translateY(-3px);
 
   & > .message {
-  -webkit-line-clamp: 99;
+    -webkit-line-clamp: 99;
   }
 }
-.container > div{
+.container > div {
   display: flex;
 }
 .sender {
