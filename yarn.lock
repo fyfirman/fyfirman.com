@@ -3348,10 +3348,10 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-fyfirman@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/eslint-config-fyfirman/-/eslint-config-fyfirman-0.1.0.tgz"
-  integrity sha512-wUzOUXtjPNuY8GS7YR9Kstdjk+zXYf0SvLEB9Ytlh4vpXJvDh3ngb/j2an7nzJOhRJkaUqceibHUrYEP882V4g==
+eslint-config-fyfirman@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-fyfirman/-/eslint-config-fyfirman-0.2.0.tgz#9c35b3509cc57a74b253423dbbf968b667d2d207"
+  integrity sha512-q/28GEjr88LSIvOWQt7Szjbs+5fmlhc94QiTRuCbnBC3Sa00ag+laikJJ+sRhzfoG9haoF56mFCKz4NbxP4GjQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.36.0"
     "@typescript-eslint/parser" "^5.36.0"
@@ -3365,6 +3365,7 @@ eslint-config-fyfirman@^0.1.0:
     eslint-plugin-react "^7.31.1"
     eslint-plugin-react-hooks "^4.6.0"
     eslint-plugin-testing-library "^5.6.0"
+    prettier "^2.8.2"
 
 eslint-config-kentcdodds@^20.4.0:
   version "20.4.0"
@@ -6640,6 +6641,11 @@ prettier@^2.4.1:
   version "2.4.1"
   resolved "https://registry.npmjs.org/prettier/-/prettier-2.4.1.tgz"
   integrity sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==
+
+prettier@^2.8.2:
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.4.tgz#34dd2595629bfbb79d344ac4a91ff948694463c3"
+  integrity sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==
 
 pretty-format@^27.0.0, pretty-format@^27.0.2, pretty-format@^27.4.6:
   version "27.4.6"
