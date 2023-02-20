@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ReadTimeResults } from "reading-time";
 import { formatReadableDate } from "~/helpers/date-helper";
 import { getReadingTimeInMin } from "~/helpers/read-time-helper";
+import Link from "next/link";
 import styles from "./blog-card.module.scss";
 
 interface BlogCardProps {
@@ -19,21 +20,23 @@ const BlogCard = (props: BlogCardProps) => {
   const { href, imageURI, title, publishedDate, readingTime } = props;
 
   return (
-    <a className={styles["card-container"]} href={href}>
-      <div className={styles["card-image"]}>
-        <Image
-          alt={`${title} Cover Image`}
-          height={(imageWidth * 9) / 16}
-          placeholder="blur"
-          src={imageURI}
-          width={imageWidth}
-        />
-      </div>
-      <span className={styles["card-title"]}>{title}</span>
-      <span className={styles.body}>
-        {formatReadableDate(publishedDate)} - {getReadingTimeInMin(readingTime)} min read
-      </span>
-    </a>
+    <Link href={href} passHref>
+      <a className={styles["card-container"]}>
+        <div className={styles["card-image"]}>
+          <Image
+            alt={`${title} Cover Image`}
+            height={(imageWidth * 9) / 16}
+            placeholder="blur"
+            src={imageURI}
+            width={imageWidth}
+          />
+        </div>
+        <span className={styles["card-title"]}>{title}</span>
+        <span className={styles.body}>
+          {formatReadableDate(publishedDate)} - {getReadingTimeInMin(readingTime)} min read
+        </span>
+      </a>
+    </Link>
   );
 };
 
