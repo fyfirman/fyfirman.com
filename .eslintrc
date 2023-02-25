@@ -1,3 +1,6 @@
 {
-  "extends": ["fyfirman"]
+  "extends": ["fyfirman", "plugin:@next/next/recommended"],
+  "rules": {
+    "@next/next/no-img-element": "off"
+  }
 }
