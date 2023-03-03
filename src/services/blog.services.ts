@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from "axios";
 
 const postRead = async (slug: string) => {
-  const res: AxiosResponse<{ ip: string }> = await axios.get(
+  const res: AxiosResponse<unknown> = await axios.post(
     `https://fyfirman-blog-service-3ukvs5ptha-uc.a.run.app/blog/${slug}/read`,
   );
 
-  return res.data.ip;
+  return res;
 };
 
 const BlogServices = {
