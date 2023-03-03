@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
 import { GetStaticProps } from "next";
 import { useDarkMode } from "next-dark-mode";
@@ -9,16 +9,22 @@ import MdxImage from "~/components/atomic/mdx-image/mdx-image";
 import { clsx } from "~/helpers/classname-helper";
 import BlogHeader from "~/components/atomic/blog-header/blog-header";
 import Youtube from "~/components/atomic/youtube/youtube";
+import BlogServices from "~/services/blog.services";
 import styles from "./blog-detail.module.scss";
 
 interface BlogDetailProps {
   code: string;
+  slug: string;
   frontmatter: BlogFrontmatter;
 }
 
-const BlogDetail = ({ code, frontmatter }: BlogDetailProps) => {
+const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
   const { darkModeActive } = useDarkMode();
   const Component = useMemo(() => getMDXComponent(code), [code]);
+
+  useEffect(() => {
+    void BlogServices.postRead(slug);
+  }, []);
 
   return (
     <>
@@ -45,7 +51,7 @@ export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }
 
   const { frontmatter, code } = await getSingleBlogPost(params.slug as string);
   return {
-    props: { code, frontmatter },
+    props: { code, frontmatter, slug: params.slug as string },
   };
 };
 
