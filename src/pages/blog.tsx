@@ -14,7 +14,12 @@ const BlogList: NextPage<BlogListProps> = ({ blogList }) => {
     <>
       <Head title="Blog" />
 
-      <h1 className={styles.headings}>Blog - What&apos;s inside fyfirman</h1>
+      <div className={styles.headingContainer}>
+        <h1 className={styles.headings}>Blog - What&apos;s inside fyfirman</h1>
+        <p className={styles.subtitle}>
+          ⚠️ This page is under development. <br /> Just to put everything in my mind, will tidy up later
+        </p>
+      </div>
       <div className={styles.cardContainer}>
         {blogList.map(({ title, publishedAt, slug, readingTime, coverImage }) => (
           <BlogCard

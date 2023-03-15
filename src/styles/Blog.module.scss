@@ -1,16 +1,28 @@
 .headings {
-  margin-bottom: 4rem;
   font-family: Nunito Sans;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--text-headings);
   font-size: 1.875rem;
   letter-spacing: 0.125rem;
+}
+
+.headingContainer {
   margin-top: 0;
+  margin-bottom: 4rem;
 
   @media only screen and (max-width: 720px) {
     margin-bottom: 2 rem;
   }
+}
+
+.subtitle {
+  font-family: Nunito Sans;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--text-subtitle);
+  margin-bottom: 2rem;
+  margin-top: 0;
 }
 
 .cardContainer {
