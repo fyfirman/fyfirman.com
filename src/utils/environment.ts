@@ -3,6 +3,7 @@ interface Environment {
   metaDesc: string;
   firebaseConfig: any;
   disableSpline: boolean;
+  backendUrl: string;
 }
 
 const env: Environment = {
@@ -22,6 +23,7 @@ const env: Environment = {
     gtmEnvId: process.env.NEXT_PUBLIC_GTM_ENV_ID,
   },
   disableSpline: process.env.NEXT_PUBLIC_DISABLE_SPLINE === "true",
+  backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL ?? "",
 };
 
 export default env;

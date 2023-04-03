@@ -1,9 +1,8 @@
 import axios, { AxiosResponse } from "axios";
+import env from "~/utils/environment";
 
 const postRead = async (slug: string) => {
-  const res: AxiosResponse<unknown> = await axios.post(
-    `https://fyfirman-blog-service-3ukvs5ptha-uc.a.run.app/blog/${slug}/read`,
-  );
+  const res: AxiosResponse<unknown> = await axios.post(`${env.backendUrl}/blog/${slug}/read`);
 
   return res;
 };
