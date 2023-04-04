@@ -8,7 +8,7 @@ body {
 body {
   /* Color */
   --bg: white;
-  --bg-button: hsla(0, 0%, 0%, 0.851);
+  --bg-button: #000000;
   --bg-highlight: #000000d9;
   --bg-sosmed-middle: black;
   --bg-weapon: white;
@@ -18,7 +18,7 @@ body {
   --icon-sosmed: black;
   --shadow-ava: #000000bd;
   --text-body: #000000d9;
-  --text-button: #ffffffd9;
+  --text-button: #ffffff;
   --text-highlight: white;
   --text-headings: black;
   --text-secondary: #000000aa;
@@ -48,7 +48,7 @@ body.dark {
   --icon-sosmed: white;
   --shadow-ava: #ffffff8c;
   --text-body: #ffffffd9;
-  --text-button: #141414;
+  --text-button: #000000;
   --text-headings: white;
   --text-highlight: black;
   --text-secondary: #ffffffaa;
