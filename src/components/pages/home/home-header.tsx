@@ -2,7 +2,6 @@ import React from "react";
 import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
 import { useDarkMode } from "next-dark-mode";
-import styles from "~/styles/Home.module.scss";
 import useResponsive from "~/hooks/useResponsive";
 import env from "~/utils/environment";
 import PhotoProfile from "~/components/atomic/photo-profile/photo-profile";
@@ -53,6 +52,12 @@ const PrimaryButton = styled(motion.a)<StyledComponentProps>`
   }
 `;
 
+const SplineGeoContainer = styled(motion.iframe)`
+  position: absolute;
+  bottom: -50px;
+  right: -200px;
+`;
+
 const AboutMe = styled(motion.div)<StyledComponentProps>`
   flex: 4;
   padding-left: 4%;
@@ -90,7 +95,12 @@ const HomeHeader = () => {
   });
 
   return (
-    <div className={styles["header-container"]} id="home-header">
+    <div
+      id="home-header"
+      style={{
+        position: "relative",
+      }}
+    >
       <JumboTron isMobile={isMobile}>
         <PhotoProfile />
         <AboutMe isMobile={isMobile}>
@@ -155,9 +165,8 @@ const HomeHeader = () => {
         </AboutMe>
       </JumboTron>
       {!env.disableSpline && render3D ? (
-        <motion.iframe
+        <SplineGeoContainer
           animate={{ x: 0, y: 0, opacity: 1 }}
-          className={styles["spline-geo-1"]}
           frameBorder="0"
           id="spline-geo-1"
           initial={{ x: 20, y: 20, opacity: 0 }}
