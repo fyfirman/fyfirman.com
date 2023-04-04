@@ -20,6 +20,7 @@
     "deploy:prod": "vercel --prod"
   },
   "dependencies": {
+    "@fontsource/manrope": "^4.5.13",
     "@fontsource/nunito-sans": "^4.1.0",
     "@next/bundle-analyzer": "^12.0.7",
     "axios": "^0.24.0",

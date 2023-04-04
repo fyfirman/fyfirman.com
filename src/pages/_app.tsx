@@ -1,5 +1,6 @@
 import "~/styles/globals.css";
 import "@fontsource/nunito-sans";
+import "@fontsource/manrope";
 import type { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import withDarkMode, { useDarkMode } from "next-dark-mode";

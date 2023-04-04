@@ -31,7 +31,8 @@ body {
   background-color: var(--bg);
 
   /* Font */
-  --base-font: Nunito Sans, Helvetica Neue, -apple-system, sans-serif;
+  --base-font: Manrope, Helvetica Neue, sans-serif;
+  font-family: var(--base-font);
 }
 
 body.dark {

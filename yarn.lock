@@ -802,6 +802,11 @@
   resolved "https://registry.npmjs.org/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.5.1.tgz"
   integrity sha512-dZMzN0uAjwJXWYYAcnxIwXqRTZw3o14hGe7O6uhwjD1ZQWPVYA5lASgnNskEBra0knVBsOXB4KXg+HnlKewN/A==
 
+"@fontsource/manrope@^4.5.13":
+  version "4.5.13"
+  resolved "https://registry.yarnpkg.com/@fontsource/manrope/-/manrope-4.5.13.tgz#c78c3141c506baace10a6ae304f2d56bc2f5217a"
+  integrity sha512-UFN5DMGBp8nFpwhPQXfpSbsEm4OVISqUKQy+rA+pb1zYGoH+OGN1woKEND8VLx+pC7rY3nrPRCJvSuuOaNdW7Q==
+
 "@fontsource/nunito-sans@^4.1.0":
   version "4.5.1"
   resolved "https://registry.npmjs.org/@fontsource/nunito-sans/-/nunito-sans-4.5.1.tgz"
