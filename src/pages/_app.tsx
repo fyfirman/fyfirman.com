@@ -1,6 +1,10 @@
 import "~/styles/globals.css";
 import "@fontsource/nunito-sans";
 import "@fontsource/manrope";
+import "@fontsource/manrope/500.css";
+import "@fontsource/manrope/600.css";
+import "@fontsource/manrope/700.css";
+import "@fontsource/manrope/800.css";
 import type { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import withDarkMode, { useDarkMode } from "next-dark-mode";

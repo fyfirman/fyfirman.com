@@ -3,12 +3,12 @@ import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
 import { useDarkMode } from "next-dark-mode";
 import styles from "~/styles/Home.module.scss";
-import { clsx } from "~/helpers/classname-helper";
 import useResponsive from "~/hooks/useResponsive";
 import env from "~/utils/environment";
 import PhotoProfile from "~/components/atomic/photo-profile/photo-profile";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import type { StyledComponentProps } from "~/interfaces/styled-component";
+import { GOLDEN_RATIO, WRAPPER_WIDTH } from "~/helpers/constants";
 
 const variants = {
   hidden: { opacity: 0, y: -100 },
@@ -16,23 +16,70 @@ const variants = {
 };
 
 const Header = styled(motion.h1)<StyledComponentProps>`
-  font-family: var(--base-font);
-  font-weight: 800;
+  margin: 0;
   font-size: 48px;
+  font-weight: 800;
+  line-height: 66px;
   letter-spacing: -0.035em;
   color: var(--text-headings);
-  margin: 0;
+  font-family: var(--base-font);
 `;
 
 const SubHeader = styled(motion.span)<StyledComponentProps>`
-  font-family: var(--base-font);
-  font-weight: 500;
+  font-font-weight: 500;
   font-size: 18.3375px;
-  color: var(--text-headings);
+  family: var(--base-font);
   letter-spacing: -0.025em;
-  margin-bottom: ${({ isMobile }) => (!isMobile ? "0" : "16px")};
   margin-top: ${({ isMobile }) => (!isMobile ? "0" : "8px")};
+  margin-bottom: ${({ isMobile }) => (!isMobile ? "0" : "16px")};
   text-align: ${({ isMobile }) => (!isMobile ? "left" : "center")};
+  color: var(--text-body); // Text body is different from the design;
+`;
+
+const PrimaryButton = styled(motion.a)<StyledComponentProps>`
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px 24px;
+  letter-spacing: 2px;
+  color: var(--text-button);
+  text-transform: uppercase;
+  font-family: var(--base-font);
+  background-color: var(--bg-button);
+  box-shadow: 0px 0px var(--shadow-ava);
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const AboutMe = styled(motion.div)<StyledComponentProps>`
+  flex: 4;
+  padding-left: 4%;
+  z-index: 2;
+
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      display: flex;
+      flex-direction: column;
+      padding-right: 0;
+      align-items: center;
+    `}
+`;
+
+const JumboTron = styled(motion.div)<StyledComponentProps>`
+  display: flex;
+  align-items: center;
+  height: ${WRAPPER_WIDTH / GOLDEN_RATIO}px;
+  margin-top: calc(${WRAPPER_WIDTH / GOLDEN_RATIO} - 120px) px;
+
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      flex-direction: column;
+      margin-top: 10px;
+    `}
 `;
 
 const HomeHeader = () => {
@@ -44,9 +91,9 @@ const HomeHeader = () => {
 
   return (
     <div className={styles["header-container"]} id="home-header">
-      <div className={clsx([styles.jumbotron, isMobile && styles.mobile])}>
+      <JumboTron isMobile={isMobile}>
         <PhotoProfile />
-        <div className={clsx([styles.aboutMe, isMobile && styles.mobile])}>
+        <AboutMe isMobile={isMobile}>
           <SubHeader
             animate="visible"
             initial="hidden"
@@ -75,9 +122,9 @@ const HomeHeader = () => {
             {!isMobile ? "I love to build something cool software" : "I love to build something cool software"}
           </SubHeader>
           <motion.div
-            animate={{ opacity: 1, y: 0, scale: 1.1 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             initial="hidden"
-            style={{ width: "fit-content" }}
+            style={{ width: "fit-content", marginTop: "32px" }}
             transition={{
               opacity: { ease: "anticipate", duration: 1 },
               y: { ease: "anticipate", duration: 1 },
@@ -87,9 +134,8 @@ const HomeHeader = () => {
             whileHover={{ scale: 1.2, transition: { duration: 0.5, type: "spring", stiffness: 150 } }}
             whileTap={{ scale: 0.95, transition: { duration: 0.25, type: "spring", stiffness: 120 } }}
           >
-            <motion.a
+            <PrimaryButton
               animate={{ backgroundColor: darkModeActive ? "#ffffff" : "hsla(0, 0%, 0%, 0.851)" }}
-              className={clsx([styles["primary-button"], isMobile && styles.mobile])}
               href="https://www.instagram.com/fyfirman/"
               id="lets-talk-button"
               rel="noreferrer"
@@ -104,10 +150,10 @@ const HomeHeader = () => {
               }}
             >
               Let&apos;s Talk
-            </motion.a>
+            </PrimaryButton>
           </motion.div>
-        </div>
-      </div>
+        </AboutMe>
+      </JumboTron>
       {!env.disableSpline && render3D ? (
         <motion.iframe
           animate={{ x: 0, y: 0, opacity: 1 }}
