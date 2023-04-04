@@ -10,6 +10,7 @@ import { clsx } from "~/helpers/classname-helper";
 import BlogHeader from "~/components/atomic/blog-header/blog-header";
 import Youtube from "~/components/atomic/youtube/youtube";
 import BlogServices from "~/services/blog.services";
+import tracer from "~/utils/tracer/tracer";
 import styles from "./blog-detail.module.scss";
 
 interface BlogDetailProps {
@@ -23,7 +24,11 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
   const Component = useMemo(() => getMDXComponent(code), [code]);
 
   useEffect(() => {
-    void BlogServices.postRead(slug);
+    try {
+      void BlogServices.postRead(slug);
+    } catch (error: unknown) {
+      tracer.error(error as Error);
+    }
   }, []);
 
   return (
