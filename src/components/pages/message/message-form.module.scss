@@ -1,8 +1,7 @@
-
 .send-button {
   width: 100%;
   color: var(--text-button);
-  font-family: "Nunito Sans";
+  font-family: var(--base-font);
   font-weight: 700;
   background-color: var(--bg-button);
   font-size: 0.875rem;
@@ -29,7 +28,7 @@
 .input {
   width: 100%;
   color: var(--text-body);
-  font-family: "Nunito Sans";
+  font-family: var(--base-font);
   font-weight: 500;
   font-size: 0.875rem;
   padding: 8px;
@@ -58,7 +57,7 @@ textarea.input {
 .error-message {
   width: 100%;
   color: #ff0000;
-  font-family: Nunito Sans;
+  font-family: var(--base-font);
   font-weight: 500;
   font-size: 0.875rem;
 }

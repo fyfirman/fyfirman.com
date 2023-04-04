@@ -27,7 +27,7 @@
 .menu {
   padding: 16px 12px;
   text-transform: uppercase;
-  font-family: Nunito Sans;
+  font-family: var(--base-font);
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -48,7 +48,7 @@
   }
 }
 
-button.menu{
+button.menu {
   border: none;
   background: none;
 }
