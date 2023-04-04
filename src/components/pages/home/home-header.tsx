@@ -7,11 +7,33 @@ import { clsx } from "~/helpers/classname-helper";
 import useResponsive from "~/hooks/useResponsive";
 import env from "~/utils/environment";
 import PhotoProfile from "~/components/atomic/photo-profile/photo-profile";
+import styled from "styled-components";
+import type { StyledComponentProps } from "~/interfaces/styled-component";
 
 const variants = {
   hidden: { opacity: 0, y: -100 },
   visible: { opacity: 1, y: 0 },
 };
+
+const Header = styled(motion.h1)<StyledComponentProps>`
+  font-family: var(--base-font);
+  font-weight: 800;
+  font-size: 48px;
+  letter-spacing: -0.035em;
+  color: var(--text-headings);
+  margin: 0;
+`;
+
+const SubHeader = styled(motion.span)<StyledComponentProps>`
+  font-family: var(--base-font);
+  font-weight: 500;
+  font-size: 18.3375px;
+  color: var(--text-headings);
+  letter-spacing: -0.025em;
+  margin-bottom: ${({ isMobile }) => (!isMobile ? "0" : "16px")};
+  margin-top: ${({ isMobile }) => (!isMobile ? "0" : "8px")};
+  text-align: ${({ isMobile }) => (!isMobile ? "left" : "center")};
+`;
 
 const HomeHeader = () => {
   const { isMobile } = useResponsive();
@@ -23,26 +45,35 @@ const HomeHeader = () => {
   return (
     <div className={styles["header-container"]} id="home-header">
       <div className={clsx([styles.jumbotron, isMobile && styles.mobile])}>
-        {isMobile ? <PhotoProfile /> : null}
+        <PhotoProfile />
         <div className={clsx([styles.aboutMe, isMobile && styles.mobile])}>
-          <motion.h1
+          <SubHeader
             animate="visible"
-            className={clsx([styles.headings, isMobile && styles.mobile])}
             initial="hidden"
-            transition={{ ease: "anticipate", duration: 0.5, delay: 0.5 }}
-            variants={variants}
-          >
-            Hi, i’m firmansyah !
-          </motion.h1>
-          <motion.h2
-            animate="visible"
-            className={clsx([styles.title, isMobile && styles.mobile])}
-            initial="hidden"
+            isMobile={isMobile}
             transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
             variants={variants}
           >
-            {!isMobile ? "Software engineer | freelancer" : "Software engineer freelancer"}
-          </motion.h2>
+            Hi, I am
+          </SubHeader>
+          <Header
+            animate="visible"
+            initial="hidden"
+            isMobile={isMobile}
+            transition={{ ease: "anticipate", duration: 0.5, delay: 0.5 }}
+            variants={variants}
+          >
+            Firmansyah Yanuar
+          </Header>
+          <SubHeader
+            animate="visible"
+            initial="hidden"
+            isMobile={isMobile}
+            transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
+            variants={variants}
+          >
+            {!isMobile ? "I love to build something cool software" : "I love to build something cool software"}
+          </SubHeader>
           <motion.div
             animate={{ opacity: 1, y: 0, scale: 1.1 }}
             initial="hidden"
@@ -76,8 +107,6 @@ const HomeHeader = () => {
             </motion.a>
           </motion.div>
         </div>
-
-        {!isMobile ? <PhotoProfile /> : null}
       </div>
       {!env.disableSpline && render3D ? (
         <motion.iframe

@@ -13,22 +13,6 @@
   }
 }
 
-.title {
-  font-family: var(--base-font);
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--text-headings);
-  font-size: 24px;
-  letter-spacing: 0.2em;
-  margin-bottom: 60px;
-  &.mobile {
-    margin-top: 8px;
-    margin-bottom: 16px;
-    font-size: 20px;
-    text-align: center;
-  }
-}
-
 .headings2 {
   margin-top: 96px;
   margin-bottom: 36px;
