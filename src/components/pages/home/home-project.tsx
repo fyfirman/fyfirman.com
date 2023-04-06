@@ -14,7 +14,14 @@ const HomeProject = () => {
   const { controls, ref } = useAOS();
   return (
     <div id="home-project">
-      <Heading2 animate={controls} id="project-section" initial="initial" ref={ref} variants={headerVariants}>
+      <Heading2
+        animate={controls}
+        id="project-section"
+        initial="initial"
+        ref={ref}
+        style={{ marginTop: 128 }}
+        variants={headerVariants}
+      >
         Selected Project
       </Heading2>
       {[...(Array(Math.round(projectList.length / NUM_OF_COLUMN)) as number[])].map((_, i) => (

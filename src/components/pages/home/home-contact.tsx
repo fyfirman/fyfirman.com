@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "~/styles/Home.module.scss";
 import { Sosmed } from "~/components/atomic";
+import { Heading2 } from "~/components/atomic/heading/heading";
 
 const HomeContact = () => {
   return (
     <div id="home-contact">
-      <h2 className={styles.headings2}>Get In Touch With Me</h2>
+      <Heading2 style={{ marginTop: 128 }}>Get In Touch With Me</Heading2>
       <div style={{ maxWidth: "600px" }}>
         <p className="text-body">
           I&apos;m very happy to share knowledge. If you want to ask something about IT, productivity, or my college
