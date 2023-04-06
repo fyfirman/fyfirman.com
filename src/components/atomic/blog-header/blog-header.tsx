@@ -4,7 +4,16 @@ import { BlogLanguage } from "~/utils/mdx/mdx-types";
 import { getReadingTimeInMin } from "~/helpers/read-time-helper";
 import { formatReadableDate } from "~/helpers/date-helper";
 import { getEmojiLanguage } from "~/helpers/string-helper";
+import styled from "styled-components";
+import { Heading1, SubParagraph } from "../typography/typography";
 import styles from "./blog-header.module.scss";
+
+// TODO: modify this to div
+const BlogInfo = styled(SubParagraph)`
+  color: var(--text-secondary);
+  gap: 0.5rem;
+  display: flex;
+`;
 
 interface BlogHeaderProps {
   title: string;
@@ -16,14 +25,14 @@ interface BlogHeaderProps {
 const BlogHeader: React.FC<BlogHeaderProps> = ({ title, readingTime, publishedAt, language }) => {
   return (
     <div className={styles.container}>
-      <h1>{title}</h1>
-      <div className={styles.infoContainer}>
+      <Heading1>{title}</Heading1>
+      <BlogInfo>
         <span>{formatReadableDate(publishedAt)}</span>
         <span>·</span>
         <span>{getReadingTimeInMin(readingTime)} min read</span>
         <span>·</span>
         <span>{getEmojiLanguage(language)}</span>
-      </div>
+      </BlogInfo>
     </div>
   );
 };

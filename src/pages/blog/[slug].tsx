@@ -11,6 +11,7 @@ import BlogHeader from "~/components/atomic/blog-header/blog-header";
 import Youtube from "~/components/atomic/youtube/youtube";
 import BlogServices from "~/services/blog.services";
 import tracer from "~/utils/tracer/tracer";
+import { Heading1, Heading2, Heading3, Paragraph } from "~/components/atomic/typography/typography";
 import styles from "./blog-detail.module.scss";
 
 interface BlogDetailProps {
@@ -41,7 +42,9 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
           readingTime={frontmatter.readingTime}
           title={frontmatter.title}
         />
-        <Component components={{ img: MdxImage, MdxImage, Youtube }} />
+        <Component
+          components={{ img: MdxImage, h1: Heading1, h2: Heading2, h3: Heading3, p: Paragraph, MdxImage, Youtube }}
+        />
       </div>
     </>
   );
