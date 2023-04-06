@@ -5,8 +5,6 @@ import { formatReadableDate } from "~/helpers/date-helper";
 import { getReadingTimeInMin } from "~/helpers/read-time-helper";
 import Link from "next/link";
 import styles from "./blog-card.module.scss";
-import styled from "styled-components";
-import { SubParagraph } from "../typography/typography";
 
 interface BlogCardProps {
   href: string;
