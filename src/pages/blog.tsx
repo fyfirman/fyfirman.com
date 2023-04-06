@@ -4,6 +4,7 @@ import React from "react";
 import styles from "~/styles/Blog.module.scss";
 import { BlogPost, getAllBlogPosts } from "~/utils/mdx/blog.mdx";
 import BlogCard from "~/components/atomic/blog-card";
+import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 
 interface BlogListProps {
   blogList: BlogPost[];
@@ -15,10 +16,10 @@ const BlogList: NextPage<BlogListProps> = ({ blogList }) => {
       <Head title="Blog" />
 
       <div className={styles.headingContainer}>
-        <h1 className={styles.headings}>Blog - What&apos;s inside fyfirman</h1>
-        <p className={styles.subtitle}>
+        <Heading1>Blog - What&apos;s inside fyfirman</Heading1>
+        <Paragraph>
           ⚠️ This page is under development. <br /> Just to put everything in my mind, will tidy up later
-        </p>
+        </Paragraph>
       </div>
       <div className={styles.cardContainer}>
         {blogList.map(({ title, publishedAt, slug, readingTime, coverImage }) => (

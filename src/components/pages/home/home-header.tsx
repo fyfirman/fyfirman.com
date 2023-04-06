@@ -25,9 +25,9 @@ const Header = styled(motion.h1)<StyledComponentProps>`
 `;
 
 const SubHeader = styled(motion.span)<StyledComponentProps>`
-  font-font-weight: 500;
+  font-weight: 500;
   font-size: 18.3375px;
-  family: var(--base-font);
+  font-family: var(--base-font);
   letter-spacing: -0.025em;
   margin-top: ${({ isMobile }) => (!isMobile ? "0" : "8px")};
   margin-bottom: ${({ isMobile }) => (!isMobile ? "0" : "16px")};

@@ -5,7 +5,7 @@ import { Weapon } from "~/components/atomic";
 import useResponsive from "~/hooks/useResponsive";
 import { primaryWeapon, secondaryWeapon } from "~/data/weapon-list";
 import styled from "styled-components";
-import { Heading2 } from "~/components/atomic/heading/heading";
+import { Heading1 } from "~/components/atomic/typography/typography";
 import type { StyledComponentProps } from "~/interfaces/styled-component";
 
 const delayWeapon = 1.25; // in second
@@ -81,9 +81,9 @@ const HomeWeapon = () => {
 
   return (
     <div id="home-weapon">
-      <Heading2 animate={{ y: 0, opacity: 1 }} initial={{ y: -100, opacity: 0 }} transition={{ duration: 1 }}>
+      <Heading1 animate={{ y: 0, opacity: 1 }} initial={{ y: -100, opacity: 0 }} transition={{ duration: 1 }}>
         My Weapons
-      </Heading2>
+      </Heading1>
       <WeaponContainer>
         {[
           { name: "Primary", data: primaryWeapon },

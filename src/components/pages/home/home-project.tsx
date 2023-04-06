@@ -5,7 +5,7 @@ import { useAOS } from "~/hooks/useAOS";
 import styles from "~/styles/Home.module.scss";
 import env from "~/utils/environment";
 import ScrollAnimation from "~/components/template/scroll-animation/scroll-animation";
-import { Heading2 } from "~/components/atomic/heading/heading";
+import { Heading1 } from "~/components/atomic/typography/typography";
 import { headerVariants } from "./home-project.animation";
 
 const NUM_OF_COLUMN = 2;
@@ -14,7 +14,7 @@ const HomeProject = () => {
   const { controls, ref } = useAOS();
   return (
     <div id="home-project">
-      <Heading2
+      <Heading1
         animate={controls}
         id="project-section"
         initial="initial"
@@ -23,7 +23,7 @@ const HomeProject = () => {
         variants={headerVariants}
       >
         Selected Project
-      </Heading2>
+      </Heading1>
       {[...(Array(Math.round(projectList.length / NUM_OF_COLUMN)) as number[])].map((_, i) => (
         <div key={i} className={`${styles.projectContainer} ${i % 2 === 0 ? styles.first : styles.last}`}>
           {[...(Array(NUM_OF_COLUMN) as number[])].map((__, j) => (

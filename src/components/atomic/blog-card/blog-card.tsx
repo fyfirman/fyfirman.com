@@ -5,6 +5,8 @@ import { formatReadableDate } from "~/helpers/date-helper";
 import { getReadingTimeInMin } from "~/helpers/read-time-helper";
 import Link from "next/link";
 import styles from "./blog-card.module.scss";
+import styled from "styled-components";
+import { SubParagraph } from "../typography/typography";
 
 interface BlogCardProps {
   href: string;
@@ -32,9 +34,9 @@ const BlogCard = (props: BlogCardProps) => {
           />
         </div>
         <span className={styles["card-title"]}>{title}</span>
-        <span className={styles.body}>
+        <SubParagraph>
           {formatReadableDate(publishedDate)} - {getReadingTimeInMin(readingTime)} min read
-        </span>
+        </SubParagraph>
       </a>
     </Link>
   );
