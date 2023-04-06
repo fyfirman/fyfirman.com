@@ -17,7 +17,8 @@
     "prepare": "husky install",
     "test": "jest --watch",
     "deploy:preview": "vercel",
-    "deploy:prod": "vercel --prod"
+    "deploy:prod": "vercel --prod",
+    "clean": "rm -rf .next"
   },
   "dependencies": {
     "@fontsource/manrope": "^4.5.13",
