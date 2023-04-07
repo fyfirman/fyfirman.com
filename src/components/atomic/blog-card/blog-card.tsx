@@ -1,41 +1,40 @@
 import React from "react";
-import Image from "next/image";
+import Image, { ImageProps } from "next/image";
 import { ReadTimeResults } from "reading-time";
 import { formatReadableDate } from "~/helpers/date-helper";
 import { getReadingTimeInMin } from "~/helpers/read-time-helper";
 import Link from "next/link";
+import { SubParagraph } from "../typography/typography";
 import styles from "./blog-card.module.scss";
 
 interface BlogCardProps {
   href: string;
-  imageURI: StaticImageData;
+  imageURI: ImageProps["src"];
   title: string;
   publishedDate: Date;
   readingTime: ReadTimeResults;
 }
 
-const imageWidth = 500;
+const imageWidth = 345;
 
 const BlogCard = (props: BlogCardProps) => {
   const { href, imageURI, title, publishedDate, readingTime } = props;
 
   return (
-    <Link href={href} passHref>
-      <a className={styles["card-container"]}>
-        <div className={styles["card-image"]}>
-          <Image
-            alt={`${title} Cover Image`}
-            height={(imageWidth * 9) / 16}
-            placeholder="blur"
-            src={imageURI}
-            width={imageWidth}
-          />
-        </div>
-        <span className={styles["card-title"]}>{title}</span>
-        <span className={styles.body}>
-          {formatReadableDate(publishedDate)} - {getReadingTimeInMin(readingTime)} min read
-        </span>
-      </a>
+    <Link className={styles["card-container"]} href={href} passHref>
+      <div className={styles["card-image"]}>
+        <Image
+          alt={`${title} Cover Image`}
+          height={(imageWidth * 9) / 16}
+          placeholder="blur"
+          src={imageURI}
+          width={imageWidth}
+        />
+      </div>
+      <span className={styles["card-title"]}>{title}</span>
+      <SubParagraph>
+        {formatReadableDate(publishedDate)} - {getReadingTimeInMin(readingTime)} min read
+      </SubParagraph>
     </Link>
   );
 };

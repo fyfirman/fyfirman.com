@@ -1,1 +1,5 @@
-module.exports = {extends: ['gitmoji']};
+/**
+ * Disabled gitmoji. Use emoji from gitmoji extension instead.
+ */
+
+module.exports = {extends: []};

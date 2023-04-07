@@ -10,6 +10,8 @@ import { clsx } from "~/helpers/classname-helper";
 import BlogHeader from "~/components/atomic/blog-header/blog-header";
 import Youtube from "~/components/atomic/youtube/youtube";
 import BlogServices from "~/services/blog.services";
+import tracer from "~/utils/tracer/tracer";
+import { Heading1, Heading2, Heading3, Paragraph } from "~/components/atomic/typography/typography";
 import styles from "./blog-detail.module.scss";
 
 interface BlogDetailProps {
@@ -23,7 +25,11 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
   const Component = useMemo(() => getMDXComponent(code), [code]);
 
   useEffect(() => {
-    void BlogServices.postRead(slug);
+    try {
+      void BlogServices.postRead(slug);
+    } catch (error: unknown) {
+      tracer.error(error as Error);
+    }
   }, []);
 
   return (
@@ -36,7 +42,9 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
           readingTime={frontmatter.readingTime}
           title={frontmatter.title}
         />
-        <Component components={{ img: MdxImage, MdxImage, Youtube }} />
+        <Component
+          components={{ img: MdxImage, h1: Heading1, h2: Heading2, h3: Heading3, p: Paragraph, MdxImage, Youtube }}
+        />
       </div>
     </>
   );

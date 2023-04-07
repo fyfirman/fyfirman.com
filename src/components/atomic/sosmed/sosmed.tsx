@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import Image from "next/image";
+import Image, { ImageProps } from "next/image";
 import styles from "./sosmed.module.scss";
 
 interface SosmedProps {
@@ -22,7 +22,8 @@ const Sosmed = (props: SosmedProps) => {
       <div className={styles.svg}>
         <Image
           alt={`${name} Icon`}
-          src={require(`@assets/images/sosmed/${name.toLowerCase().split(" ").join("-")}.svg`) as StaticImageData}
+          src={require(`@assets/images/sosmed/${name.toLowerCase().split(" ").join("-")}.svg`) as ImageProps["src"]}
+          width="32"
         />
       </div>
     </a>

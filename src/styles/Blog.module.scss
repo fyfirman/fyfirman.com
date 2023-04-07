@@ -1,5 +1,5 @@
 .headings {
-  font-family: Nunito Sans;
+  font-family: var(--base-font);
   font-weight: 700;
   text-transform: uppercase;
   font-size: 1.875rem;
@@ -17,7 +17,7 @@
 }
 
 .subtitle {
-  font-family: Nunito Sans;
+  font-family: var(--base-font);
   font-weight: 400;
   font-size: 1rem;
   margin-bottom: 2rem;
@@ -26,11 +26,17 @@
 
 .cardContainer {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
   column-gap: 3rem;
   row-gap: 4rem;
 
-  @media only screen and (max-width: 720px) {
+  @media only screen and (max-width: 1080px) {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  @media only screen and (max-width: 550px) {
     grid-template-columns: auto;
     row-gap: 2rem;
     margin-bottom: 3.5rem;

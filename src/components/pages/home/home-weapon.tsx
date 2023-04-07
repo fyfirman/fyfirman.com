@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import styles from "~/styles/Home.module.scss";
 import { Weapon } from "~/components/atomic";
 import useResponsive from "~/hooks/useResponsive";
-import { clsx } from "~/helpers/classname-helper";
 import { primaryWeapon, secondaryWeapon } from "~/data/weapon-list";
+import styled from "styled-components";
+import { Heading1 } from "~/components/atomic/typography/typography";
+import type { StyledComponentProps } from "~/interfaces/styled-component";
 
 const delayWeapon = 1.25; // in second
 
@@ -36,6 +37,30 @@ const itemAnimation: Variants = {
   },
 };
 
+const WeaponType = styled(motion.h3)<StyledComponentProps>`
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 16px;
+  text-align: center;
+  letter-spacing: -0.025em;
+  text-transform: none;
+  color: var(--text-headings);
+  font-family: var(--base-font);
+  margin-bottom: ${({ isMobile }) => (!isMobile ? "36px" : "16px")};
+`;
+
+const WeaponContainer = styled(motion.div)`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+
+  @media only screen and (max-width: 720px) {
+    & {
+      flex-direction: column;
+    }
+  }
+`;
+
 const HomeWeapon = () => {
   const { isMobile } = useResponsive();
   const boxControls = useAnimation();
@@ -56,28 +81,28 @@ const HomeWeapon = () => {
 
   return (
     <div id="home-weapon">
-      <motion.h2
+      <Heading1
         animate={{ y: 0, opacity: 1 }}
-        className={styles.headings2}
         initial={{ y: -100, opacity: 0 }}
+        style={{ marginBottom: 40 - 16 }}
         transition={{ duration: 1 }}
       >
         My Weapons
-      </motion.h2>
-      <motion.div className={styles.weaponContainer}>
+      </Heading1>
+      <WeaponContainer>
         {[
           { name: "Primary", data: primaryWeapon },
           { name: "Secondary", data: secondaryWeapon },
         ].map((weaponData, index) => (
           <div key={weaponData.name} style={{ flex: 1 }}>
-            <motion.h3
+            <WeaponType
               animate={{ x: 0, opacity: 1 }}
-              className={clsx([styles.weaponType, isMobile && styles.mobile])}
               initial={{ x: index === 0 ? -250 : 250, opacity: 0 }}
+              isMobile={isMobile}
               transition={{ ease: "anticipate", duration: 0.75, delay: 0.75 }}
             >
               {weaponData.name}
-            </motion.h3>
+            </WeaponType>
             {Object.keys(weaponData.data).map((key) => (
               <motion.div
                 key={`${weaponData.name}-${key}`}
@@ -100,7 +125,7 @@ const HomeWeapon = () => {
             ))}
           </div>
         ))}
-      </motion.div>
+      </WeaponContainer>
     </div>
   );
 };

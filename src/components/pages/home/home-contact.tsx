@@ -1,20 +1,21 @@
 import React from "react";
 import styles from "~/styles/Home.module.scss";
-import { Sosmed } from "~/components/atomic";
+import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
+import Sosmed from "~/components/atomic/sosmed/sosmed";
 
 const HomeContact = () => {
   return (
     <div id="home-contact">
-      <h2 className={styles.headings2}>Get In Touch With Me</h2>
+      <Heading1 style={{ marginTop: 128, marginBottom: 40 }}>Get In Touch With Me</Heading1>
       <div style={{ maxWidth: "600px" }}>
-        <p className="text-body">
+        <Paragraph>
           I&apos;m very happy to share knowledge. If you want to ask something about IT, productivity, or my college
           experience, feel free to discuss via <b>Instagram</b>.
-        </p>
-        <p className="text-body">
+        </Paragraph>
+        <Paragraph>
           For <b>hiring, business, or collaboration</b> please contact me via <b>email (fyfirman@gmail.com)</b> or{" "}
           <b>Linkedin</b>.
-        </p>
+        </Paragraph>
       </div>
       <div className={styles.sosmed} id="contact-section">
         <Sosmed href="https://instagram.com/fyfirman" name="Instagram" position="left" />

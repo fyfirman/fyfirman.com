@@ -5,19 +5,12 @@
   flex-direction: column;
 }
 
-.body {
-  font-family: "Nunito Sans";
-  font-weight: 500;
-  font-size: 14px;
-  color: var(--text-body);
-  line-height: 145.1%;
-}
-
 .card-title {
-  font-family: "Nunito Sans";
+  font-size: 18px;
   font-weight: 700;
-  font-size: 20px;
   color: var(--text-headings);
+  font-family: var(--base-font);
+  line-height: 31px;
 }
 
 .card-image {

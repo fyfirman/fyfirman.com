@@ -1,11 +1,11 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { ProjectCard } from "~/components/atomic";
 import projectList from "~/data/project-list";
 import { useAOS } from "~/hooks/useAOS";
 import styles from "~/styles/Home.module.scss";
 import env from "~/utils/environment";
 import ScrollAnimation from "~/components/template/scroll-animation/scroll-animation";
+import { Heading1 } from "~/components/atomic/typography/typography";
 import { headerVariants } from "./home-project.animation";
 
 const NUM_OF_COLUMN = 2;
@@ -14,16 +14,16 @@ const HomeProject = () => {
   const { controls, ref } = useAOS();
   return (
     <div id="home-project">
-      <motion.h2
+      <Heading1
         animate={controls}
-        className={styles.headings2}
         id="project-section"
         initial="initial"
         ref={ref}
+        style={{ marginTop: 128, marginBottom: 40 }}
         variants={headerVariants}
       >
         Selected Project
-      </motion.h2>
+      </Heading1>
       {[...(Array(Math.round(projectList.length / NUM_OF_COLUMN)) as number[])].map((_, i) => (
         <div key={i} className={`${styles.projectContainer} ${i % 2 === 0 ? styles.first : styles.last}`}>
           {[...(Array(NUM_OF_COLUMN) as number[])].map((__, j) => (

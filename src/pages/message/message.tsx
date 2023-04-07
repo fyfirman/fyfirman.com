@@ -1,13 +1,22 @@
 import React, { useMemo } from "react";
 import Head from "@components/template/head";
 import { useListVals } from "react-firebase-hooks/database";
-import dynamic from "next/dynamic";
 import MessageForm from "~/components/pages/message/message-form";
 import { IMessage } from "~/interfaces/message";
 import app from "~/utils/firebase";
-import styles from "./message.module.scss";
+import { Heading1, List, Paragraph, UnorderedList } from "~/components/atomic/typography/typography";
+import styled from "styled-components";
+import WallOfMessage from "~/components/pages/message/wall-of-message/wall-of-message";
 
-const WallOfMessage = dynamic(() => import("~/components/pages/message/wall-of-message"), { ssr: false });
+const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+`;
 
 const MessagePage = () => {
   const [values, isLoading] = useListVals<IMessage>(
@@ -25,32 +34,32 @@ const MessagePage = () => {
   return (
     <div>
       <Head title="Message" />
-      <h1 className={styles.title}>Send me a message</h1>
-      <div className={styles["message-container"]}>
+      <Heading1>Send me a message</Heading1>
+      <MessageContainer>
         <div style={{ flex: 1 }}>
-          <p className="text-body">
+          <Paragraph className="text-body">
             <b>Feel free</b> to message me about anything like :
-          </p>
-          <ul className="text-body">
-            <li>Impression this website</li>
-            <li>Discuss about software development (web/android)</li>
-            <li>Request for mentorship</li>
-            <li>Holding crypto-currency</li>
-            <li>Hard feelings for me</li>
-            <li>Anything you like</li>
-          </ul>
-          <p className="text-body">
+          </Paragraph>
+          <UnorderedList className="text-body">
+            <List>Impression this website</List>
+            <List>Discuss about software development (web/android)</List>
+            <List>Request for mentorship</List>
+            <List>Holding crypto-currency</List>
+            <List>Hard feelings for me</List>
+            <List>Anything you like</List>
+          </UnorderedList>
+          <Paragraph className="text-body">
             You can send <b>anonymously</b> or <b>write your name</b>. If you want to reply, please state in the
             message.
-          </p>
-          <p className="text-body">
+          </Paragraph>
+          <Paragraph className="text-body">
             Please speak with <b>human language</b>, not a programming language. 😁
-          </p>
+          </Paragraph>
         </div>
         <MessageForm />
-      </div>
-      <h1 className={styles.title}>Wall of message</h1>
-      {!isLoading && values ? <WallOfMessage data={filteredData} /> : null}
+      </MessageContainer>
+      <Heading1 style={{ marginTop: 48, marginBottom: 24 }}>Wall of message</Heading1>
+      {!isLoading && filteredData.length > 0 ? <WallOfMessage data={filteredData} /> : null}
     </div>
   );
 };

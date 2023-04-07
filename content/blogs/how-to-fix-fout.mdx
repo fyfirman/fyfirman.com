@@ -16,7 +16,7 @@ Be grateful because in 2021 there is already an API to solve this problem. The n
 
 Let’s get started!
 
-### #0 FYI
+## #0 FYI
 
 I am using `fontsource` to import my external font. Just because, I am using the `gatsby` framework. It doesn't matter what you use, because this method works on any framework. Including the non-react framework.
 
@@ -24,7 +24,7 @@ I am using `fontsource` to import my external font. Just because, I am using the
 import "@fontsource/merriweather";
 ```
 
-### #1 Create `state`
+## #1 Create `state`
 
 ```jsx
 const [isReady, setIsReady] = useState(false);
@@ -38,7 +38,7 @@ return isReady && <div>{/* Your component goes here */}</div>;
 
 Don’t forget to add a condition if the state shows it’s not ready, then don’t render the element.
 
-### #2 Check & Load fonts
+## #2 Check & Load fonts
 
 To check the font we use `FontFaceSet` as follows:
 
@@ -50,7 +50,7 @@ useEffect(() => {
 
 `Merriweather` is fontface name, you can change that. `12px` is dummy `fontSize` to check. The following line of code is a Promise so that we can add commands when the font has been successfully loaded.
 
-### #3 And wallaaaaa…
+## #3 And wallaaaaa…
 
 ![Result](https://cdn-images-1.medium.com/max/800/1*HJvW4PbIS2xa02d2_yYr7w.gif)
 

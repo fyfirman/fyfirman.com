@@ -8,7 +8,10 @@ const config = {
     locales: ["en-US"],
     defaultLocale: "en-US",
   },
-  reactStrictMode: true,
+  reactStrictMode: false, // Disabled the strict mode for `react-stack-grid` issue https://github.com/tsuyoshiwada/react-stack-grid/issues/18
+  compiler: {
+    styledComponents: true,
+  },
 };
 
 module.exports = withBundleAnalyzer(config);

@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <header className={clsx([styles.container, isShadowVisible && styles["container-shadow"], isDarkMode && "dark"])}>
       <div className={clsx([styles.header, isMobile && styles["header-mobile"]])}>
-        <Link href="/" passHref>
+        <Link href="/" legacyBehavior passHref>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img alt="fyfirman logo" className={styles.logo} height={36} src="/img/logo.svg" width={42} />
         </Link>

@@ -17,9 +17,12 @@
     "prepare": "husky install",
     "test": "jest --watch",
     "deploy:preview": "vercel",
-    "deploy:prod": "vercel --prod"
+    "deploy:prod": "vercel --prod",
+    "clean": "rm -rf .next",
+    "pre-push": "yarn check-types && yarn lint"
   },
   "dependencies": {
+    "@fontsource/manrope": "^4.5.13",
     "@fontsource/nunito-sans": "^4.1.0",
     "@next/bundle-analyzer": "^12.0.7",
     "axios": "^0.24.0",
@@ -29,10 +32,10 @@
     "framer-motion": "6.2.6",
     "gray-matter": "^4.0.3",
     "mdx-bundler": "^9.0.1",
-    "next": "12.0.7",
+    "next": "^13.3.0",
     "next-dark-mode": "^3.0.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-firebase-hooks": "3.0.4",
     "react-intersection-observer": "^8.33.1",
     "react-lottie": "^1.2.3",
@@ -42,7 +45,8 @@
     "react-youtube": "^10.1.0",
     "reading-time": "^1.5.0",
     "rehype-prism-plus": "^1.4.2",
-    "sass": "^1.43.4"
+    "sass": "^1.43.4",
+    "styled-components": "^5.3.9"
   },
   "devDependencies": {
     "@babel/eslint-plugin": "^7.16.5",
@@ -53,6 +57,7 @@
     "@types/react-lottie": "^1.2.6",
     "@types/react-scroll": "^1.8.3",
     "@types/react-stack-grid": "^0.7.3",
+    "@types/styled-components": "^5.1.26",
     "commitlint": "^16.2.1",
     "commitlint-config-gitmoji": "^2.2.5",
     "eslint": "^8.31.0",
@@ -64,11 +69,6 @@
     "jest": "^27.4.7",
     "prettier": "^2.4.1",
     "remark-mdx-images": "^2.0.0",
-    "typescript": "4.4.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo ”[Husky] pre-commit”"
-    }
+    "typescript": "^5.0.3"
   }
 }
