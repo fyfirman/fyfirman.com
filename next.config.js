@@ -9,6 +9,9 @@ const config = {
     defaultLocale: "en-US",
   },
   reactStrictMode: true,
+  compiler: {
+    styledComponents: true,
+  },
 };
 
 module.exports = withBundleAnalyzer(config);
