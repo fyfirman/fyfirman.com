@@ -18,7 +18,8 @@
     "test": "jest --watch",
     "deploy:preview": "vercel",
     "deploy:prod": "vercel --prod",
-    "clean": "rm -rf .next"
+    "clean": "rm -rf .next",
+    "pre-push": "yarn check-types && yarn lint"
   },
   "dependencies": {
     "@fontsource/manrope": "^4.5.13",
