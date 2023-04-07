@@ -5,6 +5,7 @@ import styles from "~/styles/Blog.module.scss";
 import { BlogPost, getAllBlogPosts } from "~/utils/mdx/blog.mdx";
 import BlogCard from "~/components/atomic/blog-card";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
+import { ImageProps } from "next/image";
 
 interface BlogListProps {
   blogList: BlogPost[];
@@ -26,7 +27,7 @@ const BlogList: NextPage<BlogListProps> = ({ blogList }) => {
           <BlogCard
             key={slug}
             href={`/blog/${slug}`}
-            imageURI={require(`../assets/images/blog-cover/${coverImage}`) as StaticImageData}
+            imageURI={require(`../assets/images/blog-cover/${coverImage}`) as ImageProps["src"]}
             publishedDate={new Date(publishedAt)}
             readingTime={readingTime}
             title={title}
