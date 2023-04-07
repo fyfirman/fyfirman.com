@@ -1,5 +1,4 @@
 import React from "react";
-import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
 import { useDarkMode } from "next-dark-mode";
 import useResponsive from "~/hooks/useResponsive";
@@ -90,9 +89,6 @@ const JumboTron = styled(motion.div)<StyledComponentProps>`
 const HomeHeader = () => {
   const { isMobile } = useResponsive();
   const { darkModeActive } = useDarkMode();
-  const render3D = useMediaQuery({
-    query: "(min-device-width: 1080px)",
-  });
 
   return (
     <div
@@ -164,7 +160,7 @@ const HomeHeader = () => {
           </motion.div>
         </AboutMe>
       </JumboTron>
-      {!env.disableSpline && render3D ? (
+      {!env.disableSpline ? (
         <SplineGeoContainer
           animate={{ x: 0, y: 0, opacity: 1 }}
           frameBorder="0"

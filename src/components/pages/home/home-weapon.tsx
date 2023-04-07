@@ -81,7 +81,12 @@ const HomeWeapon = () => {
 
   return (
     <div id="home-weapon">
-      <Heading1 animate={{ y: 0, opacity: 1 }} initial={{ y: -100, opacity: 0 }} transition={{ duration: 1 }}>
+      <Heading1
+        animate={{ y: 0, opacity: 1 }}
+        initial={{ y: -100, opacity: 0 }}
+        style={{ marginBottom: 40 - 16 }}
+        transition={{ duration: 1 }}
+      >
         My Weapons
       </Heading1>
       <WeaponContainer>

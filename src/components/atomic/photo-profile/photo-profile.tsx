@@ -2,15 +2,30 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Firmansyah from "@assets/images/firmansyah.png";
 import useResponsive from "~/hooks/useResponsive";
-import styles from "./photo-profile.module.scss";
+import styled from "styled-components";
 
-const PhotoProfile: React.VFC = () => {
+const Wrapper = styled.div`
+  & > span {
+    margin: 0;
+  }
+
+  &.mobile {
+    width: 60%;
+    max-width: 280px;
+  }
+`;
+
+interface PhotoProfileProps {
+  className?: string;
+}
+
+const PhotoProfile = ({ className }: PhotoProfileProps) => {
   const { isMobile } = useResponsive();
   const [hueRotate, setHueRotate] = useState(0);
 
   return (
-    <div
-      className={styles.photoProfile}
+    <Wrapper
+      className={className}
       onMouseDown={() => {
         if (isMobile) {
           setHueRotate((prev) => prev + 30);
@@ -21,8 +36,14 @@ const PhotoProfile: React.VFC = () => {
       }}
       style={{ filter: `hue-rotate(${hueRotate}deg)` }}
     >
-      <Image alt="Firmansyah Yanuar Photo" id="photo-profile-desktop" priority={!isMobile} src={Firmansyah} />
-    </div>
+      <Image
+        alt="Firmansyah Yanuar Photo"
+        id="photo-profile-desktop"
+        priority={!isMobile}
+        src={Firmansyah}
+        width="420"
+      />
+    </Wrapper>
   );
 };
 

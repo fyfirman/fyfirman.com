@@ -19,7 +19,7 @@ const HomeProject = () => {
         id="project-section"
         initial="initial"
         ref={ref}
-        style={{ marginTop: 128 }}
+        style={{ marginTop: 128, marginBottom: 40 }}
         variants={headerVariants}
       >
         Selected Project

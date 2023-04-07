@@ -4,11 +4,12 @@ import careIn from "@assets/images/project/carein.jpg";
 import terimaCurhatASI from "@assets/images/project/terima-curhat-asi.jpg";
 import velocityLeague from "@assets/images/project/velocity-league.jpg";
 import curhatASIWeb from "@assets/images/project/curhat-asi-web.jpg";
+import { ImageProps } from "next/image";
 
 interface IProject {
   desc: string;
   href: string;
-  imageURI: StaticImageData;
+  imageURI: ImageProps["src"];
   stack: string[];
   title: string;
   notAvailable?: boolean;

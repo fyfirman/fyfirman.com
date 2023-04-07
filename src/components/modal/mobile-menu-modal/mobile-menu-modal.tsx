@@ -36,15 +36,15 @@ const MobileMenuModal: React.FC<ModalProps> = ({ visible, onClose }) => {
   return (
     <div className={clsx([styles.root, visible && styles.visible])}>
       {menuList.map((menu, index) => (
-        <Link key={index} href={menu.url} passHref>
-          <a
-            className={styles.menu}
-            href={menu.url}
-            onClick={() => navigateTo(menu.url)}
-            onKeyPress={() => navigateTo(menu.url)}
-          >
-            {menu.title}
-          </a>
+        <Link
+          key={index}
+          className={styles.menu}
+          href={menu.url}
+          onClick={() => navigateTo(menu.url)}
+          onKeyPress={() => navigateTo(menu.url)}
+          passHref
+        >
+          {menu.title}
         </Link>
       ))}
 

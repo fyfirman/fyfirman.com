@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import NextLink from "next/link";
 
 export const Heading1 = styled(motion.h1)`
   color: var(--text-headings);
@@ -29,6 +30,8 @@ export const Heading3 = styled(motion.h3)`
   font-weight: 600;
   font-size: 24px;
   letter-spacing: -0.025em;
+  margin-block-start: 0.33em;
+  margin-block-end: 0.33em;
 `;
 
 export const Paragraph = styled(motion.p)`
@@ -38,6 +41,8 @@ export const Paragraph = styled(motion.p)`
   font-weight: 400;
   font-size: 18px;
   line-height: 31px;
+  margin-block-start: 0.33em;
+  margin-block-end: 0.33em;
 `;
 
 export const SubParagraph = styled.span`
@@ -70,4 +75,13 @@ export const List = styled(motion.li)`
   font-weight: 400;
   font-size: 18px;
   line-height: 31px;
-`
+`;
+
+export const Link = styled(NextLink)`
+  color: var(--text-body);
+  font-family: var(--base-font);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 31px;
+`;

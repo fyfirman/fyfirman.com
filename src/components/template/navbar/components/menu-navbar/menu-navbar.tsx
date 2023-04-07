@@ -13,10 +13,8 @@ const MenuNavbar = (props: MenuNavbarProps) => {
   const { to, title, link = false } = props;
 
   return link ? (
-    <NextLink href={to}>
-      <a className={styles.button} data-hover={title}>
-        <span>{title}</span>
-      </a>
+    <NextLink className={styles.button} data-hover={title} href={to}>
+      <span>{title}</span>
     </NextLink>
   ) : (
     <Link className={styles.button} data-hover={title} duration={500} offset={-100} smooth spy to={to}>

@@ -1,14 +1,22 @@
 import React, { useMemo } from "react";
 import Head from "@components/template/head";
 import { useListVals } from "react-firebase-hooks/database";
-import dynamic from "next/dynamic";
 import MessageForm from "~/components/pages/message/message-form";
 import { IMessage } from "~/interfaces/message";
 import app from "~/utils/firebase";
 import { Heading1, List, Paragraph, UnorderedList } from "~/components/atomic/typography/typography";
-import styles from "./message.module.scss";
+import styled from "styled-components";
+import WallOfMessage from "~/components/pages/message/wall-of-message/wall-of-message";
 
-const WallOfMessage = dynamic(() => import("~/components/pages/message/wall-of-message"), { ssr: false });
+const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+`;
 
 const MessagePage = () => {
   const [values, isLoading] = useListVals<IMessage>(
@@ -27,7 +35,7 @@ const MessagePage = () => {
     <div>
       <Head title="Message" />
       <Heading1>Send me a message</Heading1>
-      <div className={styles["message-container"]}>
+      <MessageContainer>
         <div style={{ flex: 1 }}>
           <Paragraph className="text-body">
             <b>Feel free</b> to message me about anything like :
@@ -49,9 +57,9 @@ const MessagePage = () => {
           </Paragraph>
         </div>
         <MessageForm />
-      </div>
-      <Heading1>Wall of message</Heading1>
-      {!isLoading && values ? <WallOfMessage data={filteredData} /> : null}
+      </MessageContainer>
+      <Heading1 style={{ marginTop: 48, marginBottom: 24 }}>Wall of message</Heading1>
+      {!isLoading && filteredData.length > 0 ? <WallOfMessage data={filteredData} /> : null}
     </div>
   );
 };
