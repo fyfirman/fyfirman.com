@@ -1,5 +1,7 @@
 {
   "cSpell.words": ["clsx", "danbo", "Firmansyah", "frontmatter", "fyfirman", "Yanuar"],
   "editor.tabSize": 2,
-  "eslint.format.enable": true
+  "eslint.format.enable": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.formatOnSave": true
 }

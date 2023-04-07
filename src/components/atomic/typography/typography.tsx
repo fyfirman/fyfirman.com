@@ -32,7 +32,7 @@ export const Heading3 = styled(motion.h3)`
 `;
 
 export const Paragraph = styled(motion.p)`
-  color: var(--text-headings);
+  color: var(--text-body);
   font-family: var(--base-font);
   font-style: normal;
   font-weight: 400;
@@ -53,3 +53,21 @@ export const AltText = styled(SubParagraph)`
   color: var(--text-secondary);
   font-style: italic;
 `;
+
+export const UnorderedList = styled(motion.ul)`
+  color: var(--text-body);
+  font-family: var(--base-font);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 31px;
+`;
+
+export const List = styled(motion.li)`
+  color: var(--text-body);
+  font-family: var(--base-font);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 31px;
+`
