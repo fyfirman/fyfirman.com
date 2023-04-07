@@ -1,7 +1,7 @@
 import React from "react";
 import Image, { ImageProps } from "next/image";
 import styled from "styled-components";
-import { Heading3, Link, Paragraph } from "../typography/typography";
+import { Link } from "../typography/typography";
 import styles from "./project-card.module.scss";
 
 interface ProjectCardProps {
