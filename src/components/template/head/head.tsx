@@ -25,7 +25,7 @@ const Head = (props: HeadProps) => {
     <NextHead>
       <title>{finalTitle}</title>
       <meta content={desc} name="description" />
-      <link href="/img/logo.svg" rel="icon" />
+      <link rel="shortcut icon" href="/static/favicon.ico" />
     </NextHead>
   );
 };
