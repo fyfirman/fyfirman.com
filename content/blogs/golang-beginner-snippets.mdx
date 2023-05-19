@@ -9,7 +9,6 @@ coverImage: how-to-fix-fout.jpg
 Play here:
 [Go Playground](https://go.dev/play/)
 
-
 ## Array & Map
 
 ### For Loop
@@ -21,14 +20,21 @@ for i := 0; i < 10; i++ {
 ```
 
 ### Array Length
-    
+
 ```go
 arr := []int{1, 2, 3}
 fmt.Println(len(arr))
 ```
 
+### Array Push (Append)
+
+```go
+arr := []int{1, 2, 3}
+arr = append(arr, 4)
+```
+
 ### Assign Value to Map
-    
+
 ```go
 m := make(map[string]int)
 m["key"] = 1

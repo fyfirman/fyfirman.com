@@ -1,0 +1,24 @@
+### Connect
+
+```
+psql -U user
+```
+
+### Postgres restore command
+
+```bash
+cat ./query.sql | docker exec -i <container-name> psql -U <user> -d <database>
+```
+
+```bash
+cat ./dump-1406-11nov22.sql | docker exec -i ac6171 psql -U postgres -d database-name
+```
+
+### Postgres dump command
+
+```bash
+psql -U username -d dbname < filename.sql
+
+-- For Postgres versions 9.0 or earlier
+psql -U username -d dbname -1 -f filename.sql
+```
