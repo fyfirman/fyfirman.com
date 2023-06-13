@@ -16,6 +16,8 @@ import { clsx } from "~/helpers/classname-helper";
 import useResponsive from "~/hooks/useResponsive";
 import Footer from "~/components/template/footer/footer";
 import useGTM from "~/hooks/useGTM";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "~/utils/query-client";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { darkModeActive } = useDarkMode();
@@ -35,13 +37,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [darkModeActive]);
 
   return (
-    <div className={`${styles.root} ${darkModeActive ? "dark" : "light"}`}>
-      <Navbar />
-      <main className={clsx([styles["body-container"], isMobile && styles.mobile])}>
-        <Component {...pageProps} />
-        <Footer />
-      </main>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className={`${styles.root} ${darkModeActive ? "dark" : "light"}`}>
+        <Navbar />
+        <main className={clsx([styles["body-container"], isMobile && styles.mobile])}>
+          <Component {...pageProps} />
+          <Footer />
+        </main>
+      </div>
+    </QueryClientProvider>
   );
 }
 
