@@ -108,12 +108,12 @@ const ShortUrlManagement = () => {
             <td>Short URL</td>
             <td>Long URL</td>
           </thead>
-          {Object.entries(data).map(([shortUrl, longUrl]) => (
+          {Object.entries(data).map(([shortUrl, longUrlValue]) => (
             <tr key={shortUrl}>
               <td>{shortUrl}</td>
               <td>
-                <a href={longUrl} target="__blank">
-                  {longUrl}
+                <a href={longUrlValue} target="__blank">
+                  {longUrlValue}
                 </a>
               </td>
             </tr>
