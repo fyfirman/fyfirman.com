@@ -20,7 +20,7 @@ const MessageContainer = styled.div`
 
 const MessagePage = () => {
   const [values, isLoading] = useListVals<IMessage>(
-    app.database().ref("messages").orderByChild("isPublic").equalTo(true),
+    app.database().ref("messages").orderByChild("isPublic").equalTo(true), // TODO: this bad. put on the service layer
   );
 
   const filteredData: IMessage[] = useMemo(() => {
