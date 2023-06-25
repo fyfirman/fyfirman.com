@@ -14,7 +14,7 @@ const config = {
   },
   async rewrites() {
     return {
-      afterFiles: [{ source: "/:path*", destination: "/_404/:path*" }],
+      afterFiles: [{ source: "/l/:path*", destination: "/_404/:path*" }],
     };
   },
 };

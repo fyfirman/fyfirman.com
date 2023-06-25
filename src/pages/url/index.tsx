@@ -80,6 +80,14 @@ const ShortUrlManagement = () => {
     }
   };
 
+  const handleClickShortLink = async (slug: string) => {
+    try {
+      await navigator.clipboard.writeText(`https://fyfirman.com/l/${slug}`);
+    } catch (error) {
+      console.error("Error");
+    }
+  };
+
   return (
     <div>
       <Head title="Short URL Management" />
@@ -91,7 +99,7 @@ const ShortUrlManagement = () => {
         type="text"
       />
       <ShortUrlInputContainer>
-        fyfirman.com/
+        fyfirman.com/l/
         <Input onChange={(e) => setShortSlugUrl(e.target.value)} placeholder="short" type="text" />
       </ShortUrlInputContainer>
       {errorMessage}
@@ -110,7 +118,9 @@ const ShortUrlManagement = () => {
           </thead>
           {Object.entries(data).map(([shortUrl, longUrlValue]) => (
             <tr key={shortUrl}>
-              <td>{shortUrl}</td>
+              <td>
+                <button onClick={() => handleClickShortLink(shortUrl)}>{shortUrl}</button>
+              </td>
               <td>
                 <a href={longUrlValue} target="__blank">
                   {longUrlValue}
