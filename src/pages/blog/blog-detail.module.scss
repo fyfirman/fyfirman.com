@@ -18,8 +18,15 @@
   h6 > code,
   p > code {
     background-color: rgba(0, 0, 0, 0.05);
-    padding: 2px 6px;
     color: rgba(0, 0, 0, 0.85);
+    padding: 2px 6px;
+  }
+
+  h2 > code {
+    font-size: 28px;
+  }
+  p > code {
+    font-size: 16px;
   }
 
   &.dark {
