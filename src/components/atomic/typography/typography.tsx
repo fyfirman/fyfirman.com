@@ -42,7 +42,7 @@ export const Paragraph = styled(motion.p)`
   font-size: 18px;
   line-height: 31px;
   margin-block-start: 0.33em;
-  margin-block-end: 0.33em;
+  margin-block-end: 2rem;
 `;
 
 export const SubParagraph = styled.span`
