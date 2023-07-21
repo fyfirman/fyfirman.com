@@ -29,6 +29,7 @@ const Navbar = () => {
             <MenuHeader link title="Home" to="/" />
             <MenuHeader link title="Blog" to="/blog" />
             <MenuHeader link title="Message" to="/message" />
+            <MenuHeader link title="Explore" to="/explore" />
             {/* <MenuHeader link title="About" to="/about" /> */}
             <DarkToggler />
           </div>
