@@ -6,7 +6,7 @@ import velocityLeague from "@assets/images/project/velocity-league.jpg";
 import curhatASIWeb from "@assets/images/project/curhat-asi-web.jpg";
 import { ImageProps } from "next/image";
 
-interface IProject {
+interface Project {
   desc: string;
   href: string;
   imageURI: ImageProps["src"];
@@ -15,7 +15,7 @@ interface IProject {
   notAvailable?: boolean;
 }
 
-const projectList: IProject[] = [
+const projectList: Project[] = [
   {
     title: "Velocity League",
     desc: "A startup that has just started its business, providing a matchmaking game platform to compete with each other.",
@@ -24,7 +24,7 @@ const projectList: IProject[] = [
     stack: ["React", "Typescript"],
   },
   {
-    desc: "Auto-fill questionnare on PACIS Unpad",
+    desc: "Auto-fill questionnaire on PACIS Unpad",
     href: "https://github.com/fyfirman/pacis-questionnaire-bot",
     imageURI: pacisBot,
     stack: ["NodeJS"],
