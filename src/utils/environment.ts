@@ -1,7 +1,19 @@
 interface Environment {
   title: string;
   metaDesc: string;
-  firebaseConfig: any;
+  firebaseConfig: Partial<{
+    apiKey: string;
+    authDomain: string;
+    databaseURL: string;
+    projectId: string;
+    storageBucket: string;
+    messagingSenderId: string;
+    appId: string;
+    measurementId: string;
+    gtmId: string;
+    gtmAuth: string;
+    gtmEnvId: string;
+  }>;
   disableSpline: boolean;
   backendUrl: string;
 }

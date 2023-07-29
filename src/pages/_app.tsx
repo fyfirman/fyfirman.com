@@ -18,6 +18,8 @@ import Footer from "~/components/template/footer/footer";
 import useGTM from "~/hooks/useGTM";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "~/utils/query-client";
+// eslint-disable-next-line import/no-unresolved
+import { Analytics } from "@vercel/analytics/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { darkModeActive } = useDarkMode();
@@ -45,6 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Footer />
         </main>
       </div>
+      <Analytics />
     </QueryClientProvider>
   );
 }
