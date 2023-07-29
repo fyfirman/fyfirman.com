@@ -1,8 +1,37 @@
 import React from "react";
 import Image, { ImageProps } from "next/image";
+import { clsx } from "~/helpers/classname-helper";
 import styled from "styled-components";
 import { Link } from "../typography/typography";
 import styles from "./project-card.module.scss";
+
+const Container = styled.div<{
+  isClickable: boolean;
+}>`
+  border-radius: 0;
+  text-decoration: none;
+  margin-bottom: 64px;
+
+  cursor: ${(props) => (props.isClickable ? "pointer" : "inherit")};
+
+  & img {
+    transition: transform 0.3s;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+
+  &:hover > .card-button::after {
+    height: 2px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &:hover > .not-available::after {
+    opacity: 0;
+  }
+`;
 
 const CardTitle = styled.span`
   color: var(--text-body);
@@ -39,26 +68,34 @@ export interface ProjectCardProps {
   stack: string[];
   notAvailable?: boolean;
   onClick?: () => void;
+  tagText?: string;
 }
 
 const ProjectCard = (props: ProjectCardProps) => {
-  const { href, imageURI, title, desc, stack, notAvailable = false, onClick } = props;
+  const { href, imageURI, title, desc, stack, notAvailable = false, onClick, tagText = "Build with : " } = props;
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events --- fuk u a11y
-    <div className={styles["card-container"]} onClick={onClick}>
+    <Container isClickable={!!onClick} onClick={onClick}>
       <div className={styles["card-image"]}>
         <Image alt={`${title} Snapshot`} src={imageURI} width="450" />
       </div>
       <CardTitle>{title}</CardTitle>
       <CardDescription>{desc}</CardDescription>
-      <CardDescription>Build with : {stack.join(", ")}</CardDescription>
+      <CardDescription>
+        {tagText}
+        {stack.join(", ")}
+      </CardDescription>
       {href ? (
-        <CardButton className={styles["card-button"]} href={href} rel="noreferrer" target="_blank">
+        <CardButton
+          className={clsx([styles["card-button"], "card-button"])}
+          href={href}
+          rel="noreferrer"
+          target="_blank"
+        >
           {!notAvailable ? "See Project ›" : "Not available yet"}
         </CardButton>
       ) : undefined}
-    </div>
+    </Container>
   );
 };
 

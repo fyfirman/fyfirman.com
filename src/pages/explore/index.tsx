@@ -2,7 +2,8 @@ import type { NextPage } from "next";
 import Head from "@components/template/head";
 import React from "react";
 import { ProjectCard } from "~/components/atomic";
-import velocityLeague from "@assets/images/project/velocity-league.jpg";
+import mdxEditor from "@assets/images/explore-cover/mdx-editor.jpg";
+import framerMotion from "@assets/images/explore-cover/framer-motion.jpg";
 import type { ProjectCardProps } from "~/components/atomic/project-card/project-card";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 import { useRouter } from "next/router";
@@ -25,20 +26,20 @@ const projectList: (ProjectCardProps & {
   {
     title: "MDX Editor",
     desc: "An open-source React component that allows users to author markdown documents naturally. Just like in Google docs or Notion.",
-    imageURI: velocityLeague,
-    stack: ["React", "Typescript"],
+    imageURI: mdxEditor,
+    stack: ["Typescript", "MDX"],
     slug: "mdx-editor",
   },
   {
     title: "Framer Motion",
     desc: "Framer Motion is a simple yet powerful motion library for React.",
-    imageURI: velocityLeague,
-    stack: ["React", "Typescript"],
+    imageURI: framerMotion,
+    stack: ["Typescript", "Animation"],
     slug: "framer-motion",
   },
 ];
 
-const desc = "Curated project to explore new tools/library";
+const desc = "Curated new tools/library that has been explored";
 
 const ExplorePage: NextPage = () => {
   const router = useRouter();
@@ -51,7 +52,7 @@ const ExplorePage: NextPage = () => {
       <Paragraph>{desc}</Paragraph>
       <ProjectContainer>
         {projectList.map((p) => (
-          <ProjectCard key={p.title} {...p} onClick={() => router.push(`/explore/${p.slug}`)} />
+          <ProjectCard key={p.title} {...p} onClick={() => router.push(`/explore/${p.slug}`)} tagText="Tags : " />
         ))}
       </ProjectContainer>
     </>
