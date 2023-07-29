@@ -1,0 +1,26 @@
+---
+title: All About Zod
+publishedAt: 2023-07-29
+description: Zod is a TypeScript-first schema declaration and validation library. I'm using the term "schema" to broadly refer to any data type, from a simple string to a complex nested object.
+language: en
+coverImage: hello-world-3.jpg
+---
+
+## What is Zod?
+
+Zod is a TypeScript-first schema declaration and validation library. I'm using the term "schema" to broadly refer to any data type, from a simple string to a complex nested object.
+
+## Zod Snippets
+
+### One Variable
+
+```ts
+const myVar = "";
+z.string().parse(myVar);
+```
+
+### Is ISO Date string
+
+```ts
+z.string().datetime();
+```
