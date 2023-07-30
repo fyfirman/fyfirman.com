@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const reqBody = req.body as z.infer<typeof RequestBodySchema>;
 
   const resHtml = await axios.get(reqBody.url);
-  const dom = new JSDOM(resHtml.data);
+  const dom = new JSDOM(resHtml.data as string);
   const { document } = dom.window;
 
   const icoPath = document.querySelector("link[rel~='icon']")?.getAttribute("href");
