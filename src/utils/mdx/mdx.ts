@@ -38,6 +38,7 @@ export const getCompiledMDX = async (source: string) => {
       options.outdir = path.join(ROOT, "public", "img", "mdx");
       options.loader = {
         ...options.loader,
+        ".gif": "file",
         ".png": "file",
         ".jpg": "file",
       };

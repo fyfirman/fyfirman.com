@@ -1,0 +1,95 @@
+---
+title: Communicate from Renderer to Main Process
+publishedAt: 2023-07-30
+description: >-
+  Electron, a cross-platform desktop application framework, employs a clear
+  separation between the main process and renderer processes. Efficient
+  communication from the renderer to the main process is crucial for tasks
+  requiring access to system-level resources or native APIs. This time we will
+  learn how to communicate from renderer to main process.
+language: en
+coverImage: how-to-fix-fout.jpg
+---
+
+## Introduction
+
+Electron, a cross-platform desktop application framework, employs a clear separation between the main process and renderer processes. Efficient communication from the renderer to the main process is crucial for tasks requiring access to system-level resources or native APIs. This time we will learn how to communicate from renderer to main process.
+
+## IPC Renderer
+
+The `ipcRenderer` module is an [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter). It provides a few methods so you can send synchronous and asynchronous messages from the render process (web page) to the main process. You can also receive replies from the main process.
+
+## Tutorial - One Way Communication
+
+To fire a one-way IPC message from a renderer process to the main process, you can use the `ipcRenderer.send` API to send a message that is then received by the `ipcMain.on` API.
+
+For this time, we will use it to trigger the main process to change the tray icon as the renderer process start the productivity tracker.
+
+<MdxImage
+  src={require("../src/assets/images/blog-content/communicate-from-renderer-to-main-process/20230730220529.png")}
+  width="693"
+  alt="Demo"
+/>
+
+### Renderer process code
+
+As mentioned before, renderer process would use `ipcRenderer.send` to send any data to main process. For example like these code:
+
+```tsx
+import Reactfrom "react";
+import { ipcRenderer } from "electron";
+
+const Productivity = () => {
+
+  const start = () => {
+    ipcRenderer.send("productivity-changed", {
+      active: true,
+			startedAt: new Date()
+    })
+  }
+
+	const stop = () => {
+    ipcRenderer.send("productivity-changed", {
+      active: false
+    })
+  }
+
+  return (
+    ...
+  )
+}
+```
+
+The first parameter is _channel name_ and the second parameter is the data we’d like to send.
+
+### Main process code
+
+To receive it we could `[ipcMain.on](https://www.electronjs.org/docs/latest/api/ipc-main)` API. We could put this code in the `background.ts` file or something similar to your project:
+
+```tsx
+interface ProductivityChangeEvent {
+  active: boolean;
+  startedAt?: Date;
+}
+
+ipcMain.on("productivity-changed", (event, payload: ProductivityChangeEvent) => {
+  if (payload.active) {
+    changeTrayIcon(payload.startedAt);
+  } else {
+    changeToDefault();
+  }
+});
+```
+
+## Result
+
+With my secret recipe, the final result would like these:
+![Icon changing and showing a timer as user start record the productivity](../src/assets/images/blog-content/communicate-from-renderer-to-main-process/result.gif)
+
+Icon changing and showing a timer as user start record the productivity
+
+## References
+
+[ipcRenderer | Electron](https://www.electronjs.org/docs/latest/api/ipc-renderer)
+
+[Inter-Process Communication | Electron](https://www.electronjs.org/docs/latest/tutorial/ipc)

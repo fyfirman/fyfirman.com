@@ -1,0 +1,13 @@
+{
+  "img": {
+    "prefix": "img",
+    "body": [
+      "<MdxImage",
+      "  src={require(\"${2}\")}",
+      "  width=\"693\"",
+      "  alt=\"${1}\"",
+      "/>",
+    ],
+    "description": "Create mdx images for markdown"
+  }
+}
