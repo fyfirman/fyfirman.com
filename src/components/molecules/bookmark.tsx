@@ -50,15 +50,7 @@ interface BookmarkProps {
 }
 
 const Bookmark: React.FC<BookmarkProps> = ({ title, description, url, icoUrl, isLoading = true, style }) => {
-  if (isLoading) {
-    return (
-      <Container style={style}>
-        <TitleText>Loading...</TitleText>
-      </Container>
-    );
-  }
-
-  if (!title) {
+  if (isLoading || !title) {
     return (
       <Container style={style}>
         <TitleText>{url}</TitleText>
