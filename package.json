@@ -5,7 +5,7 @@
     "name": "Firmansyah Yanuar",
     "url": "https://fyfirman.com"
   },
-  "version": "1.6.0",
+  "version": "1.7.0",
   "private": true,
   "scripts": {
     "check-types": "tsc --noEmit",
