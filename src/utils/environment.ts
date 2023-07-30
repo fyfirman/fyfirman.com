@@ -16,6 +16,7 @@ interface Environment {
   }>;
   disableSpline: boolean;
   backendUrl: string;
+  baseUrl: string;
 }
 
 const env: Environment = {
@@ -36,6 +37,7 @@ const env: Environment = {
   },
   disableSpline: process.env.NEXT_PUBLIC_DISABLE_SPLINE === "true",
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL ?? "",
+  baseUrl: process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000",
 };
 
 export default env;

@@ -9,5 +9,12 @@
       "/>",
     ],
     "description": "Create mdx images for markdown"
+  },
+  "bookmark": {
+    "prefix": "bookmark",
+    "body": [
+      "<EmbedBookmark url=\"${1}\" />",
+    ],
+    "description": "Create bookmark in mdx"
   }
 }

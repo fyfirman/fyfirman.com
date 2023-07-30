@@ -9,6 +9,7 @@ import MdxImage from "~/components/atomic/mdx-image/mdx-image";
 import { clsx } from "~/helpers/classname-helper";
 import BlogHeader from "~/components/atomic/blog-header/blog-header";
 import Youtube from "~/components/atomic/youtube/youtube";
+import EmbedBookmark from "~/components/organism/embed-bookmark";
 import BlogServices from "~/services/blog.services";
 import tracer from "~/utils/tracer/tracer";
 import { Heading1, Heading2, Heading3, Paragraph } from "~/components/atomic/typography/typography";
@@ -20,13 +21,17 @@ interface BlogDetailProps {
   frontmatter: BlogFrontmatter;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
   const { darkModeActive } = useDarkMode();
   const Component = useMemo(() => getMDXComponent(code), [code]);
 
   useEffect(() => {
     try {
-      void BlogServices.postRead(slug);
+      /**
+       * Disabled temporarily
+       */
+      // void BlogServices.postRead(slug);
     } catch (error: unknown) {
       tracer.error(error as Error);
     }
@@ -43,7 +48,16 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
           title={frontmatter.title}
         />
         <Component
-          components={{ img: MdxImage, h1: Heading1, h2: Heading2, h3: Heading3, p: Paragraph, MdxImage, Youtube }}
+          components={{
+            img: MdxImage,
+            h1: Heading1,
+            h2: Heading2,
+            h3: Heading3,
+            p: Paragraph,
+            MdxImage,
+            Youtube,
+            EmbedBookmark,
+          }}
         />
       </div>
     </>
