@@ -1,0 +1,43 @@
+---
+title: "Golang Snippets: Print Any JSON request/response"
+publishedAt: 2023-08-05
+description: "Golang Snippets: Print Any JSON request/response"
+language: en
+coverImage: how-to-fix-fout.jpg
+---
+
+```go
+  router.HandleFunc("/your-api", func(w http.ResponseWriter, r *http.Request) {
+
+    var bodyBytes []byte
+    var err error
+
+    if r.Body != nil {
+      bodyBytes, err = ioutil.ReadAll(r.Body)
+      if err != nil {
+        fmt.Printf("Body reading error: %v", err)
+        return
+      }
+      defer r.Body.Close()
+    }
+
+    fmt.Printf("Headers: %+v\n", r.Header)
+
+    if len(bodyBytes) > 0 {
+      var prettyJSON bytes.Buffer
+      if err = json.Indent(&prettyJSON, bodyBytes, "", "\t"); err != nil {
+        fmt.Printf("JSON parse error: %v", err)
+        return
+      }
+      fmt.Println(string(prettyJSON.Bytes()))
+    } else {
+      fmt.Printf("Body: No Body Supplied\n")
+    }
+
+    json.NewEncoder(w).Encode(map[string]bool{"ok": true})
+  })
+```
+
+## References
+
+<EmbedBookmark url="https://gist.github.com/benjisg/94ca2aab95f95c06d1006bd1e4f9ffd9" />
