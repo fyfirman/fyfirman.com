@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import { SeoMetadata } from "~/pages/api/seo-metadata";
 import env from "~/utils/environment";
+import { SeoMetadata } from "~/pages/api/seo-metadata";
 
 const postGenerate = async (url: string) => {
-  const res: AxiosResponse<SeoMetadata> = await axios.post(`${env.baseUrl}/api/seo-metadata`, {
+  const res: AxiosResponse<SeoMetadata> = await axios.post(`${env.scraperServiceUrl}/seo-scraper`, {
     url,
   });
 
