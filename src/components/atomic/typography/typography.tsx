@@ -66,6 +66,8 @@ export const UnorderedList = styled(motion.ul)`
   font-weight: 400;
   font-size: 18px;
   line-height: 31px;
+  margin-block-start: 0.33em;
+  margin-block-end: 2rem;
 `;
 
 export const List = styled(motion.li)`

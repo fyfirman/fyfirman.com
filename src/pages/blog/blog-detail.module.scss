@@ -16,6 +16,7 @@
   h4 > code,
   h5 > code,
   h6 > code,
+  li > code,
   p > code {
     background-color: rgba(0, 0, 0, 0.05);
     color: rgba(0, 0, 0, 0.85);
@@ -25,6 +26,7 @@
   h2 > code {
     font-size: 28px;
   }
+  li > code,
   p > code {
     font-size: 16px;
   }

@@ -13,7 +13,14 @@ import EmbedBookmark from "~/components/organism/embed-bookmark";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import BlogServices from "~/services/blog.services";
 import tracer from "~/utils/tracer/tracer";
-import { Heading1, Heading2, Heading3, Paragraph } from "~/components/atomic/typography/typography";
+import {
+  Heading1,
+  Heading2,
+  Heading3,
+  List,
+  Paragraph,
+  UnorderedList,
+} from "~/components/atomic/typography/typography";
 import styles from "./blog-detail.module.scss";
 
 interface BlogDetailProps {
@@ -55,6 +62,8 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
             h2: Heading2,
             h3: Heading3,
             p: Paragraph,
+            li: List,
+            ul: UnorderedList,
             MdxImage,
             Youtube,
             EmbedBookmark,
