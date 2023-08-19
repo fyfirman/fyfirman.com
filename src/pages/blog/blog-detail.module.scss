@@ -31,6 +31,11 @@
     font-size: 16px;
   }
 
+  p > a {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
   &.dark {
     h1 > code,
     h2 > code,
