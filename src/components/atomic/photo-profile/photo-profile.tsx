@@ -4,14 +4,14 @@ import Firmansyah from "@assets/images/firmansyah.png";
 import useResponsive from "~/hooks/useResponsive";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isMobile: boolean }>`
   & > span {
     margin: 0;
   }
 
-  &.mobile {
-    width: 60%;
-    max-width: 280px;
+  & > img {
+    max-width: ${({ isMobile }) => (isMobile ? "280px" : "initial")};
+    max-height: ${({ isMobile }) => (isMobile ? "390px" : "initial")};
   }
 `;
 
@@ -26,6 +26,7 @@ const PhotoProfile = ({ className }: PhotoProfileProps) => {
   return (
     <Wrapper
       className={className}
+      isMobile={isMobile}
       onMouseDown={() => {
         if (isMobile) {
           setHueRotate((prev) => prev + 30);
