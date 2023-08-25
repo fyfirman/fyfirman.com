@@ -3,10 +3,9 @@ import Image, { ImageProps } from "next/image";
 import { clsx } from "~/helpers/classname-helper";
 import styled, { css } from "styled-components";
 import { StyledComponentProps } from "~/interfaces/styled-component";
+import useResponsive from "~/hooks/useResponsive";
 import { Link } from "../typography/typography";
 import styles from "./project-card.module.scss";
-import { useMediaQuery } from "react-responsive";
-import useResponsive from "~/hooks/useResponsive";
 
 const Container = styled.div<
   {
