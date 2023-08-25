@@ -1,13 +1,18 @@
 import React from "react";
 import Image, { ImageProps } from "next/image";
 import { clsx } from "~/helpers/classname-helper";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { StyledComponentProps } from "~/interfaces/styled-component";
 import { Link } from "../typography/typography";
 import styles from "./project-card.module.scss";
+import { useMediaQuery } from "react-responsive";
+import useResponsive from "~/hooks/useResponsive";
 
-const Container = styled.div<{
-  isClickable: boolean;
-}>`
+const Container = styled.div<
+  {
+    isClickable: boolean;
+  } & StyledComponentProps
+>`
   border-radius: 0;
   text-decoration: none;
   margin-bottom: 64px;
@@ -31,6 +36,18 @@ const Container = styled.div<{
   &:hover > .not-available::after {
     opacity: 0;
   }
+`;
+
+const ImageContainer = styled.div<StyledComponentProps>`
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      & > img {
+        width: 100%;
+        object-fit: contain;
+        height: auto;
+      }
+    `}
 `;
 
 const CardTitle = styled.span`
@@ -73,12 +90,13 @@ export interface ProjectCardProps {
 
 const ProjectCard = (props: ProjectCardProps) => {
   const { href, imageURI, title, desc, stack, notAvailable = false, onClick, tagText = "Build with : " } = props;
+  const { isMobile } = useResponsive();
 
   return (
     <Container isClickable={!!onClick} onClick={onClick}>
-      <div className={styles["card-image"]}>
+      <ImageContainer className={styles["card-image"]} isMobile={isMobile}>
         <Image alt={`${title} Snapshot`} src={imageURI} width="450" />
-      </div>
+      </ImageContainer>
       <CardTitle>{title}</CardTitle>
       <CardDescription>{desc}</CardDescription>
       <CardDescription>

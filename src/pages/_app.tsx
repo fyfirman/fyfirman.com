@@ -20,10 +20,13 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "~/utils/query-client";
 // eslint-disable-next-line import/no-unresolved
 import { Analytics } from "@vercel/analytics/react";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { darkModeActive } = useDarkMode();
   const { isMobile } = useResponsive();
+  const router = useRouter();
+  const noMarginNavbar = ["/"];
 
   useGTM();
   useEffect(() => {
@@ -42,7 +45,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <div className={`${styles.root} ${darkModeActive ? "dark" : "light"}`}>
         <Navbar />
-        <main className={clsx([styles["body-container"], isMobile && styles.mobile])}>
+        <main
+          className={clsx([
+            styles["body-container"],
+            isMobile && styles.mobile,
+            noMarginNavbar.includes(router.pathname) && styles["no-margin"],
+          ])}
+        >
           <Component {...pageProps} />
           <Footer />
         </main>

@@ -13,6 +13,29 @@ const variants = {
   visible: { opacity: 1, y: 0 },
 };
 
+const Container = styled.div`
+  position: relative;
+`;
+
+const MobileContainer = styled.div`
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0;
+`;
+
+const TextContainer = styled.div`
+  margin-top: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
 const Header = styled(motion.h1)<StyledComponentProps>`
   margin: 0;
   font-size: 48px;
@@ -21,6 +44,14 @@ const Header = styled(motion.h1)<StyledComponentProps>`
   letter-spacing: -0.035em;
   color: var(--text-headings);
   font-family: var(--base-font);
+
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      text-align: center;
+      font-size: 36px;
+      line-height: 48px;
+    `}
 `;
 
 const SubHeader = styled(motion.span)<StyledComponentProps>`
@@ -28,10 +59,18 @@ const SubHeader = styled(motion.span)<StyledComponentProps>`
   font-size: 18.3375px;
   font-family: var(--base-font);
   letter-spacing: -0.025em;
-  margin-top: ${({ isMobile }) => (!isMobile ? "0" : "8px")};
-  margin-bottom: ${({ isMobile }) => (!isMobile ? "0" : "16px")};
-  text-align: ${({ isMobile }) => (!isMobile ? "left" : "center")};
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: left;
   color: var(--text-body); // Text body is different from the design;
+
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      text-align: center;
+      font-size: 16px;
+      line-height: 18px;
+    `}
 `;
 
 const PrimaryButton = styled(motion.a)<StyledComponentProps>`
@@ -60,16 +99,8 @@ const SplineGeoContainer = styled(motion.iframe)`
 const AboutMe = styled(motion.div)<StyledComponentProps>`
   flex: 4;
   padding-left: 4%;
+  gap: 12px;
   z-index: 2;
-
-  ${({ isMobile }) =>
-    isMobile &&
-    css`
-      display: flex;
-      flex-direction: column;
-      padding-right: 0;
-      align-items: center;
-    `}
 `;
 
 const JumboTron = styled(motion.div)<StyledComponentProps>`
@@ -81,6 +112,7 @@ const JumboTron = styled(motion.div)<StyledComponentProps>`
   ${({ isMobile }) =>
     isMobile &&
     css`
+      height: initial;
       flex-direction: column;
       margin-top: 10px;
     `}
@@ -90,20 +122,15 @@ const HomeHeader = () => {
   const { isMobile } = useResponsive();
   const { darkModeActive } = useDarkMode();
 
-  return (
-    <div
-      id="home-header"
-      style={{
-        position: "relative",
-      }}
-    >
-      <JumboTron isMobile={isMobile}>
+  if (isMobile) {
+    return (
+      <MobileContainer id="home-header">
         <PhotoProfile />
-        <AboutMe isMobile={isMobile}>
+        <TextContainer>
           <SubHeader
+            isMobile
             animate="visible"
             initial="hidden"
-            isMobile={isMobile}
             transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
             variants={variants}
           >
@@ -112,7 +139,42 @@ const HomeHeader = () => {
           <Header
             animate="visible"
             initial="hidden"
-            isMobile={isMobile}
+            isMobile
+            transition={{ ease: "anticipate", duration: 0.5, delay: 0.5 }}
+            variants={variants}
+          >
+            Firmansyah Yanuar
+          </Header>
+          <SubHeader
+            isMobile
+            animate="visible"
+            initial="hidden"
+            transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
+            variants={variants}
+          >
+            I love to build something cool software
+          </SubHeader>
+        </TextContainer>
+      </MobileContainer>
+    );
+  }
+
+  return (
+    <Container id="home-header">
+      <JumboTron>
+        <PhotoProfile />
+        <AboutMe>
+          <SubHeader
+            animate="visible"
+            initial="hidden"
+            transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
+            variants={variants}
+          >
+            Hi, I am
+          </SubHeader>
+          <Header
+            animate="visible"
+            initial="hidden"
             transition={{ ease: "anticipate", duration: 0.5, delay: 0.5 }}
             variants={variants}
           >
@@ -121,11 +183,10 @@ const HomeHeader = () => {
           <SubHeader
             animate="visible"
             initial="hidden"
-            isMobile={isMobile}
             transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
             variants={variants}
           >
-            {!isMobile ? "I love to build something cool software" : "I love to build something cool software"}
+            I love to build something cool software
           </SubHeader>
           <motion.div
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -177,7 +238,7 @@ const HomeHeader = () => {
           }}
         />
       ) : null}
-    </div>
+    </Container>
   );
 };
 

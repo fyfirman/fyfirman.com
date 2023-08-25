@@ -6,18 +6,22 @@ import styles from "~/styles/Home.module.scss";
 import env from "~/utils/environment";
 import ScrollAnimation from "~/components/template/scroll-animation/scroll-animation";
 import { Heading1 } from "~/components/atomic/typography/typography";
+import useResponsive from "~/hooks/useResponsive";
 import { headerVariants } from "./home-project.animation";
 
 const NUM_OF_COLUMN = 2;
 
 const HomeProject = () => {
   const { controls, ref } = useAOS();
+  const { isMobile } = useResponsive();
+
   return (
     <div id="home-project">
       <Heading1
         animate={controls}
         id="project-section"
         initial="initial"
+        isMobile={isMobile}
         ref={ref}
         style={{ marginTop: 128, marginBottom: 40 }}
         variants={headerVariants}

@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import Image, { ImageProps } from "next/image";
+import useResponsive from "~/hooks/useResponsive";
 import styles from "./sosmed.module.scss";
 
 interface SosmedProps {
@@ -11,6 +12,7 @@ interface SosmedProps {
 
 const Sosmed = (props: SosmedProps) => {
   const { href, name, isMiddle, position } = props;
+  const { isMobile } = useResponsive();
 
   return (
     <a
@@ -23,7 +25,7 @@ const Sosmed = (props: SosmedProps) => {
         <Image
           alt={`${name} Icon`}
           src={require(`@assets/images/sosmed/${name.toLowerCase().split(" ").join("-")}.svg`) as ImageProps["src"]}
-          width="32"
+          width={!isMobile ? "32" : "24"}
         />
       </div>
     </a>

@@ -7,9 +7,11 @@ import framerMotion from "@assets/images/explore-cover/framer-motion.jpg";
 import type { ProjectCardProps } from "~/components/atomic/project-card/project-card";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 import { useRouter } from "next/router";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import useResponsive from "~/hooks/useResponsive";
+import { StyledComponentProps } from "~/interfaces/styled-component";
 
-const ProjectContainer = styled.div`
+const ProjectContainer = styled.div<StyledComponentProps>`
   display: flex;
   gap: min(4vw, 48px);
   flex-direction: row;
@@ -18,6 +20,12 @@ const ProjectContainer = styled.div`
   & > div {
     flex: 1;
   }
+
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      flex-direction: column;
+    `}
 `;
 
 const projectList: (ProjectCardProps & {
@@ -42,6 +50,7 @@ const projectList: (ProjectCardProps & {
 const desc = "Curated new tools/library that has been explored";
 
 const ExplorePage: NextPage = () => {
+  const { isMobile } = useResponsive();
   const router = useRouter();
 
   return (
@@ -49,8 +58,8 @@ const ExplorePage: NextPage = () => {
       <Head desc={desc} title="Explore" />
 
       <Heading1>Explore</Heading1>
-      <Paragraph>{desc}</Paragraph>
-      <ProjectContainer>
+      <Paragraph isMobile={isMobile}>{desc}</Paragraph>
+      <ProjectContainer isMobile={isMobile}>
         {projectList.map((p) => (
           <ProjectCard key={p.title} {...p} onClick={() => router.push(`/explore/${p.slug}`)} tagText="Tags : " />
         ))}

@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { Weapon } from "~/components/atomic";
 import useResponsive from "~/hooks/useResponsive";
 import { primaryWeapon, secondaryWeapon } from "~/data/weapon-list";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Heading1 } from "~/components/atomic/typography/typography";
 import type { StyledComponentProps } from "~/interfaces/styled-component";
 
@@ -47,18 +47,26 @@ const WeaponType = styled(motion.h3)<StyledComponentProps>`
   color: var(--text-headings);
   font-family: var(--base-font);
   margin-bottom: ${({ isMobile }) => (!isMobile ? "36px" : "16px")};
+
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      font-size: 24px;
+    `}
 `;
 
-const WeaponContainer = styled(motion.div)`
+const WeaponContainer = styled(motion.div)<StyledComponentProps>`
   display: flex;
   width: 100%;
   flex-direction: row;
 
-  @media only screen and (max-width: 720px) {
-    & {
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
       flex-direction: column;
-    }
-  }
+      margin-top: 36px;
+      gap: 48px;
+    `}
 `;
 
 const HomeWeapon = () => {
@@ -84,12 +92,13 @@ const HomeWeapon = () => {
       <Heading1
         animate={{ y: 0, opacity: 1 }}
         initial={{ y: -100, opacity: 0 }}
+        isMobile={isMobile}
         style={{ marginBottom: 40 - 16 }}
         transition={{ duration: 1 }}
       >
         My Weapons
       </Heading1>
-      <WeaponContainer>
+      <WeaponContainer isMobile={isMobile}>
         {[
           { name: "Primary", data: primaryWeapon },
           { name: "Secondary", data: secondaryWeapon },

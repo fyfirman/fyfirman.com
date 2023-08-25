@@ -6,19 +6,22 @@ import { BlogPost, getAllBlogPosts } from "~/utils/mdx/blog.mdx";
 import BlogCard from "~/components/atomic/blog-card";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 import { ImageProps } from "next/image";
+import useResponsive from "~/hooks/useResponsive";
 
 interface BlogListProps {
   blogList: BlogPost[];
 }
 
 const BlogList: NextPage<BlogListProps> = ({ blogList }) => {
+  const { isMobile } = useResponsive();
+
   return (
     <>
       <Head title="Blog" />
 
       <div className={styles.headingContainer}>
         <Heading1>Blog - What&apos;s inside fyfirman</Heading1>
-        <Paragraph>
+        <Paragraph isMobile={isMobile}>
           ⚠️ This page is under development. <br /> Just to put everything in my mind, will tidy up later
         </Paragraph>
       </div>

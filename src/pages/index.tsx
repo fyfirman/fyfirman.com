@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "@components/template/head";
 import React from "react";
-import styles from "~/styles/Home.module.scss";
 import HomeHeader from "~/components/pages/home/home-header";
 import HomeWeapon from "~/components/pages/home/home-weapon";
 import HomeProject from "~/components/pages/home/home-project";
@@ -12,12 +11,10 @@ const Home: NextPage = () => {
     <>
       <Head title="Home" />
 
-      <div className={styles.main}>
-        <HomeHeader />
-        <HomeWeapon />
-        <HomeProject />
-        <HomeContact />
-      </div>
+      <HomeHeader />
+      <HomeWeapon />
+      <HomeProject />
+      <HomeContact />
     </>
   );
 };

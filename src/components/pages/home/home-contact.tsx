@@ -2,17 +2,22 @@ import React from "react";
 import styles from "~/styles/Home.module.scss";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 import Sosmed from "~/components/atomic/sosmed/sosmed";
+import useResponsive from "~/hooks/useResponsive";
 
 const HomeContact = () => {
+  const { isMobile } = useResponsive();
+
   return (
     <div id="home-contact">
-      <Heading1 style={{ marginTop: 128, marginBottom: 40 }}>Get In Touch With Me</Heading1>
+      <Heading1 isMobile={isMobile} style={{ marginTop: 128, marginBottom: 40 }}>
+        Get In Touch With Me
+      </Heading1>
       <div style={{ maxWidth: "600px" }}>
-        <Paragraph>
+        <Paragraph isMobile={isMobile}>
           I&apos;m very happy to share knowledge. If you want to ask something about IT, productivity, or my college
           experience, feel free to discuss via <b>Instagram</b>.
         </Paragraph>
-        <Paragraph>
+        <Paragraph isMobile={isMobile}>
           For <b>hiring, business, or collaboration</b> please contact me via <b>email (fyfirman@gmail.com)</b> or{" "}
           <b>Linkedin</b>.
         </Paragraph>

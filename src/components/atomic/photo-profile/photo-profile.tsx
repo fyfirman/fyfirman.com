@@ -11,7 +11,7 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
 
   & > img {
     max-width: ${({ isMobile }) => (isMobile ? "280px" : "initial")};
-    max-height: ${({ isMobile }) => (isMobile ? "390px" : "initial")};
+    object-fit: contain;
   }
 `;
 
@@ -42,7 +42,7 @@ const PhotoProfile = ({ className }: PhotoProfileProps) => {
         id="photo-profile-desktop"
         priority={!isMobile}
         src={Firmansyah}
-        width="420"
+        width={!isMobile ? 420 : 280}
       />
     </Wrapper>
   );

@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import NextLink from "next/link";
+import { StyledComponentProps } from "~/interfaces/styled-component";
 
-export const Heading1 = styled(motion.h1)`
+export const Heading1 = styled(motion.h1)<StyledComponentProps>`
   color: var(--text-headings);
   font-family: var(--base-font);
   font-style: normal;
@@ -12,6 +13,13 @@ export const Heading1 = styled(motion.h1)`
   letter-spacing: -0.025em;
   margin-block-start: 0.33em;
   margin-block-end: 0.33em;
+
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      font-size: 32px;
+      line-height: 36px;
+    `}
 `;
 
 export const Heading2 = styled(motion.h2)`
@@ -34,7 +42,7 @@ export const Heading3 = styled(motion.h3)`
   margin-block-end: 0.33em;
 `;
 
-export const Paragraph = styled(motion.p)`
+export const Paragraph = styled(motion.p)<StyledComponentProps>`
   color: var(--text-body);
   font-family: var(--base-font);
   font-style: normal;
@@ -43,6 +51,13 @@ export const Paragraph = styled(motion.p)`
   line-height: 31px;
   margin-block-start: 0.33em;
   margin-block-end: 2rem;
+
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      font-size: 16px;
+      line-height: 28px;
+    `}
 `;
 
 export const SubParagraph = styled.span`
