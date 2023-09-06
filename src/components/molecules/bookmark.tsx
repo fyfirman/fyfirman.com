@@ -59,9 +59,9 @@ const Bookmark: React.FC<BookmarkProps> = ({ title, description, url, icoUrl, is
   }
 
   return (
-    <Container href={url} target="_blank" style={style}>
+    <Container href={url} style={style} target="_blank">
       <TitleContainer>
-        {icoUrl ? <img alt={`${title} icon`} src={icoUrl} width={24} height={24} /> : undefined}
+        {icoUrl ? <img alt={`${title} icon`} height={24} src={icoUrl} width={24} /> : undefined}
         <TitleText>{title}</TitleText>
       </TitleContainer>
       <DescriptionText>{description}</DescriptionText>

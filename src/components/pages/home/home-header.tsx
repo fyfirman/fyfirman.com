@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useDarkMode } from "next-dark-mode";
 import useResponsive from "~/hooks/useResponsive";
-import env from "~/utils/environment";
 import PhotoProfile from "~/components/atomic/photo-profile/photo-profile";
 import styled, { css } from "styled-components";
 import type { StyledComponentProps } from "~/interfaces/styled-component";
@@ -90,12 +89,6 @@ const PrimaryButton = styled(motion.a)<StyledComponentProps>`
   }
 `;
 
-const SplineGeoContainer = styled(motion.iframe)`
-  position: absolute;
-  bottom: -50px;
-  right: -200px;
-`;
-
 const AboutMe = styled(motion.div)<StyledComponentProps>`
   flex: 4;
   padding-left: 4%;
@@ -128,9 +121,9 @@ const HomeHeader = () => {
         <PhotoProfile />
         <TextContainer>
           <SubHeader
-            isMobile
             animate="visible"
             initial="hidden"
+            isMobile
             transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
             variants={variants}
           >
@@ -146,9 +139,9 @@ const HomeHeader = () => {
             Firmansyah Yanuar
           </Header>
           <SubHeader
-            isMobile
             animate="visible"
             initial="hidden"
+            isMobile
             transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
             variants={variants}
           >

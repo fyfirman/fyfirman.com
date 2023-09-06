@@ -3,7 +3,6 @@ import { ProjectCard } from "~/components/atomic";
 import projectList from "~/data/project-list";
 import { useAOS } from "~/hooks/useAOS";
 import styles from "~/styles/Home.module.scss";
-import env from "~/utils/environment";
 import ScrollAnimation from "~/components/template/scroll-animation/scroll-animation";
 import { Heading1 } from "~/components/atomic/typography/typography";
 import useResponsive from "~/hooks/useResponsive";
