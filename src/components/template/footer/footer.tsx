@@ -15,15 +15,6 @@ const Footer: React.VFC<{}> = () => {
           process.env.NODE_ENV.charAt(0).toUpperCase() + process.env.NODE_ENV.slice(1)
         } - v${version}`}</span>
       ) : null}
-      {!env.disableSpline ? (
-        <iframe
-          className={styles["spline-danbo"]}
-          frameBorder="0"
-          loading="lazy"
-          src="/spline/danbo/index.html"
-          title="3d-spline-danbo"
-        />
-      ) : null}
     </footer>
   );
 };

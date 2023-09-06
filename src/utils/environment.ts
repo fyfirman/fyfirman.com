@@ -14,7 +14,6 @@ interface Environment {
     gtmAuth: string;
     gtmEnvId: string;
   }>;
-  disableSpline: boolean;
   backendUrl: string;
   scraperServiceUrl: string;
 }
@@ -35,7 +34,6 @@ const env: Environment = {
     gtmAuth: process.env.NEXT_PUBLIC_GTM_AUTH,
     gtmEnvId: process.env.NEXT_PUBLIC_GTM_ENV_ID,
   },
-  disableSpline: process.env.NEXT_PUBLIC_DISABLE_SPLINE === "true",
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL ?? "",
   scraperServiceUrl: process.env.NEXT_PUBLIC_SCRAPER_SERVICE_URL ?? "http://localhost:3000",
 };

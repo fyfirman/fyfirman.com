@@ -44,17 +44,6 @@ const HomeProject = () => {
         </div>
       ))}
       {/* <Link to="/project/">See All Project</Link> <br /> */}
-      {!env.disableSpline ? (
-        <div className="spline-container">
-          <iframe
-            frameBorder="0"
-            id="spline-geo-2"
-            loading="lazy"
-            src="spline/geometric-2/index.html"
-            title="3d-spline-geo-2"
-          />
-        </div>
-      ) : null}
     </div>
   );
 };
