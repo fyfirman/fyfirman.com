@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import React, { useState } from "react";
 import Firmansyah from "@assets/images/firmansyah.png";

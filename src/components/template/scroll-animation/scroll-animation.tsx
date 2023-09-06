@@ -1,4 +1,5 @@
 /* eslint-disable react/display-name */
+"use client";
 import React, { useEffect, useRef } from "react";
 import { HTMLMotionProps, motion, useAnimation } from "framer-motion";
 import { useInView, IntersectionOptions } from "react-intersection-observer";

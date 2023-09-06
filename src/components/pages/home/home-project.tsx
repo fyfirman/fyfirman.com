@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { ProjectCard } from "~/components/atomic";
 import projectList from "~/data/project-list";

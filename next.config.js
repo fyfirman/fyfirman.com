@@ -4,6 +4,9 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 /** @type {import('next').NextConfig} */
 const config = {
+  experimental: {
+    appDir: true,
+  },
   i18n: {
     locales: ["en-US"],
     defaultLocale: "en-US",
