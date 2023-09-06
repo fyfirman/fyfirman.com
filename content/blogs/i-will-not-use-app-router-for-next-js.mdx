@@ -1,0 +1,71 @@
+---
+title: I will not use App Router for NextJS
+publishedAt: 2023-09-07
+description:
+language: en
+coverImage: i-will-not-use-app-router-for-next-js.png
+---
+
+## What's App Router?
+
+[**App Router**](https://nextjs.org/docs/app) is a new experimental feature of NextJS version 13 which come in early 2023. It's happening on Twitter because it changes how we are creating the routes and managing the files. Before you jump to this router, you should be familiar with the previous router which is **Page Router**. The difference of this router is you will have a basic convention of file names which are:
+
+- `layout.tsx`
+- `page.tsx`
+
+Those files should located in `/app` folder. Then we can put other directories in the folder like we use **Page Router**. In comparison here's the previous implementation with the **Page router**:
+
+```
+pages/
+|   |-- _app.tsx
+|   |-- _document.tsx
+|   |-- index.tsx
+`-- blog/
+    |-- [slug].tsx
+    `-- index.tsx
+```
+
+and this with **App Router**:
+
+```
+app/
+|-- layout.tsx
+|-- page.tsx
+`-- blog/
+    |-- [slug]
+    |   |-- page.tsx
+    |   `-- layout.tsx
+    |-- page.tsx
+    `-- layout.tsx
+```
+
+In my opinion, that does not change much. Both ways are similar, there's nothing I preferred so much. Until this happens.
+
+## Reason I tried to migrate
+
+On Twitter, I saw a lot of _Tech Twitter_ that already used App Router. There are also advantages that App Router gives, one of them is **server component** where the component can be also server rendered in a chunk of data. I am the FOMO guy, but I tried to hold myself to migrating it immediately. My patience is enough to hold me about 6 months.
+
+If you notice, I like to bookmark something in my blog, I know it's not a good place but I want to put it somewhere and I can show it to anyone if I want to share it. I bookmark a lot of tweets from Tech Twitter. Then I want to embed the tweets on my blog. Then, I found [react-tweet](https://github.com/vercel/react-tweet) which is maintained by Vercel. It's very promising, I'd rather use this library than create my own components and think about how I get the data from API.
+
+I tried to use that library for 15 minutes and I got an error which I expected. The error is about **react-tweet** wanting to import a CSS but next does not allow it. The solution is adding some configuration in `next.config.js` but another error comes. In the end, this is my [final issue](https://github.com/vercel/react-tweet/issues/80) which is still open. The last comment said you need to migrate to use App Router.
+
+## Trying to migrate
+
+NextJS gives documentation to migrate from Page Router to App Router [here](https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration). I read that document and did some "hello world" with App Router. I manage it maybe for an hour. Then, I am optimistic it would be easy to migrate because I think it's just restructuring the folder.
+
+Migration starts by creating `layout.tsx` replacing `_app.tsx` and `_document.tsx`. I skipped completing all providers, but I jumped on moving `index.tsx` (homepage) to `pages.tsx`. Then I was shocked there were lot of errors that said "This is server components, you can't use `useState` here. Otherwise you need to put `use client;`". Then, I put `use client;` everywhere I need to rid of the errors.
+
+After that, I could see my website but it showed like this:
+
+<MdxImage
+  src={require("../src/assets/images/blog-content/i-will-not-use-app-router-for-next-js/20230907004821.png")}
+  width="693"
+  alt="My Website using App Router"
+/>
+
+I remembered that CSS-in-JS which I used is not fully supported with the server components. Maybe that's the reason it does
+not show nicely. Then, I take the point that **migrating to App Router is not easy**. Remembering the goals is just embedding
+a tweet, this is just a waste of my time.
+
+I may not use **App Router** for existing projects. However, maybe I will use it
+when the new project with NextJS comes as they look promising lot of features with App Router.
