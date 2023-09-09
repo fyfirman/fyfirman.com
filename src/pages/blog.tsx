@@ -7,6 +7,7 @@ import BlogCard from "~/components/atomic/blog-card";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 import { ImageProps } from "next/image";
 import useResponsive from "~/hooks/useResponsive";
+import { useRouter } from "next/router";
 
 interface BlogListProps {
   blogList: BlogPost[];
@@ -14,6 +15,9 @@ interface BlogListProps {
 
 const BlogList: NextPage<BlogListProps> = ({ blogList }) => {
   const { isMobile } = useResponsive();
+  const router = useRouter();
+
+  const showHidden = Boolean(router.query.hidden);
 
   return (
     <>
@@ -26,16 +30,18 @@ const BlogList: NextPage<BlogListProps> = ({ blogList }) => {
         </Paragraph>
       </div>
       <div className={styles.cardContainer}>
-        {blogList.map(({ title, publishedAt, slug, readingTime, coverImage }) => (
-          <BlogCard
-            key={slug}
-            href={`/blog/${slug}`}
-            imageURI={require(`../assets/images/blog-cover/${coverImage}`) as ImageProps["src"]}
-            publishedDate={new Date(publishedAt)}
-            readingTime={readingTime}
-            title={title}
-          />
-        ))}
+        {blogList
+          .filter((b) => !b.hide || showHidden)
+          .map(({ title, publishedAt, slug, readingTime, coverImage }) => (
+            <BlogCard
+              key={slug}
+              href={`/blog/${slug}`}
+              imageURI={require(`../assets/images/blog-cover/${coverImage}`) as ImageProps["src"]}
+              publishedDate={new Date(publishedAt)}
+              readingTime={readingTime}
+              title={title}
+            />
+          ))}
       </div>
     </>
   );

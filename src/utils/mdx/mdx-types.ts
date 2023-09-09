@@ -16,4 +16,5 @@ export interface BlogFrontmatter extends Frontmatter {
   language: BlogLanguage;
   coverImage: string;
   readingTime: ReadTimeResults;
+  hide?: boolean;
 }

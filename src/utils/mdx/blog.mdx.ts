@@ -39,6 +39,7 @@ export const getAllBlogPosts = (): BlogPost[] => {
       const slug = fileName.replace(/\.mdx?$/, "");
 
       return {
+        hide: false,
         ...(serializeFrontmatter(data) as BlogFrontmatter),
         slug,
         readingTime: readingTime(source),
