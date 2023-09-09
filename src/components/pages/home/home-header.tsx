@@ -111,6 +111,9 @@ const JumboTron = styled(motion.div)<StyledComponentProps>`
     `}
 `;
 
+const description =
+  "Experienced Software Engineer with a strong emphasis \n on frontend development, specializing in React for over 3 years";
+
 const HomeHeader = () => {
   const { isMobile } = useResponsive();
   const { darkModeActive } = useDarkMode();
@@ -145,7 +148,7 @@ const HomeHeader = () => {
             transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
             variants={variants}
           >
-            I love to build something cool software
+            {description}
           </SubHeader>
         </TextContainer>
       </MobileContainer>
@@ -179,7 +182,7 @@ const HomeHeader = () => {
             transition={{ ease: "anticipate", duration: 0.75, delay: 0.25 }}
             variants={variants}
           >
-            I love to build something cool software
+            {description}
           </SubHeader>
           <motion.div
             animate={{ opacity: 1, y: 0, scale: 1 }}
