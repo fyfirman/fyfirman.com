@@ -1,10 +1,13 @@
 import {
+  add,
   differenceInDays,
   differenceInHours,
   differenceInMinutes,
   differenceInMonths,
   differenceInWeeks,
   format,
+  startOfWeek,
+  sub,
 } from "date-fns";
 
 export const formatTimeStampToFullDate = (second: number) => {
@@ -60,3 +63,42 @@ export const formatReadableDate = (date: Date) => {
 };
 
 export const formatTimeStampToDateDifference = (second: number) => formatDateDifference(new Date(second));
+
+export const getMonthsAndWeeksForLastYearToNow = (): { monthName: string; weeks: number }[] => {
+  const monthNames: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  let currentDate = sub(
+    startOfWeek(new Date(), {
+      weekStartsOn: 1,
+    }),
+    { years: 1 },
+  );
+
+  const results: { monthName: string; weeks: number }[] = [
+    {
+      monthName: monthNames[currentDate.getMonth()],
+      weeks: 1,
+    },
+  ];
+  while (currentDate < new Date()) {
+    const nextDate = add(currentDate, {
+      days: 7,
+    });
+
+    if (nextDate.getMonth() === currentDate.getMonth()) {
+      // @ts-expect-error --- results at is already checked
+      results.at(-1).weeks += 1;
+    } else {
+      results.push({
+        monthName: monthNames[nextDate.getMonth()],
+        weeks: 1,
+      });
+    }
+
+    currentDate = nextDate;
+  }
+
+  return results;
+};
+
+export const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
