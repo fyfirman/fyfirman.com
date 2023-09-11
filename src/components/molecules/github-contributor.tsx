@@ -9,6 +9,8 @@ const Container = styled.table`
 
   font-size: 12px;
   line-height: 13px;
+
+  color: var(--text-body);
 `;
 
 const TableHeaderRow = styled.tr``;
@@ -21,7 +23,9 @@ const TableBodyRow = styled.tr`
 const TableBodyData = styled.td<{ level: number }>`
   width: 15px;
   aspect-ratio: 1;
-  background-color: ${({ level }) => `rgba(0, 0, 0,${level})`};
+  opacity: ${({ level }) => `${level}`};
+  background-color: var(--bg-button);
+  color: var(--text-body);
 `;
 
 interface GithubContributorProps {
@@ -53,11 +57,7 @@ const GithubContributor: React.FC<GithubContributorProps> = ({ data }) => {
             <TableBodyRow key={row}>
               {[...Array(colSize)].map((_a, col) => {
                 if (col === 0) {
-                  return (
-                    <TableBodyData key={`${row}_${col}`} level={0}>
-                      {row % 2 === 1 ? dayNames[row] : ""}
-                    </TableBodyData>
-                  );
+                  return <TableHeaderData key={`${row}_${col}`}>{row % 2 === 1 ? dayNames[row] : ""}</TableHeaderData>;
                 }
 
                 const gridDate = add(
