@@ -10,6 +10,7 @@ import { clsx } from "~/helpers/classname-helper";
 import BlogHeader from "~/components/atomic/blog-header/blog-header";
 import Youtube from "~/components/atomic/youtube/youtube";
 import EmbedBookmark from "~/components/organism/embed-bookmark";
+import CloudinaryPlayer from "~/components/organism/cloudinary-player";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import BlogServices from "~/services/blog.services";
 import tracer from "~/utils/tracer/tracer";
@@ -67,6 +68,7 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
             MdxImage,
             Youtube,
             EmbedBookmark,
+            CloudinaryPlayer,
           }}
         />
       </div>
