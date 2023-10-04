@@ -1,0 +1,111 @@
+---
+title: Protect Nextra Pages
+publishedAt: 2023-10-05
+description: Nextra is Next.js template for putting documentation in MDX files. I used Nextra for this website (docs.fyfirman.com) which contains private or confidential things. Since this my personal notes which may I want to share with others, I still want to make them live on the internet but can protect the public from accessing them. Hence, I'm looking for a "Password Protection" feature for this website.
+language: en
+coverImage: how-to-fix-fout.jpg
+hide: false
+---
+
+## Background
+
+[Nextra](https://nextra.site/) is Next.js template for putting documentation in MDX files. I used Nextra for this website (docs.fyfirman.com) which contains private or confidential things. Since this my personal notes which may I want to share with others, I still want to make them live on the internet but can protect the public from accessing them. Hence, I'm looking for a "Password Protection" feature for this website.
+
+## Proposed Solution
+
+### NGINX basic auth
+
+On the company where I working right now, there's a website which is protected by username & password. This is very minimal & simple which fits my case. However, my website is deployed in Vercel and I don't want to change it because it's very simple to deploy & change it. I don't want to add complexity to the deployment process.
+
+### Vercel Password Protection
+
+A place where I deploy is providing the solution. It's called ["Deployment Protection"](https://vercel.com/docs/security/deployment-protection#vercel-authentication) it might be perfect, but my wallet can't afford it 😆. They took $150/month.
+
+### Cloudflare Worker
+
+I used Cloudflare to put my DNS. I loved Cloudflare. I found [this article](https://www.maxivanov.io/how-to-password-protect-your-website-with-cloudflare-workers/) which uses a worker to add password protection.
+
+After I tried that solution, adding a route to my subdomain is not working. I am still able to access `docs.fyfirman.com` without submitting a password. I assume the DNS will work first, then redirect the request to Vercel without running the worker.
+
+<MdxImage
+  src={require("../src/assets/images/blog-content/protect-nextra-pages/20230930184948.png")}
+  width="693"
+  alt="Adding route to workers"
+/>
+
+### Vercel Basic Auth Template
+
+Vercel has **edge** or equal Cloudflare worker in their environment. They also provide a [template](https://vercel.com/templates/next.js/basic-auth-password) for it, however, it's basic Next.js.
+
+We will use the edge as middleware, so every request that matches it will run the function to check whether the auth is provided or not. The first thing we need to do is add `middleware.ts` at the root of projects, which contains these code:
+
+```ts
+import { NextRequest, NextResponse } from "next/server";
+
+export const config = {
+  matcher: ["/private/(.*)"],
+};
+
+export function middleware(req: NextRequest) {
+  const basicAuth = req.headers.get("authorization");
+  const url = req.nextUrl;
+
+  if (basicAuth) {
+    const authValue = basicAuth.split(" ")[1];
+    const [user, pwd] = atob(authValue).split(":");
+
+    if (user === "4dmin" && pwd === "testpwd123") {
+      return NextResponse.next();
+    }
+  }
+  url.pathname = "/api/auth";
+
+  return NextResponse.rewrite(url);
+}
+```
+
+That code will redirect to the endpoint `/api/auth` if the authentication is not provided. The API just showing 401 because the authorization will happen on the above file. Then, for the API we can create at `/pages/api/auth.ts`
+
+```ts
+import type { NextApiRequest, NextApiResponse } from "next";
+
+export default function handler(_: NextApiRequest, res: NextApiResponse) {
+  res.setHeader("WWW-authenticate", 'Basic realm="Secure Area"');
+  res.statusCode = 401;
+  res.end(`Auth Required.`);
+}
+```
+
+Finally, we got the result:
+
+<CloudinaryPlayer id="" publicId="fyfirman-blog/mdghyqjqnooprokibqm5" />
+
+## Continue with Basic Auth Middleware
+
+### Fixing Auth from Other Routes
+
+In the previous code, we can protect a route if the user directly puts the address to the browser. But, if the user already visited another route and visited a private route, the user is able to see the pages even though they are not filling username and password.
+
+<CloudinaryPlayer id="" publicId="fyfirman-blog/xtpj1lkemtqz6w3qdc9n" />
+
+To fix that, we can implement the middleware to chunk URLs by modifying the config matcher in `middleware.ts` :
+
+```ts
+export const config = {
+  matcher: [
+    '/private/(.*)',
+    '/_next/static/chunks/pages/private/(.*)'
+  ],
+}
+...
+```
+
+### Resource Usage
+
+Since I used Vercel Hobby which is free, it has a resource limitation per month. The middleware is counted as **Edge Middleware Invocations**. It's a limit of 1,000,000 which is very far from normal usage which only me.
+
+<MdxImage
+  src={require("../src/assets/images/blog-content/protect-nextra-pages/20230930233023.png")}
+  width="693"
+  alt="Vercel Limitation"
+/>
