@@ -18,6 +18,7 @@ interface Environment {
   scraperServiceUrl: string;
   serverSide: {
     phoneNumber: string;
+    allowedRef: string[];
   };
 }
 
@@ -41,6 +42,7 @@ const env: Environment = {
   scraperServiceUrl: process.env.NEXT_PUBLIC_SCRAPER_SERVICE_URL ?? "http://localhost:3000",
   serverSide: {
     phoneNumber: process.env.PHONE_NUMBER ?? "+6281234567890",
+    allowedRef: process.env.ALLOWED_REF?.split(",") ?? [],
   },
 };
 

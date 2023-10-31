@@ -3,8 +3,12 @@ import React from "react";
 import PhotoProfile from "~/components/atomic/photo-profile/photo-profile";
 import styled from "styled-components";
 import Image, { ImageProps } from "next/image";
+import env from "~/utils/environment";
+import { GetServerSideProps } from "next";
 
-interface SocialProps {}
+interface SocialProps {
+  phoneNumber?: string;
+}
 
 const Container = styled.div`
   display: flex;
@@ -40,7 +44,7 @@ const SocialLogo = styled.div`
   align-items: center;
 `;
 
-const Social: React.FC<SocialProps> = (props) => {
+const Social: React.FC<SocialProps> = ({ phoneNumber }) => {
   return (
     <Container>
       <PhotoProfile />
@@ -67,16 +71,18 @@ const Social: React.FC<SocialProps> = (props) => {
           </SocialLogo>
           <span>Available for freelance</span>
         </SocialItem>
-        <SocialItem href="https://wa.me/623362163216" target="_blank">
-          <SocialLogo>
-            <Image
-              alt="Whatsapp Icon"
-              src={require(`@assets/images/sosmed/whatsapp.svg`) as ImageProps["src"]}
-              width={16}
-            />
-          </SocialLogo>
-          <span>+623362163216</span>
-        </SocialItem>
+        {phoneNumber ? (
+          <SocialItem href={`https://wa.me/${phoneNumber.replace("+", "")}`} target="_blank">
+            <SocialLogo>
+              <Image
+                alt="Whatsapp Icon"
+                src={require(`@assets/images/sosmed/whatsapp.svg`) as ImageProps["src"]}
+                width={16}
+              />
+            </SocialLogo>
+            <span>{phoneNumber}</span>
+          </SocialItem>
+        ) : null}
         <SocialItem href="https://x.com/fyfirman" target="_blank">
           <SocialLogo>
             <Image alt="X Icon" src={require(`@assets/images/sosmed/x.svg`) as ImageProps["src"]} width={16} />
@@ -108,4 +114,13 @@ const Social: React.FC<SocialProps> = (props) => {
   );
 };
 
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { query } = ctx;
+
+  if (env.serverSide.allowedRef.includes(query.ref as string)) {
+    return { props: { phoneNumber: env.serverSide.phoneNumber } };
+  }
+
+  return { props: { phoneNumber: "" } };
+};
 export default Social;
