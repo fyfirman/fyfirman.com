@@ -72,7 +72,10 @@ const Social: React.FC<SocialProps> = ({ phoneNumber }) => {
             />
           </SocialLogo>
           <span>
-            Fulltime at <b>Autobahn Security</b>
+            Fulltime at{" "}
+            <b>
+              <u>Autobahn Security</u>
+            </b>
           </span>
         </SocialItem>
         <SocialItem href="#">
@@ -118,6 +121,16 @@ const Social: React.FC<SocialProps> = ({ phoneNumber }) => {
             />
           </SocialLogo>
           <span>linkedin.com/in/fyfirman</span>
+        </SocialItem>
+        <SocialItem href="https://instagram.com/fyfirman" target="_blank">
+          <SocialLogo>
+            <Image
+              alt="Instagram Icon"
+              src={require(`@assets/images/sosmed/instagram.svg`) as ImageProps["src"]}
+              width={16}
+            />
+          </SocialLogo>
+          <span>@fyfirman</span>
         </SocialItem>
       </SocialContainer>
     </Container>
