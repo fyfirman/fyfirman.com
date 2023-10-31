@@ -5,12 +5,14 @@ import styled from "styled-components";
 import Image, { ImageProps } from "next/image";
 import env from "~/utils/environment";
 import { GetServerSideProps } from "next";
+import useAppDarkMode from "~/hooks/useAppDarkMode";
 
 interface SocialProps {
   phoneNumber?: string;
 }
 
 const Container = styled.div`
+  color: var(--text-body);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,13 +24,19 @@ const AboutMe = styled.div`
   text-align: center;
 `;
 
-const SocialContainer = styled.div`
+const SocialContainer = styled.div<{
+  darkMode: boolean;
+}>`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
   align-items: start;
   width: 100%;
   gap: 16px;
+
+  & img {
+    ${(props) => (props.darkMode ? `filter: invert(100%)` : ``)}
+  }
 `;
 const SocialItem = styled.a`
   display: flex;
@@ -45,6 +53,8 @@ const SocialLogo = styled.div`
 `;
 
 const Social: React.FC<SocialProps> = ({ phoneNumber }) => {
+  const [isDarkModeActive] = useAppDarkMode();
+
   return (
     <Container>
       <PhotoProfile />
@@ -52,7 +62,7 @@ const Social: React.FC<SocialProps> = ({ phoneNumber }) => {
       <AboutMe>
         Passionate software engineer with experience in React for 3 years and building backend application at scale
       </AboutMe>
-      <SocialContainer>
+      <SocialContainer darkMode={isDarkModeActive}>
         <SocialItem href="https://autobahn-security.com/" target="_blank">
           <SocialLogo>
             <Image
