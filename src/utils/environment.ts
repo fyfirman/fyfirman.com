@@ -16,6 +16,9 @@ interface Environment {
   }>;
   backendUrl: string;
   scraperServiceUrl: string;
+  serverSide: {
+    phoneNumber: string;
+  };
 }
 
 const env: Environment = {
@@ -36,6 +39,9 @@ const env: Environment = {
   },
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL ?? "",
   scraperServiceUrl: process.env.NEXT_PUBLIC_SCRAPER_SERVICE_URL ?? "http://localhost:3000",
+  serverSide: {
+    phoneNumber: process.env.PHONE_NUMBER ?? "+6281234567890",
+  },
 };
 
 export default env;
