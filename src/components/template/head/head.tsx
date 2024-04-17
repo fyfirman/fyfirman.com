@@ -6,10 +6,11 @@ interface HeadProps {
   title?: string;
   desc?: string;
   hideWebTitle?: boolean;
+  noIndex?: boolean;
 }
 
 const Head = (props: HeadProps) => {
-  const { title, hideWebTitle = false, desc = env.metaDesc } = props;
+  const { title, hideWebTitle = false, desc = env.metaDesc, noIndex = false } = props;
 
   const finalTitle = useMemo(() => {
     if (hideWebTitle && title) {
@@ -26,6 +27,7 @@ const Head = (props: HeadProps) => {
       <title>{finalTitle}</title>
       <meta content={desc} name="description" />
       <link href="/favicon.ico" rel="shortcut icon" />
+      {noIndex ? <meta content="noindex" data-sj-noindex name="robots" /> : null}
     </NextHead>
   );
 };
