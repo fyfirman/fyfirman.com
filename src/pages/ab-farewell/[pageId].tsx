@@ -10,6 +10,7 @@ import { Client } from "@notionhq/client";
 import { useDarkMode } from "next-dark-mode";
 import { Heading1 } from "~/components/atomic/typography/typography";
 import Link from "next/link";
+import { escapeMarkdown, sendNotificationToTelegram } from "~/utils/telegram";
 
 interface FarewellMessageProps {
   name: string;
@@ -43,11 +44,18 @@ export const getServerSideProps: GetServerSideProps<FarewellMessageProps> = asyn
   const forwarded = ctx.req.headers["x-forwarded-for"];
   const userAgent = ctx.req.headers["user-agent"];
   const ip = typeof forwarded === "string" ? forwarded.split(/, /)[0] : ctx.req.socket.remoteAddress;
+  const url = new URL(ctx.req.url as string, `http://${ctx.req.headers.host}`);
 
   const recordMap = await notion.getPage(pageId);
   const name = Object.values(recordMap.block)[0].value.properties?.title[0] ?? "";
 
-  console.log(`Page ${name} is read \n ${ip} \n ${userAgent}`);
+  if (!url.href.includes("_next")) {
+    await sendNotificationToTelegram(
+      `*${name}*\n${escapeMarkdown(url.href)}\n\nIP: ${escapeMarkdown(ip)} \nUser agent: \`${escapeMarkdown(
+        userAgent,
+      )}\``,
+    );
+  }
 
   return {
     props: {
