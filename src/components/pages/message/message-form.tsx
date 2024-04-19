@@ -32,7 +32,10 @@ const MessageForm = () => {
     setIsLoading(true);
 
     try {
-      await MessageServices.sendMessage(message, senderName, { isPublic });
+      await Promise.allSettled([
+        await MessageServices.sendMessage(message, senderName, { isPublic }),
+        await MessageServices.sendMessageV2(message, senderName, { isPublic }),
+      ]);
 
       setIsSuccess(true);
       setIsLoading(false);

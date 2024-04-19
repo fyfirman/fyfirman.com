@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import app from "~/utils/firebase";
 import { IMessageOption } from "~/interfaces/message";
+import axios from "axios";
 import UtilsServices from "./utils.services";
 
 const MESSAGE_MAX_LENGTH = 200;
@@ -29,8 +30,18 @@ const sendMessage = async (message: string, senderName?: string, options?: IMess
     });
 };
 
+const sendMessageV2 = async (message: string, senderName?: string, options?: IMessageOption) => {
+  const response = await axios.post("/api/message", {
+    message,
+    senderName,
+    isPublic: options?.isPublic,
+  });
+  return response.data;
+};
+
 const MessageServices = {
   sendMessage,
+  sendMessageV2,
 };
 
 export default MessageServices;
