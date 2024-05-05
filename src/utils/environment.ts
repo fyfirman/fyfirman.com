@@ -20,6 +20,9 @@ interface Environment {
     phoneNumber: string;
     allowedRef: string[];
   };
+  featureFlags: {
+    photoProfileV2: boolean;
+  };
 }
 
 const env: Environment = {
@@ -43,6 +46,9 @@ const env: Environment = {
   serverSide: {
     phoneNumber: process.env.PHONE_NUMBER ?? "+6281234567890",
     allowedRef: process.env.ALLOWED_REF?.split(",") ?? [],
+  },
+  featureFlags: {
+    photoProfileV2: process.env.FF_PHOTO_PROFILE_V2?.toLowerCase() === "true",
   },
 };
 

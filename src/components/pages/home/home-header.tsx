@@ -6,6 +6,8 @@ import PhotoProfile from "~/components/atomic/photo-profile/photo-profile";
 import styled, { css } from "styled-components";
 import type { StyledComponentProps } from "~/interfaces/styled-component";
 import { GOLDEN_RATIO, WRAPPER_WIDTH } from "~/helpers/constants";
+import env from "~/utils/environment";
+import PhotoProfileV2 from "~/components/atomic/photo-profile-v2/photo-profile-v2";
 
 const variants = {
   hidden: { opacity: 0, y: -100 },
@@ -121,7 +123,7 @@ const HomeHeader = () => {
   if (isMobile) {
     return (
       <MobileContainer id="home-header">
-        <PhotoProfile />
+        {env.featureFlags.photoProfileV2 ? <PhotoProfileV2 /> : <PhotoProfile />}
         <TextContainer>
           <SubHeader
             animate="visible"
@@ -158,7 +160,7 @@ const HomeHeader = () => {
   return (
     <Container id="home-header">
       <JumboTron>
-        <PhotoProfile />
+        {env.featureFlags.photoProfileV2 ? <PhotoProfileV2 /> : <PhotoProfile />}
         <AboutMe>
           <SubHeader
             animate="visible"
