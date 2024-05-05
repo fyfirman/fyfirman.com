@@ -8,6 +8,7 @@ import {
   Events,
   Body,
   IChamferableBodyDefinition,
+  Runner,
 } from "matter-js";
 import { useEffect, useRef } from "react";
 
@@ -17,7 +18,7 @@ export interface CanvasOptions {
 }
 
 export const useCanvas = ({ height, width }: CanvasOptions) => {
-  const scene = useRef();
+  const scene = useRef<HTMLInputElement>(null);
   const engine = useRef(Engine.create());
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export const useCanvas = ({ height, width }: CanvasOptions) => {
     const ch = height;
 
     const render = Render.create({
-      element: scene.current,
+      element: scene.current as HTMLElement,
       engine: engine.current,
       options: {
         width: cw,
@@ -69,7 +70,7 @@ export const useCanvas = ({ height, width }: CanvasOptions) => {
 
     World.add(engine.current.world, [ball, ...Array.from({ length: 10 }, getRect)]);
 
-    const mouse = Mouse.create(scene.current);
+    const mouse = Mouse.create(scene.current as unknown as HTMLElement);
     const mouseConstraint = MouseConstraint.create(engine.current, {
       mouse,
     });
@@ -77,7 +78,7 @@ export const useCanvas = ({ height, width }: CanvasOptions) => {
     World.add(engine.current.world, [mouseConstraint]);
 
     // run the engine
-    Engine.run(engine.current);
+    Runner.run(engine.current);
     Render.run(render);
 
     Events.on(engine.current, "afterUpdate", () => {
