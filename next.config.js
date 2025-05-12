@@ -12,6 +12,10 @@ const config = {
   compiler: {
     styledComponents: true,
   },
+  sassOptions: {
+    includePaths: ["./src/styles", "./node_modules"],
+    prependData: `@import "~/styles/variables.scss";`,
+  },
   async rewrites() {
     return {
       afterFiles: [{ source: "/l/:path*", destination: "/_404/:path*" }],

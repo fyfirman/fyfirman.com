@@ -1,4 +1,4 @@
-import "~/styles/globals.css";
+import "~/styles/globals.scss";
 import "@fontsource/nunito-sans";
 import "@fontsource/manrope";
 import "@fontsource/manrope/500.css";

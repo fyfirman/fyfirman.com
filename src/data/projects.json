@@ -1,0 +1,48 @@
+{
+  "projects": [
+    {
+      "title": "Velocity League",
+      "desc": "A startup that has just started its business, providing a matchmaking game platform to compete with each other.",
+      "href": "https://velocity-league.com",
+      "imageURI": "/img/project/velocity-league.jpg",
+      "stack": ["React", "Typescript"]
+    },
+    {
+      "title": "Pacis-bot",
+      "desc": "Auto-fill questionnaire on PACIS Unpad",
+      "href": "https://github.com/fyfirman/pacis-questionnaire-bot",
+      "imageURI": "/img/project/pacis-bot.jpg",
+      "stack": ["NodeJS"]
+    },
+    {
+      "title": "Himatif Apps",
+      "desc": "Information system for the 'Himatif FMIPA Unpad' members",
+      "href": "https://apps.himatif.org/",
+      "imageURI": "/img/project/himatif-apps.jpg",
+      "stack": ["Laravel", "MySQL"]
+    },
+    {
+      "title": "Care.in",
+      "desc": "Health services in person by ordering via application",
+      "href": "https://play.google.com/store/apps/details?id:com.carein",
+      "imageURI": "/img/project/carein.jpg",
+      "stack": ["React Native", "NodeJS", "MySQL"]
+    },
+    {
+      "title": "Terima Curhat ASI",
+      "desc": "Application to retrieve an consultation about exclusive breast feeding",
+      "href": "#",
+      "imageURI": "/img/project/terima-curhat-asi.jpg",
+      "stack": ["React Native", "Laravel", "MySQL"],
+      "notAvailable": true
+    },
+    {
+      "title": "Curhat ASI Web",
+      "desc": "Dashboard of Curhat ASI to analyze user activities",
+      "href": "#",
+      "imageURI": "/img/project/curhat-asi-web.jpg",
+      "stack": ["React", "Typescript"],
+      "notAvailable": true
+    }
+  ]
+}

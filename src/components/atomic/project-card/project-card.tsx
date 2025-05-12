@@ -1,5 +1,5 @@
 import React from "react";
-import Image, { ImageProps } from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { clsx } from "~/helpers/classname-helper";
 import styled, { css } from "styled-components";
 import { StyledComponentProps } from "~/interfaces/styled-component";
@@ -78,7 +78,7 @@ const CardButton = styled(Link)`
 
 export interface ProjectCardProps {
   href?: string;
-  imageURI: ImageProps["src"];
+  imageURI: string | StaticImageData;
   title: string;
   desc: string;
   stack: string[];
@@ -94,7 +94,15 @@ const ProjectCard = (props: ProjectCardProps) => {
   return (
     <Container isClickable={!!onClick} onClick={onClick}>
       <ImageContainer className={styles["card-image"]} isMobile={isMobile}>
-        <Image alt={`${title} Snapshot`} src={imageURI} width="450" />
+        <Image
+          alt={`${title} Snapshot`}
+          src={imageURI}
+          width={450}
+          height={250}
+          style={{
+            objectFit: "cover",
+          }}
+        />
       </ImageContainer>
       <CardTitle>{title}</CardTitle>
       <CardDescription>{desc}</CardDescription>

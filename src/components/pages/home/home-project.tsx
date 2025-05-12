@@ -1,6 +1,7 @@
 import React from "react";
+import { z } from "zod";
 import { ProjectCard } from "~/components/atomic";
-import projectList from "~/data/project-list";
+import projectsData from "~/data/projects.json";
 import { useAOS } from "~/hooks/useAOS";
 import styles from "~/styles/Home.module.scss";
 import ScrollAnimation from "~/components/template/scroll-animation/scroll-animation";
@@ -8,7 +9,24 @@ import { Heading1 } from "~/components/atomic/typography/typography";
 import useResponsive from "~/hooks/useResponsive";
 import { headerVariants } from "./home-project.animation";
 
+const ProjectSchema = z.object({
+  desc: z.string(),
+  href: z.string(), // Allow any string for href since we have "#" links
+  imageURI: z.string(),
+  stack: z.array(z.string()),
+  title: z.string(),
+  notAvailable: z.boolean().optional(),
+});
+
+const ProjectsDataSchema = z.object({
+  projects: z.array(ProjectSchema),
+});
+
 const NUM_OF_COLUMN = 2;
+
+// Validate the data at runtime
+const validatedData = ProjectsDataSchema.parse(projectsData);
+const projectList = validatedData.projects;
 
 const HomeProject = () => {
   const { controls, ref } = useAOS();
@@ -25,7 +43,7 @@ const HomeProject = () => {
         style={{ marginTop: 128, marginBottom: 40 }}
         variants={headerVariants}
       >
-        Selected Project
+        Portfolio
       </Heading1>
       {[...(Array(Math.round(projectList.length / NUM_OF_COLUMN)) as number[])].map((_, i) => (
         <div key={i} className={`${styles.projectContainer} ${i % 2 === 0 ? styles.first : styles.last}`}>

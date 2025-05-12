@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "~/styles/Home.module.scss";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 import Sosmed from "~/components/atomic/sosmed/sosmed";
 import useResponsive from "~/hooks/useResponsive";
@@ -12,7 +11,7 @@ const HomeContact = () => {
       <Heading1 isMobile={isMobile} style={{ marginTop: 128, marginBottom: 40 }}>
         Get In Touch With Me
       </Heading1>
-      <div style={{ maxWidth: "600px" }}>
+      <div className="max-w-[600px]">
         <Paragraph isMobile={isMobile}>
           I&apos;m very happy to share knowledge. If you want to ask something about IT, productivity, or my college
           experience, feel free to discuss via <b>Instagram</b>.
@@ -22,7 +21,7 @@ const HomeContact = () => {
           <b>Linkedin</b>.
         </Paragraph>
       </div>
-      <div className={styles.sosmed} id="contact-section">
+      <div className="flex items-center justify-center my-[128px]" id="contact-section">
         <Sosmed href="https://instagram.com/fyfirman" name="Instagram" position="left" />
         <Sosmed href="https://github.com/fyfirman" name="Github" position="left" />
         <Sosmed href="mailto:fyfirman@gmail.com" isMiddle name="Email" position="top" />
