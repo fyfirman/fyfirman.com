@@ -15,7 +15,7 @@ const sendMessage = async (message: string, senderName?: string, options?: IMess
   }
 
   if (senderName && senderName.length > SENDER_NAME_MAX_LENGTH) {
-    throw new Error("Your name cannot be more than 200 character");
+    throw new Error(`Your name cannot be more than ${SENDER_NAME_MAX_LENGTH} characters`);
   }
 
   return app
