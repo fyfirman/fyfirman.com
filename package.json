@@ -14,12 +14,10 @@
     "start": "next start",
     "lint": "eslint \"**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix \"**/*.{ts,tsx}\"",
-    "prepare": "husky install",
     "test": "jest --watch",
     "deploy:preview": "vercel",
     "deploy:prod": "vercel --prod",
-    "clean": "rm -rf .next",
-    "pre-push": "yarn check-types && yarn lint"
+    "clean": "rm -rf .next"
   },
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
