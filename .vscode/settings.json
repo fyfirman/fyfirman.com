@@ -1,8 +1,0 @@
-{
-  "cSpell.words": ["clsx", "danbo", "Firmansyah", "frontmatter", "fyfirman", "Yanuar"],
-  "editor.tabSize": 2,
-  "eslint.format.enable": true,
-  "editor.formatOnSaveMode": "file",
-  "editor.formatOnSave": true,
-  "MarkdownPaste.path": "${fileWorkspaceFolder}/src/assets/images/blog-content/${fileBasenameNoExtension}"
-}

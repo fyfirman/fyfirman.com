@@ -18,3 +18,13 @@ export interface BlogFrontmatter extends Frontmatter {
   readingTime: ReadTimeResults;
   hide?: boolean;
 }
+
+export interface AIArtFrontmatter extends Frontmatter {
+  title: string;
+  createdAt: string;
+  image: string;
+  prompt: string;
+  model: string;
+  tags: string[];
+  hide?: boolean;
+}

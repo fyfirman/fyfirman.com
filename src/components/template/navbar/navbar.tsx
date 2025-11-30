@@ -28,6 +28,7 @@ const Navbar = () => {
           <div className={styles.nav}>
             <MenuHeader link title="Home" to="/" />
             <MenuHeader link title="Blog" to="/blog" />
+            <MenuHeader link title="AI Art" to="/ai-art" />
             <MenuHeader link title="Message" to="/message" />
             <MenuHeader link title="Explore" to="/explore" />
             {/* <MenuHeader link title="About" to="/about" /> */}

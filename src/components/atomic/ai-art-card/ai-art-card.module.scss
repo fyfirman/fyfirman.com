@@ -1,0 +1,139 @@
+.card {
+  position: relative;
+  cursor: pointer;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--bg);
+  border: 0.25px solid var(--border-card);
+  box-shadow: 6px 6px var(--shadow-ava);
+  transition: all 0.3s ease;
+  break-inside: avoid;
+  margin-bottom: 0;
+
+  &:hover {
+    transform: translate(-6px, -6px);
+    box-shadow: 12px 12px var(--shadow-ava);
+
+    .overlay {
+      opacity: 1;
+    }
+
+    .image {
+      transform: scale(1.05);
+    }
+  }
+
+  &:active {
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px var(--shadow-ava);
+  }
+}
+
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 200px;
+}
+
+.image {
+  transition: transform 0.3s ease;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+.overlayContent {
+  width: 100%;
+  transform: translateY(10px);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover .overlayContent {
+  transform: translateY(0);
+}
+
+.title {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
+}
+
+.model {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 500;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.tagMore {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 0.75rem;
+  }
+
+  .overlay {
+    padding: 0.75rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .model {
+    font-size: 0.8rem;
+  }
+
+  .tag,
+  .tagMore {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+  }
+}

@@ -1,0 +1,113 @@
+---
+alwaysApply: true
+---
+
+Design System Overview
+1. Color System
+CSS custom properties with light/dark mode support:
+Light Mode:
+--bg: white
+--text-headings: black
+--text-body: #000000d9 (89% opacity)
+--text-secondary: #000000aa (67% opacity)
+--bg-button: #000000
+--text-button: #ffffff
+--border-input: #00000055 (33% opacity)
+--border-card: #000000aa (67% opacity)
+--shadow-ava: #000000bd (74% opacity)
+Dark Mode:
+--bg: #141414
+--text-headings: white
+--text-body: #ffffffd9 (85% opacity)
+--text-secondary: #ffffffaa (67% opacity)
+--bg-button: white
+--text-button: #000000
+--border-input: #ffffff55 (33% opacity)
+--border-card: #ffffffaa (67% opacity)
+--shadow-ava: #ffffff8c (55% opacity)
+2. Typography System
+Font Family:
+Base font: Manrope, "Helvetica Neue", sans-serif
+Typography Components (Styled Components):
+Heading1:
+Desktop: 36px, 700, line-height 49px, letter-spacing -0.025em
+Mobile: 32px, line-height 36px
+Heading2: 30px, 700, letter-spacing -0.025em
+Heading3: 24px, 600, letter-spacing -0.025em
+Paragraph:
+Desktop: 18px, 400, line-height 31px
+Mobile: 16px, line-height 28px
+SubParagraph: 14px, 400, line-height 25px
+AltText: 14px, italic, uses --text-secondary
+3. Spacing System
+Common spacing values:
+8px - Small padding/gaps
+16px - Standard gap
+24px - Medium spacing
+32px - Large gap
+40px - Section spacing
+48px - Major section spacing
+64px - Large section spacing
+128px - Extra large section spacing (used in Home page)
+Layout patterns:
+Max width container: 1200px (from App.module.scss)
+Blog detail max width: 693px
+Body padding: 0 1.0875rem 1.45rem (mobile)
+4. Component Patterns
+Cards:
+No border-radius (border-radius: 0)
+Hover effects: image scale 1.05
+Border: 0.25px solid var(--border-card)
+Hover shadow: 6px 6px var(--shadow-ava) with translate transform
+Buttons:
+Background: var(--bg-button)
+Color: var(--text-button)
+Font: 700, uppercase, letter-spacing 2px
+Padding: 10px 24px (primary) or 8px (form buttons)
+Shadow: 6px 6px var(--shadow-ava)
+Hover: translate -6px -6px, shadow 12px 12px
+Active: translate 3px 3px, shadow 3px 3px
+Inputs:
+Border: 0.25px solid var(--border-input)
+No border-radius (border-radius: 0)
+Padding: 8px
+Font: 500, 0.875rem (14px)
+Focus: shadow 4px 4px var(--shadow-ava)
+Background: transparent
+Grids:
+Blog cards: 3 columns → 2 columns (≤1080px) → 1 column (≤550px)
+Gap: 3rem columns, 4rem rows (desktop), 2rem rows (mobile)
+Message wall: 3 columns (33.3% width) → 1 column (mobile)
+Gutter: 15px (height and width)
+5. Animation Patterns
+Framer Motion:
+Common variants: hidden: { opacity: 0, y: -100 }, visible: { opacity: 1, y: 0 }
+Easing: anticipate
+Duration: 0.5s - 1s
+Stagger delays: 0.25s, 0.5s, 0.75s
+Hover animations:
+Scale: 1.05 for images
+Transform: translateX(-6px) translateY(-6px) for buttons/cards
+Shadow increase on hover
+6. Responsive Breakpoints
+Mobile: ≤475px, ≤550px, ≤720px, ≤800px
+Tablet: ≤1080px
+Desktop: >1080px
+Mobile adjustments:
+Typography scales down
+Flex direction changes to column
+Margins/padding reduce
+Grids collapse to single column
+7. Design Principles
+No border-radius (sharp corners)
+Bold shadows using --shadow-ava
+High contrast text (headings vs body)
+Consistent spacing scale (8px base)
+Smooth transitions (0.2s - 0.5s)
+Dark mode via CSS variables
+Mobile-first responsive design
+8. Styling Approach
+Styled Components: Typography, complex components
+SCSS Modules: Page-specific styles, component modules
+CSS Variables: Theme colors, consistent theming
+Tailwind: Utility classes (with preflight: false)

@@ -12,6 +12,7 @@ import styles from "./mobile-menu-modal.module.scss";
 const menuList: { title: string; url: string }[] = [
   { title: "Home", url: "/" },
   { title: "Blog", url: "/blog" },
+  { title: "AI Art", url: "/ai-art" },
   { title: "Message", url: "/message" },
   { title: "Explore", url: "/explore" },
 ];

@@ -1,6 +1,7 @@
 {
   "extends": ["fyfirman", "plugin:@next/next/recommended"],
   "rules": {
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "react/jsx-sort-props": "off"
   }
 }

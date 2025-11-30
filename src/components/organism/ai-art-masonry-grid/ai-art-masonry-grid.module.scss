@@ -1,0 +1,135 @@
+.masonryGrid {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  width: 100%;
+
+  @media only screen and (max-width: 1080px) {
+    gap: 3rem;
+  }
+
+  @media only screen and (max-width: 550px) {
+    gap: 0;
+  }
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  @media only screen and (max-width: 550px) {
+    gap: 2rem;
+  }
+}
+
+.gridItem {
+  width: 100%;
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+// Loading states
+.loadingContainer {
+  width: 100%;
+}
+
+.loadingGrid {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+
+  @media only screen and (max-width: 1080px) {
+    gap: 3rem;
+  }
+
+  @media only screen and (max-width: 550px) {
+    gap: 0;
+  }
+}
+
+.loadingColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  @media only screen and (max-width: 550px) {
+    gap: 2rem;
+  }
+}
+
+.loadingSkeleton {
+  border-radius: 0;
+  background: linear-gradient(
+    90deg,
+    var(--bg) 0%,
+    var(--border-card) 50%,
+    var(--bg) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border: 0.25px solid var(--border-card);
+}
+
+// Empty state
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  width: 100%;
+}
+
+.emptyStateContent {
+  text-align: center;
+  max-width: 300px;
+}
+
+.emptyStateIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.emptyStateTitle {
+  color: var(--text-headings);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  font-family: var(--base-font);
+}
+
+.emptyStateText {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.5;
+  font-family: var(--base-font);
+}
+
+// Animations
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .emptyStateIcon {
+    font-size: 3rem;
+  }
+  
+  .emptyStateTitle {
+    font-size: 1.25rem;
+  }
+  
+  .emptyStateText {
+    font-size: 0.9rem;
+  }
+}
