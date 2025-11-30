@@ -62,7 +62,7 @@ const Head = (props: HeadProps) => {
     <NextHead>
       <title>{finalTitle}</title>
       <meta content={desc} name="description" />
-      {keywords && <meta content={keywords} name="keywords" />}
+      {keywords ? <meta content={keywords} name="keywords" /> : null}
       <link href={canonicalUrl} rel="canonical" />
       <link href="/favicon.ico" rel="shortcut icon" />
       {noIndex ? <meta content="noindex" data-sj-noindex name="robots" /> : null}

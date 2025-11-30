@@ -5,7 +5,12 @@ const useResponsive = () => {
   const [isClient, setIsClient] = useState(false);
 
   const isMobile = useMediaQuery({
-    maxWidth: 767,
+    maxWidth: 550,
+  });
+
+  const isTablet = useMediaQuery({
+    minWidth: 551,
+    maxWidth: 1080,
   });
 
   useLayoutEffect(() => {
@@ -14,6 +19,7 @@ const useResponsive = () => {
 
   return {
     isMobile: isClient ? isMobile : false,
+    isTablet: isClient ? isTablet : false,
     isClient,
   };
 };

@@ -114,4 +114,3 @@ export const getStaticPaths = async () => {
 };
 
 export default AIArtDetail;
-

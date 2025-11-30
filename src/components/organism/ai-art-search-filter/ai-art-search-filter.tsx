@@ -56,14 +56,11 @@ const AIArtSearchFilter: React.FC<AIArtSearchFilterProps> = ({
             className={styles.searchInput}
             disabled={loading}
           />
-          {searchTerm && (
-            <button
-              className={styles.clearSearchButton}
-              onClick={() => onSearchChange("")}
-            >
+          {searchTerm ? (
+            <button className={styles.clearSearchButton} onClick={() => onSearchChange("")}>
               ×
             </button>
-          )}
+          ) : null}
         </div>
 
         <div className={styles.filterSection}>
@@ -76,33 +73,25 @@ const AIArtSearchFilter: React.FC<AIArtSearchFilterProps> = ({
             onClick={() => setIsFilterOpen(!isFilterOpen)}
           >
             <span>🏷️ Filters</span>
-            {selectedTags.length > 0 && (
-              <span className={styles.filterCount}>{selectedTags.length}</span>
-            )}
+            {selectedTags.length > 0 ? <span className={styles.filterCount}>{selectedTags.length}</span> : null}
           </button>
 
-          {isFilterOpen && (
+          {isFilterOpen ? (
             <div className={styles.filterDropdown}>
               <div className={styles.filterHeader}>
                 <span>Filter by Tags</span>
-                {selectedTags.length > 0 && (
-                  <button
-                    className={styles.clearFiltersButton}
-                    onClick={onClearFilters}
-                  >
+                {selectedTags.length > 0 ? (
+                  <button className={styles.clearFiltersButton} onClick={onClearFilters}>
                     Clear All
                   </button>
-                )}
+                ) : null}
               </div>
-              
+
               <div className={styles.tagsContainer}>
                 {allTags.map((tag) => (
                   <button
                     key={tag}
-                    className={clsx([
-                      styles.tagFilter,
-                      selectedTags.includes(tag) && styles.selected,
-                    ])}
+                    className={clsx([styles.tagFilter, selectedTags.includes(tag) && styles.selected])}
                     onClick={() => onTagToggle(tag)}
                   >
                     {tag}
@@ -110,7 +99,7 @@ const AIArtSearchFilter: React.FC<AIArtSearchFilterProps> = ({
                 ))}
               </div>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
 
@@ -120,15 +109,15 @@ const AIArtSearchFilter: React.FC<AIArtSearchFilterProps> = ({
         ) : (
           <div className={styles.resultsText}>
             {resultsCount} {resultsCount === 1 ? "artwork" : "artworks"}
-            {hasActiveFilters && " found"}
+            {hasActiveFilters ? " found" : null}
           </div>
         )}
 
-        {hasActiveFilters && !loading && (
+        {hasActiveFilters && !loading ? (
           <button className={styles.clearAllButton} onClick={onClearFilters}>
             Clear all filters
           </button>
-        )}
+        ) : null}
       </div>
     </div>
   );

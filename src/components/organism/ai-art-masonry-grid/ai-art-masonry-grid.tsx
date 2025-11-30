@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { AIArtPost } from "~/utils/mdx/ai-art.mdx";
 import AIArtCard from "~/components/atomic/ai-art-card/ai-art-card";
@@ -22,10 +22,10 @@ const AIArtMasonryGrid: React.FC<AIArtMasonryGridProps> = ({ posts, loading = fa
     return 3;
   };
 
-  const distributePostsToColumns = (posts: AIArtPost[], columnCount: number) => {
+  const distributePostsToColumns = (postsToDistribute: AIArtPost[], columnCount: number) => {
     const columns: AIArtPost[][] = Array.from({ length: columnCount }, () => []);
-    
-    posts.forEach((post, index) => {
+
+    postsToDistribute.forEach((post, index) => {
       const columnIndex = index % columnCount;
       columns[columnIndex].push(post);
     });
@@ -63,12 +63,12 @@ const AIArtMasonryGrid: React.FC<AIArtMasonryGridProps> = ({ posts, loading = fa
         <div className={styles.loadingGrid}>
           {Array.from({ length: getColumnCount() }).map((_, colIndex) => (
             <div key={colIndex} className={styles.loadingColumn}>
-              {Array.from({ length: 3 }).map((_, itemIndex) => (
+              {Array.from({ length: 3 }).map((__, itemIndex) => (
                 <div
                   key={itemIndex}
                   className={styles.loadingSkeleton}
                   style={{
-                    height: Math.random() * 200 + 200 + "px",
+                    height: `${Math.random() * 200 + 200}px`,
                     animationDelay: `${(colIndex * 3 + itemIndex) * 0.1}s`,
                   }}
                 />
@@ -91,9 +91,7 @@ const AIArtMasonryGrid: React.FC<AIArtMasonryGridProps> = ({ posts, loading = fa
         <div className={styles.emptyStateContent}>
           <div className={styles.emptyStateIcon}>🎨</div>
           <h3 className={styles.emptyStateTitle}>No AI Art Found</h3>
-          <p className={styles.emptyStateText}>
-            Try adjusting your search terms or filters
-          </p>
+          <p className={styles.emptyStateText}>Try adjusting your search terms or filters</p>
         </div>
       </motion.div>
     );

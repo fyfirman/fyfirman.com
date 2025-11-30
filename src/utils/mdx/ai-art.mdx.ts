@@ -18,7 +18,7 @@ const AIArtFrontmatterSchema = z.object({
       // YYYY-MM-DD or YYYY-MM-DDTHH:mm:ss... (with optional timezone)
       return /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-]\d{2}:\d{2})?)?$/.test(val);
     },
-    { message: "createdAt must be a valid ISO 8601 date string (e.g., '2024-12-19' or '2024-12-19T00:00:00.000Z')" }
+    { message: "createdAt must be a valid ISO 8601 date string (e.g., '2024-12-19' or '2024-12-19T00:00:00.000Z')" },
   ),
   image: z.string().min(1),
   prompt: z.string().min(1),
@@ -39,10 +39,10 @@ export const getSingleAIArt = async (slug: string) => {
   const source = getAIArtFileContent(`${slug}.mdx`);
   const { code, frontmatter } = await getCompiledMDX(source);
   const serializedFrontmatter = serializeFrontmatter(frontmatter);
-  
+
   // Validate frontmatter with Zod
   const validatedFrontmatter = AIArtFrontmatterSchema.parse(serializedFrontmatter);
-  
+
   return {
     code,
     frontmatter: validatedFrontmatter as AIArtFrontmatter,
@@ -89,16 +89,18 @@ export const getAllAIArtPosts = (): AIArtPost[] => {
             const source = getAIArtFileContent(fileName);
             const { data } = matter(source);
             const serializedData = serializeFrontmatter(data);
-            
+
             throw new Error(
               `Validation error in file "${fileName}" (slug: "${slug}"):\n` +
-              `Received data: ${JSON.stringify(serializedData, null, 2)}\n` +
-              `Validation errors:\n${error.errors
-                .map((e) => `  - ${e.path.join(".")}: ${e.message}`)
-                .join("\n")}`
+                `Received data: ${JSON.stringify(serializedData, null, 2)}\n` +
+                `Validation errors:\n${error.errors.map((e) => `  - ${e.path.join(".")}: ${e.message}`).join("\n")}`,
             );
           }
-          throw new Error(`Error processing file "${fileName}" (slug: "${slug}"): ${error instanceof Error ? error.message : String(error)}`);
+          throw new Error(
+            `Error processing file "${fileName}" (slug: "${slug}"): ${
+              error instanceof Error ? error.message : String(error)
+            }`,
+          );
         }
       })
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -109,8 +111,8 @@ export const getAllAIArtPosts = (): AIArtPost[] => {
 };
 
 export const getAIArtByTag = (tag: string): AIArtPost[] => {
-  return getAllAIArtPosts().filter((post) => 
-    post.tags.some((postTag) => postTag.toLowerCase().includes(tag.toLowerCase()))
+  return getAllAIArtPosts().filter((post) =>
+    post.tags.some((postTag) => postTag.toLowerCase().includes(tag.toLowerCase())),
   );
 };
 
