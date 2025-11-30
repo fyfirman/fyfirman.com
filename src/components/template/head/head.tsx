@@ -9,10 +9,24 @@ interface HeadProps {
   hideWebTitle?: boolean;
   noIndex?: boolean;
   canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
 const Head = (props: HeadProps) => {
-  const { title, hideWebTitle = false, desc = env.metaDesc, noIndex = false, canonical } = props;
+  const {
+    title,
+    hideWebTitle = false,
+    desc = env.metaDesc,
+    noIndex = false,
+    canonical,
+    ogImage,
+    ogType = "website",
+    publishedTime,
+    modifiedTime,
+  } = props;
   const router = useRouter();
 
   const finalTitle = useMemo(() => {
@@ -35,6 +49,13 @@ const Head = (props: HeadProps) => {
     return `${baseUrl}${pathname}`;
   }, [canonical, router.asPath]);
 
+  const ogImageUrl = useMemo(() => {
+    if (ogImage) {
+      return ogImage.startsWith("http") ? ogImage : `https://fyfirman.com${ogImage}`;
+    }
+    return "https://fyfirman.com/img/og-image.jpg";
+  }, [ogImage]);
+
   return (
     <NextHead>
       <title>{finalTitle}</title>
@@ -42,6 +63,24 @@ const Head = (props: HeadProps) => {
       <link href={canonicalUrl} rel="canonical" />
       <link href="/favicon.ico" rel="shortcut icon" />
       {noIndex ? <meta content="noindex" data-sj-noindex name="robots" /> : null}
+
+      {/* Open Graph / Facebook */}
+      <meta content={ogType} property="og:type" />
+      <meta content={canonicalUrl} property="og:url" />
+      <meta content={finalTitle} property="og:title" />
+      <meta content={desc} property="og:description" />
+      <meta content={ogImageUrl} property="og:image" />
+
+      {/* Twitter */}
+      <meta content="summary_large_image" name="twitter:card" />
+      <meta content={canonicalUrl} name="twitter:url" />
+      <meta content={finalTitle} name="twitter:title" />
+      <meta content={desc} name="twitter:description" />
+      <meta content={ogImageUrl} name="twitter:image" />
+
+      {/* Article specific meta tags */}
+      {publishedTime ? <meta content={publishedTime} property="article:published_time" /> : null}
+      {modifiedTime ? <meta content={modifiedTime} property="article:modified_time" /> : null}
     </NextHead>
   );
 };

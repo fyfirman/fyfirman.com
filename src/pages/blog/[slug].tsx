@@ -35,6 +35,38 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
   const { darkModeActive } = useDarkMode();
   const Component = useMemo(() => getMDXComponent(code), [code]);
 
+  const canonicalUrl = `https://fyfirman.com/blog/${slug}`;
+  const publishedTime = new Date(frontmatter.publishedAt).toISOString();
+  // Use default OG image since blog cover images are in src/assets, not public folder
+  const ogImageUrl = "/img/og-image.jpg";
+
+  // Structured data for blog post
+  const structuredData = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: frontmatter.title,
+      description: frontmatter.description,
+      image: `https://fyfirman.com${ogImageUrl}`,
+      datePublished: publishedTime,
+      dateModified: publishedTime,
+      author: {
+        "@type": "Person",
+        name: "Firmansyah Yanuar",
+        url: "https://fyfirman.com/about",
+      },
+      publisher: {
+        "@type": "Person",
+        name: "Firmansyah Yanuar",
+      },
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+      },
+    }),
+    [frontmatter.title, frontmatter.description, ogImageUrl, publishedTime, canonicalUrl],
+  );
+
   useEffect(() => {
     try {
       /**
@@ -48,7 +80,15 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
 
   return (
     <>
-      <Head desc={frontmatter.description} title={frontmatter.title} />
+      <Head
+        canonical={canonicalUrl}
+        desc={frontmatter.description}
+        ogImage={ogImageUrl}
+        ogType="article"
+        publishedTime={publishedTime}
+        title={frontmatter.title}
+      />
+      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} type="application/ld+json" />
       <div className={clsx([styles.wrapper, darkModeActive && styles.dark])}>
         <BlogHeader
           language={frontmatter.language}
@@ -76,16 +116,16 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }: { params?: { slug?: string } }) => {
   if (!params?.slug) {
     return {
       notFound: true,
     };
   }
 
-  const { frontmatter, code } = await getSingleBlogPost(params.slug as string);
+  const { frontmatter, code } = await getSingleBlogPost(params.slug);
   return {
-    props: { code, frontmatter, slug: params.slug as string },
+    props: { code, frontmatter, slug: params.slug },
   };
 };
 
