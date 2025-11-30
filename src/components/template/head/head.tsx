@@ -13,6 +13,7 @@ interface HeadProps {
   ogType?: string;
   publishedTime?: string;
   modifiedTime?: string;
+  keywords?: string;
 }
 
 const Head = (props: HeadProps) => {
@@ -26,6 +27,7 @@ const Head = (props: HeadProps) => {
     ogType = "website",
     publishedTime,
     modifiedTime,
+    keywords,
   } = props;
   const router = useRouter();
 
@@ -60,6 +62,7 @@ const Head = (props: HeadProps) => {
     <NextHead>
       <title>{finalTitle}</title>
       <meta content={desc} name="description" />
+      {keywords && <meta content={keywords} name="keywords" />}
       <link href={canonicalUrl} rel="canonical" />
       <link href="/favicon.ico" rel="shortcut icon" />
       {noIndex ? <meta content="noindex" data-sj-noindex name="robots" /> : null}

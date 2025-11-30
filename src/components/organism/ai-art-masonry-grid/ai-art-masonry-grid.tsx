@@ -8,15 +8,11 @@ import styles from "./ai-art-masonry-grid.module.scss";
 
 interface AIArtMasonryGridProps {
   posts: AIArtPost[];
-  onImageClick: (post: AIArtPost, index: number) => void;
   loading?: boolean;
+  shouldAnimate?: boolean;
 }
 
-const AIArtMasonryGrid: React.FC<AIArtMasonryGridProps> = ({
-  posts,
-  onImageClick,
-  loading = false,
-}) => {
+const AIArtMasonryGrid: React.FC<AIArtMasonryGridProps> = ({ posts, loading = false, shouldAnimate = true }) => {
   const { isMobile, isTablet } = useResponsive();
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -108,27 +104,21 @@ const AIArtMasonryGrid: React.FC<AIArtMasonryGridProps> = ({
       className={clsx([styles.masonryGrid])}
       ref={gridRef}
       variants={containerVariants}
-      initial="hidden"
+      initial={shouldAnimate ? "hidden" : "visible"}
       animate="visible"
     >
       {columns.map((column, colIndex) => (
         <div key={colIndex} className={styles.column}>
-          {column.map((post, itemIndex) => {
-            const globalIndex = posts.findIndex(p => p.slug === post.slug);
-            return (
-              <motion.div
-                key={post.slug}
-                className={styles.gridItem}
-                variants={itemVariants}
-                custom={colIndex * 3 + itemIndex}
-              >
-                <AIArtCard
-                  post={post}
-                  onClick={() => onImageClick(post, globalIndex)}
-                />
-              </motion.div>
-            );
-          })}
+          {column.map((post, itemIndex) => (
+            <motion.div
+              key={post.slug}
+              className={styles.gridItem}
+              variants={itemVariants}
+              custom={colIndex * 3 + itemIndex}
+            >
+              <AIArtCard post={post} />
+            </motion.div>
+          ))}
         </div>
       ))}
     </motion.div>

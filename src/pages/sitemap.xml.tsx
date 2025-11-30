@@ -1,11 +1,13 @@
 import type { GetServerSideProps } from "next";
 import { getAllBlogPosts } from "~/utils/mdx/blog.mdx";
+import { getAllAIArtPosts } from "~/utils/mdx/ai-art.mdx";
 
 const Sitemap = () => null;
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const baseUrl = "https://fyfirman.com";
   const blogPosts = getAllBlogPosts().filter((post) => !post.hide);
+  const aiArtPosts = getAllAIArtPosts().filter((post) => !post.hide);
 
   const staticPages = ["", "/about", "/blog", "/ai-art", "/design", "/explore", "/social"];
 
@@ -30,6 +32,17 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     <lastmod>${new Date(post.publishedAt).toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>`,
+    )
+    .join("")}
+  ${aiArtPosts
+    .map(
+      (post) => `
+  <url>
+    <loc>${baseUrl}/ai-art/${post.slug}</loc>
+    <lastmod>${new Date(post.createdAt).toISOString()}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>`,
     )
     .join("")}

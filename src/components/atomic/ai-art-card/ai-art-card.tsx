@@ -1,26 +1,29 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AIArtPost } from "~/utils/mdx/ai-art.mdx";
-import { clsx } from "~/helpers/classname-helper";
 import styles from "./ai-art-card.module.scss";
 
 interface AIArtCardProps {
   post: AIArtPost;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const AIArtCard: React.FC<AIArtCardProps> = ({ post, onClick }) => {
-  const { title, image, model, tags } = post;
+  const { title, image, model, tags, slug } = post;
 
   return (
-    <div className={styles.card} onClick={onClick}>
+    <Link href={`/ai-art/${slug}`} className={styles.cardLink}>
+      <div className={styles.card} onClick={onClick}>
       <div className={styles.imageContainer}>
         <Image
           src={`/img/ai-art/${image}`}
           alt={title}
-          fill
+          width={800}
+          height={800}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={styles.image}
+          style={{ width: '100%', height: 'auto' }}
         />
         <div className={styles.overlay}>
           <div className={styles.overlayContent}>
@@ -40,6 +43,7 @@ const AIArtCard: React.FC<AIArtCardProps> = ({ post, onClick }) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 

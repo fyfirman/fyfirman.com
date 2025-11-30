@@ -1,6 +1,5 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { AIArtPost } from "~/utils/mdx/ai-art.mdx";
 import { ModalProps } from "~/interfaces/modal";
 import { clsx } from "~/helpers/classname-helper";
@@ -11,18 +10,59 @@ interface AIArtModalProps extends ModalProps {
   posts: AIArtPost[];
   currentIndex: number;
   onNavigate: (index: number) => void;
+  showBackButton?: boolean;
 }
 
-const AIArtModal: React.FC<AIArtModalProps> = ({ visible, onClose, post, posts, currentIndex, onNavigate }) => {
+const AIArtModal: React.FC<AIArtModalProps> = ({
+  visible,
+  onClose,
+  post,
+  posts,
+  currentIndex,
+  onNavigate,
+  showBackButton = false,
+}) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyPrompt = useCallback(async () => {
+    if (!post?.prompt) return;
+
+    const promptText = String(post.prompt);
+    try {
+      await navigator.clipboard.writeText(promptText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err: unknown) {
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = promptText;
+      textArea.style.position = "fixed";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand("copy");
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (fallbackErr: unknown) {
+        // eslint-disable-next-line no-console
+        console.error("Failed to copy prompt:", fallbackErr);
+      }
+      document.body.removeChild(textArea);
+    }
+  }, [post?.prompt]);
+
   const handlePrevious = useCallback(() => {
     if (currentIndex > 0) {
       onNavigate(currentIndex - 1);
+      setCopied(false); // Reset copy state when navigating
     }
   }, [currentIndex, onNavigate]);
 
   const handleNext = useCallback(() => {
     if (currentIndex < posts.length - 1) {
       onNavigate(currentIndex + 1);
+      setCopied(false); // Reset copy state when navigating
     }
   }, [currentIndex, posts.length, onNavigate]);
 
@@ -100,7 +140,7 @@ const AIArtModal: React.FC<AIArtModalProps> = ({ visible, onClose, post, posts, 
       {visible && post ? (
         <motion.div
           className={styles.overlay}
-          onClick={onClose}
+          onClick={showBackButton ? undefined : onClose}
           variants={overlayVariants}
           initial="hidden"
           animate="visible"
@@ -116,24 +156,24 @@ const AIArtModal: React.FC<AIArtModalProps> = ({ visible, onClose, post, posts, 
           >
             {/* Header */}
             <div className={styles.header}>
+              {showBackButton ? (
+                <button className={styles.backButton} onClick={onClose}>
+                  ← Back
+                </button>
+              ) : null}
               <h2 className={styles.title}>{post.title}</h2>
-              <button className={styles.closeButton} onClick={onClose}>
-                ×
-              </button>
+              {!showBackButton ? (
+                <button className={styles.closeButton} onClick={onClose}>
+                  ×
+                </button>
+              ) : null}
             </div>
 
             {/* Content */}
             <div className={styles.content}>
               <div className={styles.imageSection}>
                 <div className={styles.imageContainer}>
-                  <Image
-                    src={`/img/ai-art/${post.image}`}
-                    alt={post.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 60vw"
-                    className={styles.image}
-                    priority
-                  />
+                  <img src={`/img/ai-art/${post.image}`} alt={post.title} className={styles.image} />
                 </div>
               </div>
 
@@ -150,7 +190,16 @@ const AIArtModal: React.FC<AIArtModalProps> = ({ visible, onClose, post, posts, 
                   </div>
 
                   <div className={styles.detailRow}>
-                    <span className={styles.label}>Prompt:</span>
+                    <div className={styles.promptHeader}>
+                      <span className={styles.label}>Prompt:</span>
+                      <button
+                        className={clsx([styles.copyButton, copied && styles.copied])}
+                        onClick={handleCopyPrompt}
+                        aria-label="Copy prompt to clipboard"
+                      >
+                        {copied ? "✓ Copied" : "📋 Copy"}
+                      </button>
+                    </div>
                     <div className={styles.promptContainer}>
                       <p className={styles.prompt}>{post.prompt}</p>
                     </div>
