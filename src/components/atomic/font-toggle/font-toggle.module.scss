@@ -1,0 +1,95 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.fontTypeGroup {
+  display: flex;
+  gap: 0;
+}
+
+.sizeGroup {
+  display: flex;
+  gap: 0;
+}
+
+.separator {
+  width: 1px;
+  height: 24px;
+  background-color: var(--border-input);
+  margin: 0 8px;
+}
+
+.option {
+  background: transparent;
+  border: 0.25px solid var(--border-input);
+  color: var(--text-body);
+  font-family: var(--base-font);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 0;
+
+  &:hover {
+    background-color: var(--hover-checkbox);
+  }
+
+  &.active {
+    background-color: var(--bg-button);
+    color: var(--text-button);
+    font-weight: 700;
+  }
+}
+
+.fontTypeGroup .option {
+  &:first-child {
+    border-right: none;
+  }
+}
+
+.sizeGroup .option {
+  border-right: none;
+
+  &:last-child {
+    border-right: 0.25px solid var(--border-input);
+  }
+}
+
+.sizeOption {
+  padding: 8px 12px;
+  min-width: 40px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 550px) {
+  .container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .separator {
+    width: 100%;
+    height: 1px;
+    margin: 8px 0;
+  }
+
+  .fontTypeGroup,
+  .sizeGroup {
+    width: 100%;
+  }
+
+  .fontTypeGroup .option,
+  .sizeGroup .option {
+    flex: 1;
+  }
+
+  .sizeGroup .option:last-child {
+    border-right: 0.25px solid var(--border-input);
+  }
+}

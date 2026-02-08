@@ -8,12 +8,15 @@ import { BlogFrontmatter } from "~/utils/mdx/mdx-types";
 import MdxImage from "~/components/atomic/mdx-image/mdx-image";
 import { clsx } from "~/helpers/classname-helper";
 import BlogHeader from "~/components/atomic/blog-header/blog-header";
+import FontToggle from "~/components/atomic/font-toggle/font-toggle";
 import Youtube from "~/components/atomic/youtube/youtube";
 import EmbedBookmark from "~/components/organism/embed-bookmark";
 import CloudinaryPlayer from "~/components/organism/cloudinary-player";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import BlogServices from "~/services/blog.services";
 import tracer from "~/utils/tracer/tracer";
+import useFontMode from "~/hooks/use-font-mode";
+import useFontSize from "~/hooks/use-font-size";
 import {
   Heading1,
   Heading2,
@@ -33,7 +36,25 @@ interface BlogDetailProps {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
   const { darkModeActive } = useDarkMode();
+  const { fontMode, toggleFontMode } = useFontMode();
+  const { fontSize, setFontSize } = useFontSize();
   const Component = useMemo(() => getMDXComponent(code), [code]);
+
+  const fontSizeMap: Record<string, string> = {
+    xs: "14px",
+    s: "16px",
+    m: "18px",
+    l: "20px",
+    xl: "22px",
+  };
+
+  const lineHeightMap: Record<string, string> = {
+    xs: "24px",
+    s: "28px",
+    m: "31px",
+    l: "34px",
+    xl: "37px",
+  };
 
   const canonicalUrl = `https://fyfirman.com/blog/${slug}`;
   const publishedTime = new Date(frontmatter.publishedAt).toISOString();
@@ -89,12 +110,27 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
         title={frontmatter.title}
       />
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} type="application/ld+json" />
-      <div className={clsx([styles.wrapper, darkModeActive && styles.dark])}>
+      <div
+        className={clsx([styles.wrapper, darkModeActive && styles.dark])}
+        style={
+          {
+            "--blog-font": fontMode === "serif" ? "var(--serif-font)" : "var(--base-font)",
+            "--blog-font-size": fontSizeMap[fontSize],
+            "--blog-line-height": lineHeightMap[fontSize],
+          } as React.CSSProperties
+        }
+      >
         <BlogHeader
           language={frontmatter.language}
           publishedAt={new Date(frontmatter.publishedAt)}
           readingTime={frontmatter.readingTime}
           title={frontmatter.title}
+        />
+        <FontToggle
+          fontMode={fontMode}
+          toggleFontMode={toggleFontMode}
+          fontSize={fontSize}
+          setFontSize={setFontSize}
         />
         <Component
           components={{
