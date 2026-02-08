@@ -10,7 +10,7 @@ import MdxImage from "~/components/atomic/mdx-image/mdx-image";
 import { clsx } from "~/helpers/classname-helper";
 import BlogHeader from "~/components/atomic/blog-header/blog-header";
 import FontToggle from "~/components/atomic/font-toggle/font-toggle";
-import StoryGenerator, { StoryShareButton } from "~/components/atomic/story-generator/story-generator";
+import StoryGenerator from "~/components/atomic/story-generator/story-generator";
 import Youtube from "~/components/atomic/youtube/youtube";
 import EmbedBookmark from "~/components/organism/embed-bookmark";
 import CloudinaryPlayer from "~/components/organism/cloudinary-player";
@@ -64,7 +64,7 @@ const BlogDetail = ({ code, frontmatter, slug, fullContentText }: BlogDetailProp
   const publishedTime = new Date(frontmatter.publishedAt).toISOString();
   // Use default OG image since blog cover images are in src/assets, not public folder
   const ogImageUrl = "/img/og-image.jpg";
-  
+
   // Load cover image for story generator
   const coverImage = require(`../../assets/images/blog-cover/${frontmatter.coverImage}`) as ImageProps["src"];
 
@@ -133,14 +133,31 @@ const BlogDetail = ({ code, frontmatter, slug, fullContentText }: BlogDetailProp
           readingTime={frontmatter.readingTime}
           title={frontmatter.title}
         />
-        <div style={{ display: "flex", alignItems: "center", gap: "0", marginTop: "1rem", marginBottom: "2rem", flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0",
+            marginTop: "1rem",
+            marginBottom: "2rem",
+            flexWrap: "wrap",
+          }}
+        >
           <FontToggle
             fontMode={fontMode}
             toggleFontMode={toggleFontMode}
             fontSize={fontSize}
             setFontSize={setFontSize}
           />
-          <div style={{ width: "1px", height: "24px", backgroundColor: "var(--border-input)", margin: "0 8px", alignSelf: "center" }} />
+          <div
+            style={{
+              width: "1px",
+              height: "24px",
+              backgroundColor: "var(--border-input)",
+              margin: "0 8px",
+              alignSelf: "center",
+            }}
+          />
           <StoryGenerator
             coverImage={coverImage}
             title={frontmatter.title}
@@ -179,16 +196,16 @@ export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }
   }
 
   const { frontmatter, code } = await getSingleBlogPost(params.slug);
-  
+
   // Extract plain text from blog content
   const source = getBlogFileContent(`${params.slug}.mdx`);
   const { content } = matter(source);
-  
+
   // Strip MDX/JSX tags and extract plain text, preserving line breaks and whitespace
   const fullContentText = content
     .replace(/<MdxImage[^>]*\/>/g, "") // Remove MdxImage components
     .replace(/<[^>]*>/g, "") // Remove remaining HTML/JSX tags
-    .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1") // Convert markdown links to text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // Convert markdown links to text
     .replace(/\{require\([^)]+\)\}/g, "") // Remove require() expressions
     .replace(/\{[^}]+\}/g, "") // Remove other JSX expressions
     .replace(/```[\s\S]*?```/g, "") // Remove code blocks
@@ -197,7 +214,7 @@ export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }
     .replace(/\*\*([^*]+)\*\*/g, "$1") // Remove bold markdown
     .replace(/\*([^*]+)\*/g, "$1") // Remove italic markdown
     .trim();
-  
+
   return {
     props: { code, frontmatter, slug: params.slug, fullContentText },
   };

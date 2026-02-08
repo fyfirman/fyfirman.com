@@ -15,9 +15,10 @@ const StoryTemplate = forwardRef<HTMLDivElement, StoryTemplateProps>(
     const textHeadings = isDarkMode ? "#ffffff" : "#000000";
     const textBody = isDarkMode ? "#ffffffd9" : "#000000d9";
     const textSecondary = isDarkMode ? "#ffffffaa" : "#000000aa";
-    const fontFamily = fontMode === "serif" 
-      ? "Merriweather, Georgia, 'Times New Roman', serif"
-      : "Manrope, 'Helvetica Neue', sans-serif";
+    const fontFamily =
+      fontMode === "serif"
+        ? "Merriweather, Georgia, 'Times New Roman', serif"
+        : "Manrope, 'Helvetica Neue', sans-serif";
 
     // Format date as "dd MMM yyyy" (e.g., "09 Feb 2026")
     const formattedDate = publishedAt.toLocaleDateString("en-GB", {
@@ -40,7 +41,17 @@ const StoryTemplate = forwardRef<HTMLDivElement, StoryTemplateProps>(
           boxSizing: "border-box",
         }}
       >
-        <div style={{ width: "100%", height: "607.5px", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", marginTop: "144px" }}>
+        <div
+          style={{
+            width: "100%",
+            height: "607.5px",
+            overflow: "hidden",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "144px",
+          }}
+        >
           <img
             src={coverImageUrl}
             alt={title}
@@ -69,7 +80,7 @@ const StoryTemplate = forwardRef<HTMLDivElement, StoryTemplateProps>(
             style={{
               color: textHeadings,
               fontFamily,
-              fontWeight: "700",
+              fontWeight: 700,
               fontSize: "72px",
               lineHeight: "1.2",
               letterSpacing: "-0.025em",
@@ -82,7 +93,7 @@ const StoryTemplate = forwardRef<HTMLDivElement, StoryTemplateProps>(
             style={{
               color: textSecondary,
               fontFamily,
-              fontWeight: "400",
+              fontWeight: 400,
               fontSize: "28px",
               marginBottom: "24px",
             }}
@@ -93,7 +104,7 @@ const StoryTemplate = forwardRef<HTMLDivElement, StoryTemplateProps>(
             style={{
               color: textBody,
               fontFamily,
-              fontWeight: "400",
+              fontWeight: 400,
               fontSize: "28px",
               lineHeight: "1.4",
               margin: "0",
@@ -112,7 +123,7 @@ const StoryTemplate = forwardRef<HTMLDivElement, StoryTemplateProps>(
             style={{
               color: textSecondary,
               fontFamily,
-              fontWeight: "400",
+              fontWeight: 400,
               fontSize: "28px",
               marginTop: "24px",
               textAlign: "center",
@@ -123,7 +134,7 @@ const StoryTemplate = forwardRef<HTMLDivElement, StoryTemplateProps>(
         </div>
       </div>
     );
-  }
+  },
 );
 
 StoryTemplate.displayName = "StoryTemplate";

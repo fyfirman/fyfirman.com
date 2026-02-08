@@ -2,10 +2,10 @@ import React, { useRef, useState, useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import { toPng } from "html-to-image";
 import { ImageProps } from "next/image";
+import { Share2 } from "lucide-react";
 import StoryTemplate from "./story-template";
 import StoryPreviewModal from "./story-preview-modal";
 import styles from "./story-generator.module.scss";
-import { Share2 } from "lucide-react";
 
 interface StoryGeneratorProps {
   coverImage: ImageProps["src"];
@@ -17,7 +17,29 @@ interface StoryGeneratorProps {
   fontMode: "serif" | "sans-serif";
 }
 
-const StoryGenerator: React.FC<StoryGeneratorProps> = ({ coverImage, title, fullContentText, publishedAt, slug, isDarkMode, fontMode }) => {
+// Export button component separately
+export const StoryShareButton: React.FC<{
+  onClick: () => void;
+  disabled: boolean;
+  isGenerating: boolean;
+}> = ({ onClick, disabled, isGenerating }) => {
+  return (
+    <button type="button" className={styles.button} onClick={onClick} disabled={disabled} aria-label="Share to Story">
+      <Share2 size={16} />
+      <span>{isGenerating ? "Generating..." : "Share"}</span>
+    </button>
+  );
+};
+
+const StoryGenerator: React.FC<StoryGeneratorProps> = ({
+  coverImage,
+  title,
+  fullContentText,
+  publishedAt,
+  slug,
+  isDarkMode,
+  fontMode,
+}) => {
   const templateRef = useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -32,7 +54,8 @@ const StoryGenerator: React.FC<StoryGeneratorProps> = ({ coverImage, title, full
       // Try to end at a sentence boundary
       const lastPeriod = text.lastIndexOf(".");
       const lastSpace = text.lastIndexOf(" ");
-      const cutPoint = lastPeriod > charCount * 0.8 ? lastPeriod + 1 : lastSpace > charCount * 0.8 ? lastSpace : charCount;
+      const cutPoint =
+        lastPeriod > charCount * 0.8 ? lastPeriod + 1 : lastSpace > charCount * 0.8 ? lastSpace : charCount;
       text = text.substring(0, cutPoint).trim();
     }
     return text;
@@ -44,18 +67,18 @@ const StoryGenerator: React.FC<StoryGeneratorProps> = ({ coverImage, title, full
       if (typeof src === "string") {
         return src;
       }
-      if (typeof src === "object" && src !== null) {
+      if (typeof src === "object") {
         if ("default" in src) {
           const defaultVal = src.default;
           if (typeof defaultVal === "string") {
             return defaultVal;
           }
-          if (typeof defaultVal === "object" && defaultVal !== null && "src" in defaultVal) {
-            return defaultVal.src as string;
+          if (typeof defaultVal === "object" && "src" in defaultVal) {
+            return (defaultVal as { src: string }).src;
           }
         }
-        if ("src" in src && typeof src.src === "string") {
-          return src.src;
+        if ("src" in src && typeof (src as { src: unknown }).src === "string") {
+          return (src as { src: string }).src;
         }
       }
       return "";
@@ -81,8 +104,8 @@ const StoryGenerator: React.FC<StoryGeneratorProps> = ({ coverImage, title, full
               }
               img.onload = () => resolve();
               img.onerror = () => resolve();
-            })
-        )
+            }),
+        ),
       );
 
       // Wait for fonts
@@ -99,7 +122,8 @@ const StoryGenerator: React.FC<StoryGeneratorProps> = ({ coverImage, title, full
 
       setPreviewUrl(dataUrl);
       setIsModalVisible(true);
-    } catch (error) {
+    } catch (error: unknown) {
+      // eslint-disable-next-line no-console
       console.error("Failed to generate story image:", error);
     } finally {
       setIsGenerating(false);
@@ -129,24 +153,24 @@ const StoryGenerator: React.FC<StoryGeneratorProps> = ({ coverImage, title, full
       />
 
       {/* Render template outside wrapper using React Portal to avoid CSS conflicts */}
-      {typeof document !== "undefined" &&
-        coverImageUrl &&
-        ReactDOM.createPortal(
-          <div style={{ position: "absolute", left: "-9999px", top: "-9999px", overflow: "hidden" }}>
-            <StoryTemplate
-              ref={templateRef}
-              coverImageUrl={coverImageUrl}
-              title={title}
-              description={croppedDescription}
-              publishedAt={publishedAt}
-              isDarkMode={isDarkMode}
-              fontMode={fontMode}
-            />
-          </div>,
-          document.body
-        )}
+      {typeof document !== "undefined" && coverImageUrl
+        ? ReactDOM.createPortal(
+            <div style={{ position: "absolute", left: "-9999px", top: "-9999px", overflow: "hidden" }}>
+              <StoryTemplate
+                ref={templateRef}
+                coverImageUrl={coverImageUrl}
+                title={title}
+                description={croppedDescription}
+                publishedAt={publishedAt}
+                isDarkMode={isDarkMode}
+                fontMode={fontMode}
+              />
+            </div>,
+            document.body,
+          )
+        : null}
 
-      {previewUrl && (
+      {previewUrl ? (
         <StoryPreviewModal
           visible={isModalVisible}
           onClose={handleCloseModal}
@@ -157,28 +181,8 @@ const StoryGenerator: React.FC<StoryGeneratorProps> = ({ coverImage, title, full
           onRegenerate={handleGenerate}
           isRegenerating={isGenerating}
         />
-      )}
+      ) : null}
     </>
-  );
-};
-
-// Export button component separately
-export const StoryShareButton: React.FC<{
-  onClick: () => void;
-  disabled: boolean;
-  isGenerating: boolean;
-}> = ({ onClick, disabled, isGenerating }) => {
-  return (
-    <button
-      type="button"
-      className={styles.button}
-      onClick={onClick}
-      disabled={disabled}
-      aria-label="Share to Story"
-    >
-      <Share2 size={16} />
-      <span>{isGenerating ? "Generating..." : "Share"}</span>
-    </button>
   );
 };
 

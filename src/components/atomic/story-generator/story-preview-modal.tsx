@@ -24,10 +24,19 @@ const modalVariants = {
   exit: { opacity: 0, scale: 0.9, y: 20 },
 };
 
-const StoryPreviewModal: React.FC<StoryPreviewModalProps> = ({ visible, onClose, imageUrl, onDownload, charCount, onCharCountChange, onRegenerate, isRegenerating }) => {
+const StoryPreviewModal: React.FC<StoryPreviewModalProps> = ({
+  visible,
+  onClose,
+  imageUrl,
+  onDownload,
+  charCount,
+  onCharCountChange,
+  onRegenerate,
+  isRegenerating,
+}) => {
   return (
     <AnimatePresence>
-      {visible && (
+      {visible ? (
         <motion.div
           className={styles.overlay}
           onClick={onClose}
@@ -102,7 +111,7 @@ const StoryPreviewModal: React.FC<StoryPreviewModalProps> = ({ visible, onClose,
             </div>
           </motion.div>
         </motion.div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 };
