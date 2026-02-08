@@ -1,0 +1,73 @@
+.template {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 1080px;
+  height: 1920px;
+  min-width: 1080px;
+  min-height: 1920px;
+  background-color: var(--bg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--base-font);
+  box-sizing: border-box;
+}
+
+.coverImageContainer {
+  position: relative;
+  width: 100%;
+  height: 55%;
+  overflow: hidden;
+}
+
+.coverImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 40px;
+  background-color: var(--bg);
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.title {
+  color: var(--text-headings);
+  font-family: var(--base-font);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin: 0 0 24px 0;
+}
+
+.description {
+  color: var(--text-body);
+  font-family: var(--base-font);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.branding {
+  color: var(--text-secondary);
+  font-family: var(--base-font);
+  font-weight: 400;
+  font-size: 18px;
+  margin-top: 24px;
+  text-align: center;
+}

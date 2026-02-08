@@ -2,13 +2,15 @@ import { useEffect, useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
 import { GetStaticProps } from "next";
 import { useDarkMode } from "next-dark-mode";
-import { getAllBlogPosts, getSingleBlogPost } from "~/utils/mdx/blog.mdx";
+import { getAllBlogPosts, getSingleBlogPost, getBlogFileContent } from "~/utils/mdx/blog.mdx";
+import matter from "gray-matter";
 import Head from "~/components/template/head";
 import { BlogFrontmatter } from "~/utils/mdx/mdx-types";
 import MdxImage from "~/components/atomic/mdx-image/mdx-image";
 import { clsx } from "~/helpers/classname-helper";
 import BlogHeader from "~/components/atomic/blog-header/blog-header";
 import FontToggle from "~/components/atomic/font-toggle/font-toggle";
+import StoryGenerator, { StoryShareButton } from "~/components/atomic/story-generator/story-generator";
 import Youtube from "~/components/atomic/youtube/youtube";
 import EmbedBookmark from "~/components/organism/embed-bookmark";
 import CloudinaryPlayer from "~/components/organism/cloudinary-player";
@@ -25,16 +27,18 @@ import {
   Paragraph,
   UnorderedList,
 } from "~/components/atomic/typography/typography";
+import { ImageProps } from "next/image";
 import styles from "./blog-detail.module.scss";
 
 interface BlogDetailProps {
   code: string;
   slug: string;
   frontmatter: BlogFrontmatter;
+  fullContentText: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
+const BlogDetail = ({ code, frontmatter, slug, fullContentText }: BlogDetailProps) => {
   const { darkModeActive } = useDarkMode();
   const { fontMode, toggleFontMode } = useFontMode();
   const { fontSize, setFontSize } = useFontSize();
@@ -60,6 +64,9 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
   const publishedTime = new Date(frontmatter.publishedAt).toISOString();
   // Use default OG image since blog cover images are in src/assets, not public folder
   const ogImageUrl = "/img/og-image.jpg";
+  
+  // Load cover image for story generator
+  const coverImage = require(`../../assets/images/blog-cover/${frontmatter.coverImage}`) as ImageProps["src"];
 
   // Structured data for blog post
   const structuredData = useMemo(
@@ -126,12 +133,24 @@ const BlogDetail = ({ code, frontmatter, slug }: BlogDetailProps) => {
           readingTime={frontmatter.readingTime}
           title={frontmatter.title}
         />
-        <FontToggle
-          fontMode={fontMode}
-          toggleFontMode={toggleFontMode}
-          fontSize={fontSize}
-          setFontSize={setFontSize}
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0", marginTop: "1rem", marginBottom: "2rem", flexWrap: "wrap" }}>
+          <FontToggle
+            fontMode={fontMode}
+            toggleFontMode={toggleFontMode}
+            fontSize={fontSize}
+            setFontSize={setFontSize}
+          />
+          <div style={{ width: "1px", height: "24px", backgroundColor: "var(--border-input)", margin: "0 8px", alignSelf: "center" }} />
+          <StoryGenerator
+            coverImage={coverImage}
+            title={frontmatter.title}
+            fullContentText={fullContentText}
+            publishedAt={new Date(frontmatter.publishedAt)}
+            slug={slug}
+            isDarkMode={darkModeActive}
+            fontMode={fontMode}
+          />
+        </div>
         <Component
           components={{
             img: MdxImage,
@@ -160,8 +179,27 @@ export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }
   }
 
   const { frontmatter, code } = await getSingleBlogPost(params.slug);
+  
+  // Extract plain text from blog content
+  const source = getBlogFileContent(`${params.slug}.mdx`);
+  const { content } = matter(source);
+  
+  // Strip MDX/JSX tags and extract plain text, preserving line breaks and whitespace
+  const fullContentText = content
+    .replace(/<MdxImage[^>]*\/>/g, "") // Remove MdxImage components
+    .replace(/<[^>]*>/g, "") // Remove remaining HTML/JSX tags
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1") // Convert markdown links to text
+    .replace(/\{require\([^)]+\)\}/g, "") // Remove require() expressions
+    .replace(/\{[^}]+\}/g, "") // Remove other JSX expressions
+    .replace(/```[\s\S]*?```/g, "") // Remove code blocks
+    .replace(/`[^`]+`/g, "") // Remove inline code
+    .replace(/^#+\s+/gm, "") // Remove markdown headers
+    .replace(/\*\*([^*]+)\*\*/g, "$1") // Remove bold markdown
+    .replace(/\*([^*]+)\*/g, "$1") // Remove italic markdown
+    .trim();
+  
   return {
-    props: { code, frontmatter, slug: params.slug },
+    props: { code, frontmatter, slug: params.slug, fullContentText },
   };
 };
 

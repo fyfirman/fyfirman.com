@@ -1,0 +1,27 @@
+.button {
+  background: transparent;
+  border: 0.25px solid var(--border-input);
+  color: var(--text-body);
+  font-family: var(--base-font);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  vertical-align: top;
+  box-sizing: border-box;
+
+  &:hover:not(:disabled) {
+    background-color: var(--hover-checkbox);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
