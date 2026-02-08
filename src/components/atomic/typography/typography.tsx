@@ -50,7 +50,7 @@ export const Paragraph = styled(motion.p)<StyledComponentProps>`
   font-size: 18px;
   line-height: 31px;
   margin-block-start: 0.33em;
-  margin-block-end: 2rem;
+  margin-block-end: 0.66rem;
 
   ${({ isMobile }) =>
     isMobile &&
