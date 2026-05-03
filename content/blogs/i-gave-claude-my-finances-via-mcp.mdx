@@ -1,0 +1,257 @@
+---
+title: I gave Claude my finances — and it changed how I think about money
+publishedAt: 2026-05-03
+description: "How I built a remote MCP server inside my personal-finance app so Claude can read my live data, give grounded advice, and replace half of my dashboard-clicking habit. Plus the nasty Zod-version bug that ate a Sunday."
+language: en
+coverImage: i-gave-claude-my-finances-via-mcp.png
+---
+
+I was lying on the couch last weekend, phone in hand, and I asked Claude:
+
+> *"What's my net worth and savings rate this month? And tell me if I should worry about anything."*
+
+A few seconds later I got back the actual numbers — pulled live from the personal-finance app I built, a tool I call **Prudent**. Net worth in AED. Savings rate as a percentage. Emergency-fund coverage in months. Then a short, opinionated paragraph: my crypto allocation had crept above 8% of net worth and my "Eating Out" category was up 34% month over month.
+
+This wasn't a screenshot pasted into a chat. I hadn't typed any numbers. Claude *reached into my app* and read them itself.
+
+I want to talk about how that works, why it's a much bigger deal than "yet another chatbot," and how I built it. By the end you'll have the full pattern — including the one nasty bug that ate three hours of my Sunday — so you can do the same with whatever app you maintain.
+
+> All numbers and screenshots in this post are from a synthetic example dataset. None of my real financial data appears here.
+
+## The thing that's actually new
+
+We've had AI chat for years. What's new in the last few months — quietly, without much fanfare — is that AI assistants can now talk to *your* systems through a standard protocol called **MCP** (the Model Context Protocol).
+
+Think of MCP as USB-C for AI tools and data sources. Before MCP, if you wanted Claude to read your calendar or your finances or your customer database, you had to bolt on a custom integration each time. Now there's one shape: an MCP server exposes "tools" (functions the model can call), and any MCP-compatible client — Claude.ai, Claude Code, Cursor, Zed, your own agent — can use them.
+
+Two flavors exist: **local** servers (a process on your laptop, talking over stdio) and **remote** servers (an HTTP endpoint, OAuth-protected). For "I want to chat with Claude on my phone about my data," you need the remote kind — that's what this post is about.
+
+The use case I'm chasing is simple: I have a personal-finance app with rich, structured data — accounts, balances, monthly snapshots, budgets, categorized expenses. The data is *already there*. What's missing is a way to ask intelligent questions of it without staring at dashboards. Pasting JSON into a chat is laughable. What I want is for the assistant to do the looking up itself.
+
+## What's in the box
+
+Prudent's data model has a handful of entities, all backed by a Notion database (because, well, it's mine and I trust Notion's UI for editing rows on my phone):
+
+- **Accounts** — wallets, bank accounts, brokerages, crypto wallets. Each has a currency (IDR or AED), a risk level (None / Low / Medium / High), the latest balance, and the AED-converted balance.
+- **Fund types** — cash, stocks, crypto, etc. Each rolls up the linked accounts.
+- **Snapshots** — periodic point-in-time balances. This is how I see "what was my brokerage worth last March?"
+- **Budgets** — line items per category.
+- **Budget summaries** — monthly totals: salary, target budget, target saving, the AED→IDR FX rate.
+- **Cost of living** — expense entries, one row per purchase, categorized.
+
+Here's a tiny synthetic example of what a typical month looks like in Prudent:
+
+| Account | Type | Risk | Balance (AED) |
+|---|---|---|---|
+| Acme Bank Checking | Cash | Low | 12,500 |
+| Acme Brokerage | Stocks | Medium | 38,200 |
+| Crypto Wallet | Crypto | High | 4,100 |
+
+Monthly summary: salary 25,000 AED, target budget 14,000 AED, target saving 6,500 AED. Five expenses last week ranging from 28 AED for groceries to 1,200 AED for a dental visit.
+
+The dashboard already shows aggregates: net worth, fund-type allocation, risk-level slices, monthly spend by category, savings-rate, emergency-fund coverage. The work for MCP is *exposing the same calculations as tools* — not inventing new ones.
+
+## The seven tools
+
+I picked seven tools — one for each entity, plus a workhorse aggregate:
+
+```
+listAccounts          — every account with its current balance
+listFundTypes         — cash / stocks / crypto with rolled-up totals
+listSnapshots         — recent balance snapshots
+listBudgets           — current budget line items
+listBudgetSummaries   — monthly summaries with FX
+listCostOfLiving      — expense rows, optionally filtered by year/month/category
+getDashboardOverview  — the big one: everything the dashboard shows in one call
+```
+
+`getDashboardOverview` is the tool Claude almost always calls first. It returns net worth, this month's expense total, the savings rate, top categories, and the five most recent expenses — everything needed to answer 80% of my real questions in one shot.
+
+I wrote these tools once, used them inside the app's own AI chat (which is on Google Gemini), and then re-exposed them through MCP. Same business logic, two different surfaces.
+
+## The stack
+
+I'm running on TanStack Start (Vite + Nitro for the server), Prisma for the DB, and **better-auth** for sessions. The two libraries that do the MCP heavy lifting:
+
+- `@vercel/mcp-adapter` (which wraps `mcp-handler` under the hood) — registers tools and handles JSON-RPC.
+- `better-auth`'s built-in `mcp()` plugin — handles OAuth dynamic client registration, token issuance, and the user-consent flow.
+
+The route file is small. Here's the heart of it (`src/routes/api/ai/mcp/$transport.ts`):
+
+```ts
+import { createMcpHandler } from "@vercel/mcp-adapter";
+import { tools } from "@/features/ai/mcp-tools";
+import { auth } from "@/lib/auth/auth";
+
+const handler = async (req: Request) => {
+  const session = await auth.api.getMcpSession({ headers: req.headers });
+
+  if (!session) {
+    const origin = new URL(req.url).origin;
+    return new Response(null, {
+      status: 401,
+      headers: {
+        "WWW-Authenticate": `Bearer realm="MCP", resource_metadata="${origin}/.well-known/oauth-protected-resource"`,
+      },
+    });
+  }
+
+  return createMcpHandler(
+    (server) => {
+      tools.forEach((tool) => {
+        server.tool(tool.name, tool.description, tool.inputSchema?.shape ?? {}, tool.callback);
+      });
+    },
+    { /* capabilities */ },
+    { basePath: "/api/ai/mcp", maxDuration: 60 }
+  )(req);
+};
+```
+
+That `WWW-Authenticate` header is doing more work than it looks. We'll come back to it.
+
+In `src/lib/auth/auth.ts`, the better-auth config has one extra plugin compared to a vanilla setup:
+
+```ts
+plugins: [
+  // ...other plugins
+  mcp({ loginPage: "/login" }),
+],
+```
+
+That single line gives you OAuth 2.1 with PKCE, dynamic client registration (so Claude can self-register without you manually creating clients), token storage, and a redirect to your existing login page when consent is needed. It's astonishingly little code for what it does.
+
+The catch: `mcp()` needs three Prisma models — `OauthApplication`, `OauthAccessToken`, `OauthConsent` — to store registered clients and tokens. I learned this the hard way when my first deploy returned `Model oauthApplication does not exist in the database` for every connector attempt. The fix is to add them to `schema.prisma` and run a migration; the better-auth CLI will generate them, but be careful — at least in my version it tried to overwrite my whole schema with reformatting noise, so I copy-pasted the three models out by hand.
+
+## OAuth discovery, the part nobody documents well
+
+This is where I lost most of an afternoon, and where I'd have killed for a checklist. Here it is, retroactively.
+
+When you paste your MCP server URL into Claude, the client doesn't *know* anything about your OAuth setup. It has to discover it. The dance, per RFC 9728 and RFC 8414:
+
+1. Client makes a request to your MCP endpoint with no token.
+2. Your server returns **401** with a `WWW-Authenticate` header pointing at a "protected resource metadata" document.
+3. Client fetches `/.well-known/oauth-protected-resource`. That document points at the *authorization server*.
+4. Client fetches `/.well-known/oauth-authorization-server` at the issuer's root. That document has the registration / authorize / token endpoints.
+5. Client registers itself, gets the user to log in, and exchanges a code for tokens.
+
+Better-auth publishes the auth-server metadata, but it puts it under its own base path: `/api/auth/.well-known/oauth-authorization-server`. The issuer in the document, however, is the root of your domain. So clients fetch `/.well-known/oauth-authorization-server` at the root and get… your SPA's HTML, with a 404. Silent failure.
+
+The fix lives in `src/server.ts` (TanStack Start's custom request handler). Two routes — one to serve the protected-resource metadata at the standard root path, one to bridge the auth-server metadata back to better-auth's path:
+
+```ts
+if (url.pathname === "/.well-known/oauth-protected-resource") {
+  return jsonResponse({
+    resource: `${url.origin}/api/ai/mcp/mcp`,
+    authorization_servers: [url.origin],
+    bearer_methods_supported: ["header"],
+    scopes_supported: ["openid", "profile", "email", "offline_access"],
+  });
+}
+
+if (url.pathname === "/.well-known/oauth-authorization-server") {
+  const rewritten = new Request(
+    new URL("/api/auth/.well-known/oauth-authorization-server", url.origin),
+    request,
+  );
+  return withCors(await handler.fetch(rewritten));
+}
+```
+
+And don't forget CORS. Claude.ai is a browser-based client, so every request is preflighted. Without `OPTIONS` handling and `Access-Control-Allow-Origin` on every response — including the 401 — the browser blocks reading the `WWW-Authenticate` header and you get the cryptic *"Couldn't reach the MCP server"* error in Claude. The server is reachable; the browser is just refusing to hand the response back to the page.
+
+## The Zod bug that ate my Sunday
+
+The other genuinely instructive bug was a runtime crash that looked nothing like its actual cause:
+
+```
+TypeError: keyValidator._parse is not a function
+```
+
+This appeared the very first time Claude tried to call a tool. The 500 came back as a JSON-RPC error and the connector died.
+
+Investigation: `mcp-handler` (transitively used by `@vercel/mcp-adapter`) declares `"zod": "^3.25.50"` as a dependency and ships its own copy. To validate tool inputs, it calls Zod **v3's** internal `_parse()` method on each schema in the shape you hand it.
+
+My app, however, runs on Zod **v4**. The `z` I import comes from a different package version, where `_parse` was moved. The schemas I created with `z.object({...})` look right, type-check right, and serialize right — but the moment `mcp-handler` tries to use them, it asks for a method that doesn't exist on this version of the schema instance.
+
+Two valid worlds, one shape, no interop.
+
+The fix surprised me with how mundane it was. I added Zod v3 *as a separate dependency* via npm aliasing:
+
+```jsonc
+// package.json
+"zod3": "npm:zod@^3.25.50"
+```
+
+Then in the file that registers MCP tools (`src/features/money-manager/ai/money-manager-mcp-tools.ts`), I import from `zod3` instead of `zod`:
+
+```ts
+// Schemas here use Zod v3 because mcp-handler bundles its own Zod v3
+// and calls v3-internal `_parse`. The rest of the app is on Zod v4.
+import { z } from "zod3";
+import { moneyManagerTools } from "./money-manager-tools";
+
+export const moneyManagerMcpTools = [
+  {
+    name: "getDashboardOverview",
+    description: moneyManagerTools.getDashboardOverview.description ?? "",
+    inputSchema: z.object({
+      year: z.number().int().optional(),
+      month: z.number().int().min(1).max(12).optional(),
+    }),
+    callback: (args) => callTool("getDashboardOverview", args),
+  },
+  // ...six more tools
+];
+```
+
+The rest of the app — the in-app chat, the ORPC layer, every form on the dashboard — keeps using Zod v4. Only the MCP boundary uses v3, and only because of an internal-API call inside someone else's library.
+
+The lesson worth keeping: **a peer dependency's "supported version" is a public-API claim, not an internal-API guarantee.** Two minor versions of the same library can be wire-compatible at every public surface and still be unable to inhabit each other's instances. When you mix major versions of widely-used libraries, expect a surprise like this somewhere.
+
+## Connecting it to Claude
+
+With the server live, the actual connect flow takes about thirty seconds:
+
+1. Get the server on a public HTTPS URL. I'm on Vercel; for testing, ngrok works fine.
+2. In claude.ai (web — custom connectors aren't yet on mobile in my account), open Settings → Connectors → Add custom connector.
+3. Paste `https://your-domain/api/ai/mcp/mcp`. The trailing `/mcp` is the transport name.
+4. Claude opens an OAuth window. It lands on your existing `/login` page (because of `mcp({ loginPage: "/login" })`). You sign in.
+5. Consent screen, click approve, the connector goes green. Tools appear.
+
+Then, in any chat, enable the connector and ask something. With my synthetic example dataset:
+
+> **Me:** What's my net worth this month and how am I doing on savings?
+>
+> **Claude:** *(calls `getDashboardOverview`)* Your net worth is **54,800 AED**. This month you've earned 25,000 AED and spent 18,500 AED, giving you a savings rate of **26%** — solidly above the 20% mark I'd consider healthy. Your emergency fund covers about **3.2 months** of expenses; the standard target is six. To get there in eight months, you'd need to set aside roughly 4,200 AED/month on top of current saving. One flag: your crypto allocation is 8% of net worth, which is fine, but at high risk; if you'd planned to keep it under 5%, now's the moment to rebalance.
+
+That's a real call shape from a real tool, with synthetic numbers. I didn't tell Claude any of those figures. It looked them up.
+
+## What changed about how I use the app
+
+Two modes, both new:
+
+- **Reporter** — questions I used to answer by clicking through the dashboard ("how much did I spend on groceries last month?", "what's my IDR cash position?") now happen in chat in seconds. The dashboard isn't going anywhere, but it's now the canonical *visual* surface and chat is the canonical *interrogation* surface.
+- **Advisor** — this is the one I didn't expect. With the data right there, Claude is willing to do the math and say things like "your emergency fund is short, here's a plan." I bake guardrails into the system prompt — Claude always pulls data before advising, leads with ratios over vibes, flags concentration risks, and adds a one-line disclaimer the first time it gives advice in a session.
+
+It is *not* a replacement for a financial advisor. It is much better than the next-best thing, which was me staring at the dashboard for ten minutes and forgetting half of what I read. I'd rather have a focused, quantitative second opinion grounded in my own numbers than the same advice with no numbers.
+
+Honest limits worth flagging:
+
+- The MCP tools are read-only today. I plan to add write tools (record an expense, update a budget) but I want to think carefully about the consent UX before I do.
+- Custom connectors are claude.ai web only as of writing — mobile inherits the connector once added on web in some accounts, not all. Your mileage may vary.
+- This is single-user / single-tenant. The plumbing supports per-user OAuth, but the underlying Notion services I wrote against are hard-coded to one user. If you're building this for multiple people, design that in from the start.
+
+## What's next
+
+The interesting next step is *write* tools. I want to be able to say "log 28 AED at the supermarket as Groceries" while I'm walking out of the store, and have Claude do it. The MCP plumbing is identical; the design problem is making sure I can't accidentally rewrite my budget by saying the wrong thing.
+
+I'm also curious about exposing this to Claude Code (the CLI). The MCP server doesn't care which client connects — same OAuth, same tools — and "ask my finance agent in the terminal" feels like a strictly better workflow than "open a Notion page."
+
+## The unlock
+
+The thing I keep coming back to: Claude isn't smarter today than it was last month. The model didn't change. What changed is that it has a way to reach the system where my data already lives, with my permission, through a standard protocol.
+
+Most of the AI productivity wins of the next year aren't going to be about better models. They're going to be about better *reach* — letting models touch the boring systems where the actual work and the actual data already are. MCP is, surprisingly quickly, becoming the way that happens.
+
+The repo is at [github.com/fyfirman/prudent](https://github.com/fyfirman/prudent) if you want to read the actual code. The MCP server lives under `src/routes/api/ai/mcp/`, the tools under `src/features/money-manager/ai/`, and the OAuth wiring is in `src/server.ts` and `src/lib/auth/auth.ts`. If you build something similar for your own data, please tell me — I want to read it.
