@@ -10,7 +10,7 @@ I was lying on the couch last weekend, phone in hand, and I asked Claude:
 
 > *"What's my net worth and savings rate this month? And tell me if I should worry about anything."*
 
-A few seconds later I got back the actual numbers — pulled live from the personal-finance app I built, a tool I call **Prudent**. Net worth in AED. Savings rate as a percentage. Emergency-fund coverage in months. Then a short, opinionated paragraph: my crypto allocation had crept above 8% of net worth and my "Eating Out" category was up 34% month over month.
+A few seconds later I got back the actual numbers — pulled live from a personal-finance app I built. Net worth in AED. Savings rate as a percentage. Emergency-fund coverage in months. Then a short, opinionated paragraph: my crypto allocation had crept above 8% of net worth and my "Eating Out" category was up 34% month over month.
 
 This wasn't a screenshot pasted into a chat. I hadn't typed any numbers. Claude *reached into my app* and read them itself.
 
@@ -30,7 +30,7 @@ The use case I'm chasing is simple: I have a personal-finance app with rich, str
 
 ## What's in the box
 
-Prudent's data model has a handful of entities, all backed by a Notion database (because, well, it's mine and I trust Notion's UI for editing rows on my phone):
+The data model has a handful of entities, all backed by a Notion database (because, well, it's mine and I trust Notion's UI for editing rows on my phone):
 
 - **Accounts** — wallets, bank accounts, brokerages, crypto wallets. Each has a currency (IDR or AED), a risk level (None / Low / Medium / High), the latest balance, and the AED-converted balance.
 - **Fund types** — cash, stocks, crypto, etc. Each rolls up the linked accounts.
@@ -39,13 +39,11 @@ Prudent's data model has a handful of entities, all backed by a Notion database 
 - **Budget summaries** — monthly totals: salary, target budget, target saving, the AED→IDR FX rate.
 - **Cost of living** — expense entries, one row per purchase, categorized.
 
-Here's a tiny synthetic example of what a typical month looks like in Prudent:
+Here's a tiny synthetic example of what a typical month looks like:
 
-| Account | Type | Risk | Balance (AED) |
-|---|---|---|---|
-| Acme Bank Checking | Cash | Low | 12,500 |
-| Acme Brokerage | Stocks | Medium | 38,200 |
-| Crypto Wallet | Crypto | High | 4,100 |
+- **Acme Bank Checking** — cash, low risk, 12,500 AED
+- **Acme Brokerage** — stocks, medium risk, 38,200 AED
+- **Crypto Wallet** — crypto, high risk, 4,100 AED
 
 Monthly summary: salary 25,000 AED, target budget 14,000 AED, target saving 6,500 AED. Five expenses last week ranging from 28 AED for groceries to 1,200 AED for a dental visit.
 
@@ -254,4 +252,4 @@ The thing I keep coming back to: Claude isn't smarter today than it was last mon
 
 Most of the AI productivity wins of the next year aren't going to be about better models. They're going to be about better *reach* — letting models touch the boring systems where the actual work and the actual data already are. MCP is, surprisingly quickly, becoming the way that happens.
 
-The repo is at [github.com/fyfirman/prudent](https://github.com/fyfirman/prudent) if you want to read the actual code. The MCP server lives under `src/routes/api/ai/mcp/`, the tools under `src/features/money-manager/ai/`, and the OAuth wiring is in `src/server.ts` and `src/lib/auth/auth.ts`. If you build something similar for your own data, please tell me — I want to read it.
+If you build something similar for your own data, I'd love to hear about it. The pattern generalizes well: the same plumbing works for any structured data you already keep, regardless of stack — the design problem is just deciding which questions you actually want your assistant to answer for you.
