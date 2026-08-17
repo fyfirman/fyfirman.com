@@ -1,0 +1,120 @@
+---
+title: Multiple Claude Code accounts, one shared history
+publishedAt: 2026-07-17
+description: "How to run two Claude Code accounts on one laptop — a work login and a personal one — while they share a single history and memory. The standard setup keeps them fully isolated; this adds one symlink so the two logins stay separate but the brain is shared."
+language: en
+coverImage: multiple-claude-code-accounts-with-shared-history.png
+---
+
+I run two Claude Code logins on one laptop: one through work, one on my personal subscription. The standard way to set that up keeps the two accounts *fully* isolated — separate logins, but also separate history, memory, and settings. That last part is the problem. I wanted the opposite of isolation for my history: a debugging session I had this morning under my work login, or a preference I corrected last week, should be right there when I switch to my personal login.
+
+So the goal of this post is specific: **run multiple Claude Code accounts on one machine, keep their logins separate, but share a single history and memory across them.** We'll do it in two moves — the standard multi-account setup, then a one-line tweak that shares the brain.
+
+## Step 1 — the standard multi-account setup
+
+Claude Code keeps everything under one config directory — by default `~/.claude`. You can change which directory it uses with the `CLAUDE_CONFIG_DIR` environment variable. Point each account at its own directory and the two installs stop knowing about each other entirely.
+
+The tidy way to wire this up (credit to [FrontendHire's short course on this](https://frontendhire.com/learn/ai/courses/using-multiple-claude-accounts/overview)) is two shell aliases. On zsh that's `~/.zshrc`:
+
+```bash
+alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
+alias claude-work="CLAUDE_CONFIG_DIR=~/.claude-work claude"
+```
+
+On bash, the same two lines go in `~/.bashrc`. Reload your shell (`source ~/.zshrc`) and the commands are ready. The directories don't need to exist beforehand — Claude Code creates them on first run. The first time you launch each alias, run `/login` and sign in with the matching account:
+
+```bash
+claude-work      # then /login with your work account
+claude-personal  # then /login with your personal account
+```
+
+After that, each alias remembers its own login. Daily use is just picking the alias that matches the repo you're in:
+
+```bash
+cd ~/work/some-service  && claude-work
+cd ~/projects/side-thing && claude-personal
+```
+
+One nuance on where the login actually lives: on macOS it's stored in the encrypted Keychain rather than inside the config directory; on Linux and Windows it sits in a `.credentials.json` file within the directory. Either way, each `CLAUDE_CONFIG_DIR` keeps its own login, so the two accounts stay isolated.
+
+That's a complete, working multi-account setup. But "isolated" cuts deeper than just the logins — and that's the part we want to undo.
+
+## Why the accounts don't share history yet
+
+`CLAUDE_CONFIG_DIR` doesn't relocate only your credentials. That single folder holds three different kinds of thing that don't naturally belong together:
+
+- **Credentials & settings** — your auth token (or Keychain entry), MCP servers, permissions.
+- **Session history** — every transcript, per project, under `projects/`.
+- **Memory** — the persistent facts Claude recalls across sessions.
+
+When you give the second account its own directory, you fork *all three*. Forking the credentials is exactly what you want — that's the whole point of separate accounts. Forking the other two is not: switch accounts and Claude forgets everything the other one learned — the debugging session from this morning, the note that this repo deploys through a weird CI step, the preference you corrected it on last week.
+
+What we actually want is narrower than "two isolated accounts": **two logins, one shared brain.** Different auth, same history and same memory.
+
+## Step 2 — share the history with one symlink
+
+The key insight is that the two things we're trying to split don't overlap on disk. The credentials live in files at the *top* of the config dir (`.credentials.json` — or the Keychain — plus `settings.json`). The history and memory live entirely inside one subfolder: `projects/`.
+
+So you don't need to share the whole directory — just the `projects/` subfolder. Keep each account's credentials separate, and symlink the one subfolder they should share. It doesn't matter that macOS tucks the actual login into the Keychain; whatever an account's credential is and wherever it lives, it isn't inside `projects/`, so sharing `projects/` never touches it.
+
+Say your two accounts are the setup from step 1: a main profile at `~/.claude` and a second one at `~/.claude-personal`. (If you followed the aliases above with two non-default dirs, use `~/.claude-work` in place of `~/.claude` throughout — the mechanics are identical.) You want the second to reuse the first's history and memory.
+
+**1. Back up first — this touches real history.**
+
+```bash
+tar czf ~/claude-projects-backup.tgz          -C ~/.claude          projects
+tar czf ~/claude-personal-projects-backup.tgz -C ~/.claude-personal projects
+```
+
+**2. Merge any sessions that only exist in the second account into the first**, so nothing is lost when you replace it. (`rsync` without `--delete` — copy-in, never destroy.)
+
+```bash
+rsync -a --ignore-existing ~/.claude-personal/projects/ ~/.claude/projects/
+```
+
+If a project folder exists in both, decide per-file which transcripts and which `memory/` version you want to keep as the canonical one before overwriting.
+
+**3. Move the second account's `projects/` aside** — rename, don't delete, so the change is reversible.
+
+```bash
+mv ~/.claude-personal/projects ~/.claude-personal/projects.bak-$(date +%Y%m%d-%H%M%S)
+```
+
+**4. Symlink it to the shared one.**
+
+```bash
+ln -s ~/.claude/projects ~/.claude-personal/projects
+```
+
+**5. Verify both paths resolve to the same directory.**
+
+```bash
+ls -ld ~/.claude-personal/projects   # should show the '-> .../.claude/projects' arrow
+[ ~/.claude-personal/projects -ef ~/.claude/projects ] && echo "same inode ✔"
+```
+
+## The result
+
+Now you have exactly the setup this post set out to build:
+
+- `~/.claude` and `~/.claude-personal` keep their own credentials and settings — different logins, MCP servers, permissions.
+- Both read and write the same `projects/` — so **session history and memory are shared across the two accounts**. A fact learned under one account is instantly recalled under the other.
+- It's just a symlink. To undo it: delete the link and rename the `.bak` folder back.
+
+You get the login separation the alias setup was for, without the amnesia it quietly came with.
+
+## Two gotchas
+
+**Pick a direction deliberately.** Symlink the account with *less* data into the one with the fuller history — you want the richer store to be the real directory, not the link target you're about to move aside. The ending state is identical either way; the churn isn't.
+
+**The live session is already writing.** A Claude Code session that was open during the swap keeps writing its transcript to the old path — its file handle predates the change. Only sessions started *after* the swap land in the shared store. Close and reopen to be safe.
+
+## Why a symlink and not more `CLAUDE_CONFIG_DIR` juggling
+
+You could try to juggle environment variables per shell, but that shares everything or nothing — it's the same all-or-nothing knob that made the accounts fully isolated in the first place. The symlink is surgical: it shares exactly one subtree — history and memory — and leaves the credential surface untouched. One concept, fully reversible, no wrapper scripts.
+
+The `CLAUDE_CONFIG_DIR` aliases get you multiple accounts on one laptop. The symlink decides *how much* of them stays separate. For me the right answer was: separate logins, one shared history — because the credential is the thing I want to keep apart, and the brain is the thing I want to keep together.
+
+---
+
+*Written up from a real session on 2026-07-17. Paths and commands reflect what actually worked on my machine; adjust the profile names to your own.*
