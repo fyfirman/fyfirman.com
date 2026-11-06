@@ -4,6 +4,7 @@ import React from "react";
 import { ProjectCard } from "~/components/atomic";
 import mdxEditor from "@assets/images/explore-cover/mdx-editor.jpg";
 import framerMotion from "@assets/images/explore-cover/framer-motion.jpg";
+import dottedSphere from "@assets/images/explore-cover/dotted-sphere.jpg";
 import type { ProjectCardProps } from "~/components/atomic/project-card/project-card";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 import { useRouter } from "next/router";
@@ -31,6 +32,13 @@ const ProjectContainer = styled.div<StyledComponentProps>`
 const projectList: (ProjectCardProps & {
   slug: string;
 })[] = [
+  {
+    title: "Dotted Sphere",
+    desc: "A grainy gradient with a dotted sphere that spins, drifts and leans toward your cursor. Plain WebGL and canvas.",
+    imageURI: dottedSphere,
+    stack: ["WebGL", "Animation"],
+    slug: "dotted-sphere",
+  },
   {
     title: "MDX Editor",
     desc: "An open-source React component that allows users to author markdown documents naturally. Just like in Google docs or Notion.",
