@@ -2,10 +2,41 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { Blob, createGrainyGradient } from "~/lib/grainy-gradient";
 import { HARMONIES, harmonyPalette, randomBaseColor } from "~/lib/color-harmony";
+import { CURATED_SOURCES } from "~/lib/curated-palettes";
 
 const BLOB_COUNT = 18;
 const MAX_BLOBS = 32;
 const EXPORT_WIDTH = 2560;
+
+const GALLERY_BATCH = 6;
+const THUMB_WIDTH = 360;
+
+const SOURCES = [
+  { key: "all", name: "All" },
+  ...CURATED_SOURCES.map(({ key, name }) => ({ key, name })),
+  { key: "theory", name: "Colour theory" },
+];
+
+type Variant = { name: string; colors: string[]; seed: number; softness: number };
+
+const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)];
+const randomSeed = () => Math.floor(Math.random() * 2147483646) + 1;
+
+// A full cover: palette from a curated set (or a colour-theory harmony), a fresh layout and softness.
+function randomVariant(source: string): Variant {
+  const key = source === "all" ? pick([...CURATED_SOURCES.map((c) => c.key), "theory"]) : source;
+  const curated = CURATED_SOURCES.find((c) => c.key === key);
+  let name: string, colors: string[];
+  if (curated) {
+    ({ name, colors } = pick(curated.palettes));
+  } else {
+    const harmony = pick(HARMONIES);
+    const base = randomBaseColor();
+    name = `${harmony.name} from ${base}`;
+    colors = harmonyPalette(base, harmony.recipe);
+  }
+  return { name, colors, seed: randomSeed(), softness: 0.8 + Math.random() * 0.6 };
+}
 
 const ASPECTS = [
   { label: "16:9", value: 16 / 9 },
@@ -156,6 +187,46 @@ const Strip = styled.span`
   }
 `;
 
+const Gallery = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+`;
+
+const Thumb = styled.button<{ $aspect: number; $active: boolean }>`
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  aspect-ratio: ${({ $aspect }) => $aspect};
+  max-height: 260px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--border-input);
+  outline: ${({ $active }) => ($active ? "2px solid var(--text-headings)" : "none")};
+  outline-offset: 2px;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+`;
+
+const Source = styled.span`
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+`;
+
+const Credit = styled.small`
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+
+  & a {
+    color: inherit;
+  }
+`;
+
 const Slider = styled.label`
   display: flex;
   align-items: center;
@@ -190,6 +261,11 @@ const GradientGenerator: React.FC = () => {
   const [motion, setMotion] = useState(0.035);
   const [softness, setSoftness] = useState(1);
   const [copied, setCopied] = useState(false);
+  const [paletteName, setPaletteName] = useState("Split complementary from #ce4914");
+  const [source, setSource] = useState("all");
+  const [variants, setVariants] = useState<Variant[]>([]);
+  const [thumbs, setThumbs] = useState<string[]>([]);
+  const thumbRef = useRef<{ canvas: HTMLCanvasElement; renderer: ReturnType<typeof createGrainyGradient> }>();
 
   const suggestions = useMemo(() => HARMONIES.map((h) => ({ ...h, colors: harmonyPalette(base, h.recipe) })), [base]);
   const blobs = useMemo(() => layoutBlobs(palette, seed, aspect, softness), [palette, seed, aspect, softness]);
@@ -261,9 +337,50 @@ const GradientGenerator: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Gallery thumbnails are drawn once by a small offscreen renderer and kept as images.
+  useEffect(() => {
+    if (!thumbRef.current) {
+      const canvas = document.createElement("canvas");
+      thumbRef.current = { canvas, renderer: createGrainyGradient(canvas, MAX_BLOBS, { preserveDrawingBuffer: true }) };
+    }
+    const { canvas, renderer } = thumbRef.current;
+    if (!renderer) return;
+    canvas.width = THUMB_WIDTH;
+    canvas.height = Math.round(THUMB_WIDTH / aspect);
+    setThumbs(
+      variants.map((v) => {
+        renderer.setBlobs(layoutBlobs(v.colors, v.seed, aspect, v.softness));
+        renderer.draw(0, 0, settingsRef.current.grain * 0.6);
+        return canvas.toDataURL("image/jpeg", 0.85);
+      }),
+    );
+  }, [variants, aspect]);
+
+  const batch = (from: string) => Array.from({ length: GALLERY_BATCH }, () => randomVariant(from));
+  const addVariants = () => setVariants((v) => [...v, ...batch(source)]);
+
+  // random on the client only, so server and client markup match
+  useEffect(() => setVariants(batch("all")), []);
+
+  const isCurrent = (v: Variant) => palette === v.colors && seed === v.seed;
+
+  const applyVariant = (v: Variant) => {
+    setHarmony("");
+    setPaletteName(v.name);
+    setPalette(v.colors);
+    setSeed(v.seed);
+    setSoftness(v.softness);
+  };
+
+  const changeSource = (key: string) => {
+    setSource(key);
+    setVariants(batch(key));
+  };
+
   const applyHarmony = (key: string, from = base) => {
     const h = HARMONIES.find((x) => x.key === key) ?? HARMONIES[0];
     setHarmony(h.key);
+    setPaletteName(`${h.name} from ${from}`);
     setPalette(harmonyPalette(from, h.recipe));
   };
 
@@ -274,6 +391,7 @@ const GradientGenerator: React.FC = () => {
 
   const editSwatch = (index: number, hex: string) => {
     setHarmony("");
+    setPaletteName("Custom");
     setPalette((p) => p.map((c, i) => (i === index ? hex : c)));
   };
 
@@ -309,21 +427,51 @@ const GradientGenerator: React.FC = () => {
       </Preview>
 
       <Row>
-        <Chip onClick={() => setSeed(Math.floor(Math.random() * 2147483646) + 1)}>Shuffle layout</Chip>
-        <Chip onClick={() => changeBase(randomBaseColor())}>Random colour</Chip>
-        <Chip onClick={copyPalette}>{copied ? "Copied!" : "Copy hex"}</Chip>
-        <Chip $active onClick={download}>
-          Download PNG
+        <Chip $active onClick={() => applyVariant(randomVariant(source))}>
+          Surprise me
         </Chip>
+        <Chip onClick={() => setSeed(randomSeed())}>Shuffle layout</Chip>
+        <Chip onClick={copyPalette}>{copied ? "Copied!" : "Copy hex"}</Chip>
+        <Chip onClick={download}>Download PNG</Chip>
       </Row>
 
       <Section>
+        <Label>More covers</Label>
+        <Row>
+          {SOURCES.map((src) => (
+            <Chip key={src.key} $active={source === src.key} onClick={() => changeSource(src.key)}>
+              {src.name}
+            </Chip>
+          ))}
+        </Row>
+        <Gallery>
+          {variants.map((v, i) => (
+            <Thumb key={i} $aspect={aspect} $active={isCurrent(v)} title={v.name} onClick={() => applyVariant(v)}>
+              {thumbs[i] ? <img src={thumbs[i]} alt={v.name} /> : null}
+            </Thumb>
+          ))}
+        </Gallery>
+        <Row>
+          <Chip onClick={addVariants}>More covers</Chip>
+        </Row>
+        <Credit>
+          Palettes from Sanzo Wada&apos;s <em>A Dictionary of Color Combinations</em> (1933, via{" "}
+          <a href="https://github.com/mattdesl/dictionary-of-colour-combinations">mattdesl</a>) and the top-rated{" "}
+          <a href="https://github.com/Experience-Monks/nice-color-palettes">COLOURlovers palettes</a>, plus
+          colour-theory harmonies.
+        </Credit>
+      </Section>
+
+      <Section>
         <Label>Base colour</Label>
-        <ColorInput>
-          <Swatch color={base} size={44} />
-          {base}
-          <input type="color" value={base} onChange={(e) => changeBase(e.target.value)} />
-        </ColorInput>
+        <Row>
+          <ColorInput>
+            <Swatch color={base} size={44} />
+            {base}
+            <input type="color" value={base} onChange={(e) => changeBase(e.target.value)} />
+          </ColorInput>
+          <Chip onClick={() => changeBase(randomBaseColor())}>Random colour</Chip>
+        </Row>
       </Section>
 
       <Section>
@@ -345,6 +493,7 @@ const GradientGenerator: React.FC = () => {
 
       <Section>
         <Label>Palette (tap to edit)</Label>
+        <Source>{paletteName}</Source>
         <Row>
           {palette.map((c, i) => (
             <ColorInput key={i} title={c}>
