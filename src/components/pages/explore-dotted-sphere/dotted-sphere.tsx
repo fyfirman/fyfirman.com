@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { Blob, createGrainyGradient } from "~/lib/grainy-gradient";
 
 // Colour field: weighted blend of soft colour blobs, fitted to the reference artwork.
-// [x, y, radius, colour], x/y/radius in units of the canvas width (y from the top).
-const BLOBS: [number, number, number, string][] = [
+const BLOBS: Blob[] = [
   [0.6449, 0.7016, 0.1266, "#7a879b"],
   [0.1987, 0.0673, 0.0991, "#001102"],
   [0.4102, 0.2477, 0.079, "#c49149"],
@@ -49,80 +49,11 @@ const Frame = styled.div`
   }
 `;
 
-const hex = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
-
-const vertexShader = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }`;
-
-const fragmentShader = (n: number) => `
-  precision highp float;
-  uniform vec2 res;
-  uniform float time;
-  uniform float drift;
-  uniform float grain;
-  uniform vec4 blob[${n}];
-  uniform vec3 col[${n}];
-  float hash(vec2 p){ p = fract(p * vec2(443.897, 441.423)); p += dot(p, p.yx + 19.19); return fract((p.x + p.y) * p.x); }
-  void main(){
-    vec2 uv = vec2(gl_FragCoord.x, res.y - gl_FragCoord.y) / res.x;
-    float lw[${n}]; float m = -1e9;
-    for (int i = 0; i < ${n}; i++) {
-      float k = float(i);
-      vec2 wander = vec2(sin(time * (0.11 + 0.017 * k) + k * 1.7), cos(time * (0.09 + 0.013 * k) + k * 2.3)) * drift;
-      vec2 d = uv - blob[i].xy - wander;
-      lw[i] = -dot(d, d) / (2.0 * blob[i].z * blob[i].z);
-      m = max(m, lw[i]);
-    }
-    vec3 c = vec3(0.0); float ws = 0.0;
-    for (int i = 0; i < ${n}; i++) { float w = exp(lw[i] - m); c += w * col[i]; ws += w; }
-    c /= ws;
-    vec2 frame = vec2(17.31, 41.77) * floor(time * 24.0);
-    c += (hash(gl_FragCoord.xy + mod(frame, 997.0)) - 0.5) * grain;
-    gl_FragColor = vec4(c, 1.0);
-  }`;
-
 function createBackground(canvas: HTMLCanvasElement) {
-  const gl = canvas.getContext("webgl");
-  if (!gl) return null;
-
-  const vs = gl.createShader(gl.VERTEX_SHADER);
-  const fs = gl.createShader(gl.FRAGMENT_SHADER);
-  const prog = gl.createProgram();
-  if (!vs || !fs || !prog) return null;
-  gl.shaderSource(vs, vertexShader);
-  gl.compileShader(vs);
-  gl.shaderSource(fs, fragmentShader(BLOBS.length));
-  gl.compileShader(fs);
-  gl.attachShader(prog, vs);
-  gl.attachShader(prog, fs);
-  gl.linkProgram(prog);
-  gl.useProgram(prog);
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-  const loc = gl.getAttribLocation(prog, "p");
-  gl.enableVertexAttribArray(loc);
-  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-
-  gl.uniform1f(gl.getUniformLocation(prog, "grain"), GRAIN);
-  gl.uniform4fv(
-    gl.getUniformLocation(prog, "blob"),
-    BLOBS.flatMap(([x, y, r]) => [x, y, r, 0]),
-  );
-  gl.uniform3fv(
-    gl.getUniformLocation(prog, "col"),
-    BLOBS.flatMap((b) => hex(b[3])),
-  );
-  const res = gl.getUniformLocation(prog, "res");
-  const time = gl.getUniformLocation(prog, "time");
-  const drift = gl.getUniformLocation(prog, "drift");
-
-  return (t: number, animate: boolean) => {
-    gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.uniform2f(res, canvas.width, canvas.height);
-    gl.uniform1f(time, t);
-    gl.uniform1f(drift, animate ? DRIFT : 0);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-  };
+  const gradient = createGrainyGradient(canvas, BLOBS.length);
+  if (!gradient) return null;
+  gradient.setBlobs(BLOBS);
+  return (t: number, animate: boolean) => gradient.draw(t, animate ? DRIFT : 0, GRAIN);
 }
 
 // Unit-sphere points plus a fixed random size per dot.

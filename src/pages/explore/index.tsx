@@ -5,6 +5,7 @@ import { ProjectCard } from "~/components/atomic";
 import mdxEditor from "@assets/images/explore-cover/mdx-editor.jpg";
 import framerMotion from "@assets/images/explore-cover/framer-motion.jpg";
 import dottedSphere from "@assets/images/explore-cover/dotted-sphere.jpg";
+import gradientGenerator from "@assets/images/explore-cover/gradient-generator.jpg";
 import type { ProjectCardProps } from "~/components/atomic/project-card/project-card";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 import { useRouter } from "next/router";
@@ -16,6 +17,7 @@ const ProjectContainer = styled.div<StyledComponentProps>`
   display: flex;
   gap: min(4vw, 48px);
   flex-direction: row;
+  flex-wrap: wrap;
   padding-right: min(15vw - 80px, 15%);
 
   & > div {
@@ -32,6 +34,13 @@ const ProjectContainer = styled.div<StyledComponentProps>`
 const projectList: (ProjectCardProps & {
   slug: string;
 })[] = [
+  {
+    title: "Gradient Generator",
+    desc: "Grainy gradients from your own colours, with palettes suggested by colour theory. Download as PNG.",
+    imageURI: gradientGenerator,
+    stack: ["WebGL", "Color Theory"],
+    slug: "gradient-generator",
+  },
   {
     title: "Dotted Sphere",
     desc: "A grainy gradient with a dotted sphere that spins, drifts and leans toward your cursor. Plain WebGL and canvas.",
