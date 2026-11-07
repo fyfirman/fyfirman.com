@@ -61,16 +61,52 @@ function layoutBlobs(palette: string[], seed: number, aspect: number, softness: 
   ]);
 }
 
+// Phones held sideways are too short to see the preview while scrolling the controls,
+// so pin the preview and its main actions in a left column.
+const LANDSCAPE_PHONE = "@media (orientation: landscape) and (max-height: 600px)";
+const NAVBAR_SPACE = 56;
+
 const Root = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
   margin-top: 16px;
+
+  ${LANDSCAPE_PHONE} {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+  }
+`;
+
+const Stage = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  ${LANDSCAPE_PHONE} {
+    position: sticky;
+    top: ${NAVBAR_SPACE}px;
+    gap: 10px;
+  }
+`;
+
+const Controls = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const Preview = styled.div<{ $aspect: number }>`
   position: relative;
   width: min(100%, calc(70vh * ${({ $aspect }) => $aspect}));
+
+  ${LANDSCAPE_PHONE} {
+    /* leave room for the navbar above and the action row below */
+    width: min(100%, calc((100dvh - ${NAVBAR_SPACE + 76}px) * ${({ $aspect }) => $aspect}));
+  }
+
   aspect-ratio: ${({ $aspect }) => $aspect};
   margin: 0 auto;
   overflow: hidden;
@@ -115,6 +151,10 @@ const Chip = styled.button<{ $active?: boolean }>`
   color: ${({ $active }) => ($active ? "var(--text-button)" : "var(--text-body)")};
   background: ${({ $active }) => ($active ? "var(--bg-button)" : "transparent")};
   border: 1px solid ${({ $active }) => ($active ? "var(--bg-button)" : "var(--border-input)")};
+
+  ${LANDSCAPE_PHONE} {
+    padding: 6px 10px;
+  }
 `;
 
 const ColorInput = styled.label`
@@ -422,131 +462,135 @@ const GradientGenerator: React.FC = () => {
 
   return (
     <Root>
-      <Preview ref={frameRef} $aspect={aspect}>
-        <canvas ref={canvasRef} />
-      </Preview>
+      <Stage>
+        <Preview ref={frameRef} $aspect={aspect}>
+          <canvas ref={canvasRef} />
+        </Preview>
 
-      <Row>
-        <Chip $active onClick={() => applyVariant(randomVariant(source))}>
-          Surprise me
-        </Chip>
-        <Chip onClick={() => setSeed(randomSeed())}>Shuffle layout</Chip>
-        <Chip onClick={copyPalette}>{copied ? "Copied!" : "Copy hex"}</Chip>
-        <Chip onClick={download}>Download PNG</Chip>
-      </Row>
-
-      <Section>
-        <Label>More covers</Label>
         <Row>
-          {SOURCES.map((src) => (
-            <Chip key={src.key} $active={source === src.key} onClick={() => changeSource(src.key)}>
-              {src.name}
-            </Chip>
-          ))}
+          <Chip $active onClick={() => applyVariant(randomVariant(source))}>
+            Surprise me
+          </Chip>
+          <Chip onClick={() => setSeed(randomSeed())}>Shuffle</Chip>
+          <Chip onClick={copyPalette}>{copied ? "Copied!" : "Copy hex"}</Chip>
+          <Chip onClick={download}>Download PNG</Chip>
         </Row>
-        <Gallery>
-          {variants.map((v, i) => (
-            <Thumb key={i} $aspect={aspect} $active={isCurrent(v)} title={v.name} onClick={() => applyVariant(v)}>
-              {thumbs[i] ? <img src={thumbs[i]} alt={v.name} /> : null}
-            </Thumb>
-          ))}
-        </Gallery>
-        <Row>
-          <Chip onClick={addVariants}>More covers</Chip>
-        </Row>
-        <Credit>
-          Palettes from Sanzo Wada&apos;s <em>A Dictionary of Color Combinations</em> (1933, via{" "}
-          <a href="https://github.com/mattdesl/dictionary-of-colour-combinations">mattdesl</a>) and the top-rated{" "}
-          <a href="https://github.com/Experience-Monks/nice-color-palettes">COLOURlovers palettes</a>, plus
-          colour-theory harmonies.
-        </Credit>
-      </Section>
+      </Stage>
 
-      <Section>
-        <Label>Base colour</Label>
-        <Row>
-          <ColorInput>
-            <Swatch color={base} size={44} />
-            {base}
-            <input type="color" value={base} onChange={(e) => changeBase(e.target.value)} />
-          </ColorInput>
-          <Chip onClick={() => changeBase(randomBaseColor())}>Random colour</Chip>
-        </Row>
-      </Section>
+      <Controls>
+        <Section>
+          <Label>More covers</Label>
+          <Row>
+            {SOURCES.map((src) => (
+              <Chip key={src.key} $active={source === src.key} onClick={() => changeSource(src.key)}>
+                {src.name}
+              </Chip>
+            ))}
+          </Row>
+          <Gallery>
+            {variants.map((v, i) => (
+              <Thumb key={i} $aspect={aspect} $active={isCurrent(v)} title={v.name} onClick={() => applyVariant(v)}>
+                {thumbs[i] ? <img src={thumbs[i]} alt={v.name} /> : null}
+              </Thumb>
+            ))}
+          </Gallery>
+          <Row>
+            <Chip onClick={addVariants}>More covers</Chip>
+          </Row>
+          <Credit>
+            Palettes from Sanzo Wada&apos;s <em>A Dictionary of Color Combinations</em> (1933, via{" "}
+            <a href="https://github.com/mattdesl/dictionary-of-colour-combinations">mattdesl</a>) and the top-rated{" "}
+            <a href="https://github.com/Experience-Monks/nice-color-palettes">COLOURlovers palettes</a>, plus
+            colour-theory harmonies.
+          </Credit>
+        </Section>
 
-      <Section>
-        <Label>Recommended palettes</Label>
-        <Harmonies>
-          {suggestions.map((h) => (
-            <HarmonyCard key={h.key} $active={harmony === h.key} onClick={() => applyHarmony(h.key)}>
-              <Strip>
-                {h.colors.map((c, i) => (
-                  <span key={i} style={{ background: c }} />
-                ))}
-              </Strip>
-              <strong>{h.name}</strong>
-              <small>{h.hint}</small>
-            </HarmonyCard>
-          ))}
-        </Harmonies>
-      </Section>
-
-      <Section>
-        <Label>Palette (tap to edit)</Label>
-        <Source>{paletteName}</Source>
-        <Row>
-          {palette.map((c, i) => (
-            <ColorInput key={i} title={c}>
-              <Swatch color={c} />
-              <input type="color" value={c} onChange={(e) => editSwatch(i, e.target.value)} />
+        <Section>
+          <Label>Base colour</Label>
+          <Row>
+            <ColorInput>
+              <Swatch color={base} size={44} />
+              {base}
+              <input type="color" value={base} onChange={(e) => changeBase(e.target.value)} />
             </ColorInput>
-          ))}
-        </Row>
-      </Section>
+            <Chip onClick={() => changeBase(randomBaseColor())}>Random colour</Chip>
+          </Row>
+        </Section>
 
-      <Section>
-        <Label>Frame</Label>
-        <Row>
-          {ASPECTS.map((a) => (
-            <Chip key={a.label} $active={aspect === a.value} onClick={() => setAspect(a.value)}>
-              {a.label}
-            </Chip>
-          ))}
-        </Row>
-        <Slider>
-          <span>Grain</span>
-          <input
-            type="range"
-            min={0}
-            max={0.2}
-            step={0.004}
-            value={grain}
-            onChange={(e) => setGrain(+e.target.value)}
-          />
-        </Slider>
-        <Slider>
-          <span>Motion</span>
-          <input
-            type="range"
-            min={0}
-            max={0.1}
-            step={0.005}
-            value={motion}
-            onChange={(e) => setMotion(+e.target.value)}
-          />
-        </Slider>
-        <Slider>
-          <span>Softness</span>
-          <input
-            type="range"
-            min={0.6}
-            max={2}
-            step={0.05}
-            value={softness}
-            onChange={(e) => setSoftness(+e.target.value)}
-          />
-        </Slider>
-      </Section>
+        <Section>
+          <Label>Recommended palettes</Label>
+          <Harmonies>
+            {suggestions.map((h) => (
+              <HarmonyCard key={h.key} $active={harmony === h.key} onClick={() => applyHarmony(h.key)}>
+                <Strip>
+                  {h.colors.map((c, i) => (
+                    <span key={i} style={{ background: c }} />
+                  ))}
+                </Strip>
+                <strong>{h.name}</strong>
+                <small>{h.hint}</small>
+              </HarmonyCard>
+            ))}
+          </Harmonies>
+        </Section>
+
+        <Section>
+          <Label>Palette (tap to edit)</Label>
+          <Source>{paletteName}</Source>
+          <Row>
+            {palette.map((c, i) => (
+              <ColorInput key={i} title={c}>
+                <Swatch color={c} />
+                <input type="color" value={c} onChange={(e) => editSwatch(i, e.target.value)} />
+              </ColorInput>
+            ))}
+          </Row>
+        </Section>
+
+        <Section>
+          <Label>Frame</Label>
+          <Row>
+            {ASPECTS.map((a) => (
+              <Chip key={a.label} $active={aspect === a.value} onClick={() => setAspect(a.value)}>
+                {a.label}
+              </Chip>
+            ))}
+          </Row>
+          <Slider>
+            <span>Grain</span>
+            <input
+              type="range"
+              min={0}
+              max={0.2}
+              step={0.004}
+              value={grain}
+              onChange={(e) => setGrain(+e.target.value)}
+            />
+          </Slider>
+          <Slider>
+            <span>Motion</span>
+            <input
+              type="range"
+              min={0}
+              max={0.1}
+              step={0.005}
+              value={motion}
+              onChange={(e) => setMotion(+e.target.value)}
+            />
+          </Slider>
+          <Slider>
+            <span>Softness</span>
+            <input
+              type="range"
+              min={0.6}
+              max={2}
+              step={0.05}
+              value={softness}
+              onChange={(e) => setSoftness(+e.target.value)}
+            />
+          </Slider>
+        </Section>
+      </Controls>
     </Root>
   );
 };
