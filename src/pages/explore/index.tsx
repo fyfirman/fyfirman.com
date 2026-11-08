@@ -5,6 +5,7 @@ import { ProjectCard } from "~/components/atomic";
 import mdxEditor from "@assets/images/explore-cover/mdx-editor.jpg";
 import framerMotion from "@assets/images/explore-cover/framer-motion.jpg";
 import dottedSphere from "@assets/images/explore-cover/dotted-sphere.jpg";
+import uploadFiles from "@assets/images/explore-cover/upload-files.jpg";
 import type { ProjectCardProps } from "~/components/atomic/project-card/project-card";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 import { useRouter } from "next/router";
@@ -16,22 +17,41 @@ const ProjectContainer = styled.div<StyledComponentProps>`
   display: flex;
   gap: min(4vw, 48px);
   flex-direction: row;
+  flex-wrap: wrap;
   padding-right: min(15vw - 80px, 15%);
 
   & > div {
-    flex: 1;
+    flex: 0 0 calc((100% - 2 * min(4vw, 48px)) / 3);
+    min-width: 0;
+  }
+
+  & img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 450 / 250;
   }
 
   ${({ isMobile }) =>
     isMobile &&
     css`
       flex-direction: column;
+
+      & > div {
+        flex: 1;
+      }
     `}
 `;
 
 const projectList: (ProjectCardProps & {
   slug: string;
 })[] = [
+  {
+    title: "Upload Files",
+    desc: "A pixel-close upload dialog with drag and drop, tick-mark progress bars and simulated uploads. Built with styled-components and Framer Motion.",
+    imageURI: uploadFiles,
+    stack: ["React", "UI"],
+    slug: "upload-files",
+  },
   {
     title: "Dotted Sphere",
     desc: "A grainy gradient with a dotted sphere that spins, drifts and leans toward your cursor. Plain WebGL and canvas.",
