@@ -6,6 +6,7 @@ import mdxEditor from "@assets/images/explore-cover/mdx-editor.jpg";
 import framerMotion from "@assets/images/explore-cover/framer-motion.jpg";
 import dottedSphere from "@assets/images/explore-cover/dotted-sphere.jpg";
 import uploadFiles from "@assets/images/explore-cover/upload-files.jpg";
+import orbGenerator from "@assets/images/explore-cover/orb-generator.jpg";
 import type { ProjectCardProps } from "~/components/atomic/project-card/project-card";
 import { Heading1, Paragraph } from "~/components/atomic/typography/typography";
 import { useRouter } from "next/router";
@@ -45,6 +46,13 @@ const ProjectContainer = styled.div<StyledComponentProps>`
 const projectList: (ProjectCardProps & {
   slug: string;
 })[] = [
+  {
+    title: "Orb Generator",
+    desc: "A generator for grainy, marbled orbs. Pick a palette, shuffle the pattern and download a PNG. A WebGL shader on a turning sphere.",
+    imageURI: orbGenerator,
+    stack: ["WebGL", "Generator"],
+    slug: "orb-generator",
+  },
   {
     title: "Upload Files",
     desc: "A pixel-close upload dialog with drag and drop, tick-mark progress bars and simulated uploads. Built with styled-components and Framer Motion.",
