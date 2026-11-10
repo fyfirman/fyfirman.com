@@ -55,7 +55,7 @@ const Head = (props: HeadProps) => {
     if (ogImage) {
       return ogImage.startsWith("http") ? ogImage : `https://fyfirman.com${ogImage}`;
     }
-    return "https://fyfirman.com/img/og-image.jpg";
+    return "https://fyfirman.com/img/og-default.jpg";
   }, [ogImage]);
 
   return (

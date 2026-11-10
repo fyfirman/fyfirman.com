@@ -63,7 +63,7 @@ const BlogDetail = ({ code, frontmatter, slug, fullContentText }: BlogDetailProp
   const canonicalUrl = `https://fyfirman.com/blog/${slug}`;
   const publishedTime = new Date(frontmatter.publishedAt).toISOString();
   // Use default OG image since blog cover images are in src/assets, not public folder
-  const ogImageUrl = "/img/og-image.jpg";
+  const ogImageUrl = "/img/og-default.jpg";
 
   // Load cover image for story generator
   const coverImage = require(`../../assets/images/blog-cover/${frontmatter.coverImage}`) as ImageProps["src"];
