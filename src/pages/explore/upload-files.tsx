@@ -13,7 +13,7 @@ const UploadFilesPage: NextPage = () => {
 
   return (
     <>
-      <Head desc={desc} title="Upload Files" />
+      <Head desc={desc} ogImage="/img/og-upload-files.jpg" title="Upload Files" />
       <Heading1>Upload Files</Heading1>
       <Paragraph isMobile={isMobile}>{desc}</Paragraph>
       <UploadFiles />

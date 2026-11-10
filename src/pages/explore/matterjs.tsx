@@ -1,3 +1,4 @@
+import Head from "@components/template/head";
 import { CanvasOptions, useCanvas } from "~/components/pages/explore-matterjs/matterjs";
 
 const canvas: CanvasOptions = {
@@ -12,6 +13,7 @@ const MatterJs: React.FC = () => {
 
   return (
     <main style={{ minHeight: "100vh" }}>
+      <Head desc="A 2D physics playground built with Matter.js." ogImage="/img/og-matterjs.jpg" title="Matter.js" />
       <div
         ref={scene}
         style={{

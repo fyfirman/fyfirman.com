@@ -13,7 +13,7 @@ const DottedSpherePage: NextPage = () => {
 
   return (
     <>
-      <Head desc={desc} title="Dotted Sphere" />
+      <Head desc={desc} ogImage="/img/og-dotted-sphere.jpg" title="Dotted Sphere" />
       <Heading1>Dotted Sphere</Heading1>
       <Paragraph isMobile={isMobile}>{desc}</Paragraph>
       <DottedSphere />

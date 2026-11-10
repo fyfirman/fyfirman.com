@@ -13,7 +13,7 @@ const OrbGeneratorPage: NextPage = () => {
 
   return (
     <>
-      <Head desc={desc} title="Orb Generator" />
+      <Head desc={desc} ogImage="/img/og-orb-generator.jpg" title="Orb Generator" />
       <Heading1>Orb Generator</Heading1>
       <Paragraph isMobile={isMobile}>{desc}</Paragraph>
       <OrbGenerator />

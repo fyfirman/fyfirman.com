@@ -91,7 +91,7 @@ const ExplorePage: NextPage = () => {
 
   return (
     <>
-      <Head desc={desc} title="Explore" />
+      <Head desc={desc} ogImage="/img/og-explore.jpg" title="Explore" />
 
       <Heading1>Explore</Heading1>
       <Paragraph isMobile={isMobile}>{desc}</Paragraph>

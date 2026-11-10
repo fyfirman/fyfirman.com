@@ -32,7 +32,7 @@ const desc = "Blog Editor for fyfirman.com/blog using @mdxeditor";
 const BlogEditor = (_: BlogEditorProps) => {
   return (
     <>
-      <Head desc={desc} title="Blog Editor" />
+      <Head desc={desc} ogImage="/img/og-mdx-editor.jpg" title="Blog Editor" />
       <div>
         <Heading1>Blog Editor</Heading1>
         <Paragraph>{desc}</Paragraph>
