@@ -23,7 +23,7 @@ import useGTM from "~/hooks/useGTM";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "~/utils/query-client";
 // eslint-disable-next-line import/no-unresolved
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps) {
