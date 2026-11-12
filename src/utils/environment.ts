@@ -27,7 +27,7 @@ interface Environment {
 
 const env: Environment = {
   title: process.env.NEXT_PUBLIC_TITLE ?? "Firmansyah Yanuar",
-  metaDesc: process.env.NEXT_PUBLIC_META_DESC ?? "",
+  metaDesc: "Personal website of Firmansyah Yanuar: projects, writing and experiments.",
   firebaseConfig: {
     apiKey: process.env.NEXT_PUBLIC_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
